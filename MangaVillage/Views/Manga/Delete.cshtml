@@ -1,0 +1,81 @@
+﻿@model MangaVillage.Manga
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Elimina</h2>
+
+<h3>Sei sicuro di voler eliminare questo manga?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <div class="row">
+            <div class="col-4">
+                <dt class="mb-2">
+                    @Html.DisplayNameFor(model => model.Copertina)
+                </dt>
+
+                <dd>
+                    <img src="@Url.Content("~/Content/Img/" + Model.Copertina)" class="border" alt="model.Titolo" width="360px" height="500px" />
+                </dd>
+            </div>
+            <div class="col-8">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Titolo)
+                </dt>
+                <dd class="mb-3">
+                    @Html.DisplayFor(model => model.Titolo)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Autore)
+                </dt>
+
+                <dd class="mb-3">
+                    @Html.DisplayFor(model => model.Autore)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AnnoUscita)
+                </dt>
+
+                <dd class="mb-3">
+                    @Html.DisplayFor(model => model.AnnoUscita)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Nazionalita)
+                </dt>
+
+                <dd class="mb-3">
+                    @Html.DisplayFor(model => model.Nazionalita)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.StatoPubblicazione)
+                </dt>
+
+                <dd class="mb-3">
+                    @Html.DisplayFor(model => model.StatoPubblicazione)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Trama)
+                </dt>
+
+                <dd class="mb-3">
+                    @Html.DisplayFor(model => model.Trama)
+                </dd>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Elimina" class="btn btn-danger" />
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
+                }
+            </div>
+        </div>
+    </dl>
+</div>

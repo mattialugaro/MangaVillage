@@ -1,0 +1,6 @@
+namespace MangaVillage.Areas.HelpPage.ModelDescriptions
+{
+    public class SimpleTypeModelDescription : ModelDescription
+    {
+    }
+}

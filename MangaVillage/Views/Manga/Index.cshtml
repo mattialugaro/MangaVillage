@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MangaVillage.Manga>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Copertina)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Titolo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Autore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnnoUscita)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nazionalita)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatoPubblicazione)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Trama)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Copertina)
+        </td>*@
+        <td>
+            <img src="@Url.Content("~/Content/Img/" + item.Copertina)" class="border" alt="@item.Titolo" width="200px" height="300px" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titolo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Autore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnnoUscita)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nazionalita)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StatoPubblicazione)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Trama)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+        </td>
+    </tr>
+}
+
+</table>
