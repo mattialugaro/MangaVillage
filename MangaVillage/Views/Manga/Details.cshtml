@@ -6,7 +6,14 @@
 
 <div class="d-flex justify-content-between align-items-center">
     <h2>Dettagli</h2>
-    <a href="@Url.Action("Biblioteca")" class="btn btn-primary">Torna alla Biblioteca</a>
+    <div>
+        <a href="@Url.Action("Biblioteca")" class="btn btn-primary">
+            Torna alla Biblioteca <i class="bi bi-book fs-5"></i>
+        </a>
+        <a href="@Url.Action("Ricerca", "Manga")" class="btn btn-primary">
+            Ricerca avanzata <i class="bi bi-search fs-5"></i>
+        </a>
+    </div>
 </div>
 
 <div>
@@ -30,7 +37,7 @@
                     @Html.DisplayFor(model => model.Titolo)
                 </dd>
 
-                <dt >
+                <dt>
                     @Html.DisplayNameFor(model => model.Autore)
                 </dt>
 
@@ -38,7 +45,7 @@
                     @Html.DisplayFor(model => model.Autore)
                 </dd>
 
-                <dt >
+                <dt>
                     @Html.DisplayNameFor(model => model.AnnoUscita)
                 </dt>
 
@@ -46,7 +53,23 @@
                     @Html.DisplayFor(model => model.AnnoUscita)
                 </dd>
 
-                <dt >
+                <dt>
+                    @Html.DisplayNameFor(model => model.CategoriaString)
+                </dt>
+
+                <dd class="mb-3">
+                    @Html.DisplayFor(model => model.CategoriaString)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.GenereString)
+                </dt>
+
+                <dd class="mb-3">
+                    @Html.DisplayFor(model => model.GenereString)
+                </dd>
+
+                <dt>
                     @Html.DisplayNameFor(model => model.Nazionalita)
                 </dt>
 
@@ -54,14 +77,14 @@
                     @Html.DisplayFor(model => model.Nazionalita)
                 </dd>
 
-                <dt >
+                <dt>
                     @Html.DisplayNameFor(model => model.StatoPubblicazione)
                 </dt>
 
                 <dd class="mb-3">
                     @Html.DisplayFor(model => model.StatoPubblicazione)
                 </dd>
-                <dt >
+                <dt>
                     @Html.DisplayNameFor(model => model.Trama)
                 </dt>
 

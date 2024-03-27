@@ -167,17 +167,21 @@
     <Compile Include="Controllers\GenereController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MangaController.cs" />
+    <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\UtenteController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Categoria.cs" />
+    <Compile Include="Models\DomandaQuiz.cs" />
     <Compile Include="Models\Foto.cs" />
     <Compile Include="Models\Foto_Recensione.cs" />
     <Compile Include="Models\Genere.cs" />
     <Compile Include="Models\Manga.cs" />
     <Compile Include="Models\ModelDbContext.cs" />
+    <Compile Include="Models\QuizModel.cs" />
+    <Compile Include="Models\QuizViewModel.cs" />
     <Compile Include="Models\Recensione.cs" />
     <Compile Include="Models\SiteRole.cs" />
     <Compile Include="Models\Utente.cs" />
@@ -271,10 +275,12 @@
     <Content Include="Views\Manga\Edit.cshtml" />
     <Content Include="Views\Manga\Index.cshtml" />
     <Content Include="Views\Manga\Biblioteca.cshtml" />
+    <Content Include="Views\Manga\Ricerca.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Img\" />
+    <Folder Include="Views\Quiz\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\bootstrap.min.js.map" />

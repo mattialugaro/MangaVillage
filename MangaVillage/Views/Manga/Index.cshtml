@@ -24,6 +24,12 @@
             @Html.DisplayNameFor(model => model.AnnoUscita)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.CategoriaString)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GenereString)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Nazionalita)
         </th>
         <th>
@@ -37,9 +43,6 @@
 
 @foreach (var item in Model) {
     <tr>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Copertina)
-        </td>*@
         <td>
             <img src="@Url.Content("~/Content/Img/" + item.Copertina)" class="border" alt="@item.Titolo" width="200px" height="300px" />
         </td>
@@ -51,6 +54,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.AnnoUscita)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoriaString)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GenereString)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Nazionalita)

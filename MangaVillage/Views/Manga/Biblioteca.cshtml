@@ -19,7 +19,7 @@
         </a>
 
         @*@Html.ActionLink("Ordina per anno di pubblicazione", "Biblioteca", new { sortOrder = "Anno" }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Ordina per anno di pubblicazione discendente", "Biblioteca", new { sortOrder = "AnnoDesc" }, new { @class = "btn btn-primary" })*@
+        @Html.ActionLink("Ordina per anno di pubblicazione discendente", "Biblioteca", new { sortOrder = "AnnoDesc" }, new { @class = "btn btn-primary" })*@
         <a href="@Url.Action("Biblioteca", new { sortOrder = "Anno" })" class="btn btn-primary">
             Anno <i class="bi bi-sort-numeric-down fs-5"></i>
         </a>
@@ -28,12 +28,16 @@
         </a>
 
         @*@Html.ActionLink("Manga in corso", "Biblioteca", new { sortOrder = "InCorso" }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Manga completati", "Biblioteca", new { sortOrder = "Completato" }, new { @class = "btn btn-primary" })*@
+        @Html.ActionLink("Manga completati", "Biblioteca", new { sortOrder = "Completato" }, new { @class = "btn btn-primary" })*@
         <a href="@Url.Action("Biblioteca", new { sortOrder = "InCorso" })" class="btn btn-primary">
             In corso <i class="bi bi-hourglass-split fs-5"></i>
         </a>
         <a href="@Url.Action("Biblioteca", new { sortOrder = "Completato" })" class="btn btn-primary">
             Completato <i class="bi bi-check-circle fs-5"></i>
+        </a>
+        @*@Html.ActionLink("Ricerca manga", "Ricerca", "Manga", new { @class = "btn btn-primary" })*@
+        <a href="@Url.Action("Ricerca", "Manga")" class="btn btn-primary">
+            Ricerca avanzata <i class="bi bi-search fs-5"></i>
         </a>
     </div>
 </div>

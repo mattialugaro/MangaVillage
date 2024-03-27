@@ -14,7 +14,10 @@ namespace MangaVillage
         {
             Foto = new HashSet<Foto>();
             Recensione = new HashSet<Recensione>();
+            //Generi = new HashSet<Genere>();
+            //Categorie = new HashSet<Categoria>();
         }
+
         [ScaffoldColumn(false)]
         [Key]
         public int ID { get; set; }
@@ -53,5 +56,27 @@ namespace MangaVillage
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Recensione> Recensione { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Genere> Genere { get; set; }
+
+        [NotMapped]
+        public virtual ICollection<Genere> GenereTendina { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Genere")]
+        public string GenereString {  get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Categoria> Categoria { get; set; }
+
+        [NotMapped]
+        public virtual ICollection<Categoria> CategoriaTendina { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Categoria")]
+        public string CategoriaString { get; set; }
+
+
     }
 }

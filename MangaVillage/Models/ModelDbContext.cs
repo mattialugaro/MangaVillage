@@ -1,3 +1,4 @@
+using MangaVillage;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
@@ -22,6 +23,16 @@ namespace MangaVillage
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Categoria>()
+                .HasMany(e => e.Manga)
+                .WithMany(e => e.Categoria)
+                .Map(m => m.ToTable("Manga_Categoria").MapLeftKey("IDCategoriaFk").MapRightKey("IDMangaFk"));
+
+            modelBuilder.Entity<Genere>()
+                .HasMany(e => e.Manga)
+                .WithMany(e => e.Genere)
+                .Map(m => m.ToTable("Manga_Genere").MapLeftKey("IDGenereFk").MapRightKey("IDMangaFk"));
+
             modelBuilder.Entity<Manga>()
                 .HasMany(e => e.Foto)
                 .WithRequired(e => e.Manga)

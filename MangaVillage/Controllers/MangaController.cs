@@ -18,7 +18,51 @@ namespace MangaVillage.Controllers
         // GET: Manga
         public ActionResult Index()
         {
-            return View(db.Manga.ToList());
+            var mangaList = db.Manga.ToList();
+            if (mangaList != null && mangaList.Count > 0)
+            {
+                foreach (var manga in mangaList)
+                {
+                    LoadCategoriaGenere(manga);
+                }
+            }
+            
+            return View(mangaList);
+        }
+
+        private static void LoadCategoriaGenere(Manga manga)
+        {
+            if (manga != null && manga.Genere != null && manga.Genere.Count > 0)
+            {
+                foreach (var genere in manga.Genere)
+                {
+                    if (genere != null && genere.Nome != null)
+                    {
+                        manga.GenereString += genere.Nome + ", ";
+                    }
+                }
+
+                if (manga.GenereString != null && manga.GenereString.Length > 0)
+                {
+                    manga.GenereString = manga.GenereString.Substring(0, manga.GenereString.Length - 2);
+                }
+            }
+
+            if (manga != null && manga.Categoria != null && manga.Categoria.Count > 0)
+            {
+                foreach (var categoria in manga.Categoria)
+                {
+                    if (categoria != null && categoria.Nome != null)
+                    {
+                        manga.CategoriaString += categoria.Nome + ", ";
+                    }
+                }
+
+                if (manga.CategoriaString != null && manga.CategoriaString.Length > 0)
+                {
+                    manga.CategoriaString = manga.CategoriaString.Substring(0, manga.CategoriaString.Length - 2);
+                }
+            }
         }
 
         // GET: Manga/Details/5
@@ -29,6 +73,7 @@ namespace MangaVillage.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Manga manga = db.Manga.Find(id);
+            LoadCategoriaGenere(manga);
             if (manga == null)
             {
                 return HttpNotFound();
@@ -39,6 +84,9 @@ namespace MangaVillage.Controllers
         // GET: Manga/Create
         public ActionResult Create()
         {
+            Manga manga = new Manga();
+            manga.CategoriaTendina = db.Categoria.ToList();
+            manga.GenereTendina = db.Genere.ToList();
             return View();
         }
 
@@ -47,7 +95,7 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Copertina,Trama")] Manga manga)
+        public ActionResult Create([Bind(Include = "Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Copertina,Trama")] Manga manga) // DA AGGIUNGERE Categoria,Genere,
         {
             if (ModelState.IsValid)
             {
@@ -81,6 +129,7 @@ namespace MangaVillage.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Manga manga = db.Manga.Find(id);
+            LoadCategoriaGenere(manga);
             if (manga == null)
             {
                 return HttpNotFound();
@@ -93,28 +142,6 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Copertina,Trama")] Manga manga)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var copertina = Request.Files[0];
-        //        if (copertina != null && copertina.ContentLength > 0)
-        //        {
-        //            var fileName = Path.GetFileName(copertina.FileName);
-        //            var path = Path.Combine("~/Content/img", fileName);
-        //            var absolutePath = Server.MapPath(path);
-        //            copertina.SaveAs(absolutePath);
-
-        //            manga.Copertina = fileName;
-        //        }
-
-        //        db.Entry(manga).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(manga);
-        //}
-
         public ActionResult Edit([Bind(Include = "ID,Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Copertina,Trama")] Manga manga)
         {
             if (ModelState.IsValid)
@@ -165,6 +192,7 @@ namespace MangaVillage.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Manga manga = db.Manga.Find(id);
+            LoadCategoriaGenere(manga);
             if (manga == null)
             {
                 return HttpNotFound();
@@ -178,6 +206,7 @@ namespace MangaVillage.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Manga manga = db.Manga.Find(id);
+            LoadCategoriaGenere(manga);
             db.Manga.Remove(manga);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -198,9 +227,6 @@ namespace MangaVillage.Controllers
 
             switch (sortOrder)
             {
-                //case "Titolo":
-                //    manga = manga.OrderBy(m => m.Titolo).ToList();
-                //    break;
                 case "TitoloDesc":
                     manga = manga.OrderByDescending(m => m.Titolo).ToList();
                     break;
@@ -222,7 +248,46 @@ namespace MangaVillage.Controllers
             }
 
             return View(manga);
-            //return View(db.Manga.ToList());
+        }
+
+        public ActionResult Ricerca()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Ricerca(string titolo, string autore, string annoUscita, string nazionalita, string statoPubblicazione)
+        {
+            var query = db.Manga.AsQueryable();
+
+            if (!string.IsNullOrEmpty(titolo))
+            {
+                query = query.Where(m => m.Titolo.Contains(titolo));
+            }
+
+            if (!string.IsNullOrEmpty(autore))
+            {
+                query = query.Where(m => m.Autore.Contains(autore));
+            }
+
+            if (!string.IsNullOrEmpty(annoUscita))
+            {
+                query = query.Where(m => m.AnnoUscita.Contains(annoUscita));
+            }
+
+            if (!string.IsNullOrEmpty(nazionalita))
+            {
+                query = query.Where(m => m.Nazionalita == nazionalita);
+            }
+            
+            if (!string.IsNullOrEmpty(statoPubblicazione))
+            {
+                query = query.Where(m => m.StatoPubblicazione == statoPubblicazione);
+            }
+
+            var results = query.ToList();
+
+            return View(results);
         }
     }
 }
