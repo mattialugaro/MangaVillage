@@ -57,8 +57,9 @@ namespace MangaVillage
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Recensione> Recensione { get; set; }
 
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Genere> Genere { get; set; }
+        public virtual ICollection<Genere> Genere { get; set; } = new List<Genere>();
 
         [NotMapped]
         public virtual ICollection<Genere> GenereTendina { get; set; }
@@ -68,7 +69,7 @@ namespace MangaVillage
         public string GenereString {  get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Categoria> Categoria { get; set; }
+        public virtual ICollection<Categoria> Categoria { get; set; } = new List<Categoria>();
 
         [NotMapped]
         public virtual ICollection<Categoria> CategoriaTendina { get; set; }

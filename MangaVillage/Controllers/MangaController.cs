@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MangaVillage;
+using Newtonsoft.Json;
 
 namespace MangaVillage.Controllers
 {
@@ -26,7 +27,7 @@ namespace MangaVillage.Controllers
                     LoadCategoriaGenere(manga);
                 }
             }
-            
+
             return View(mangaList);
         }
 
@@ -87,7 +88,9 @@ namespace MangaVillage.Controllers
             Manga manga = new Manga();
             manga.CategoriaTendina = db.Categoria.ToList();
             manga.GenereTendina = db.Genere.ToList();
-            return View();
+            //var selectListGeneri = manga.GenereTendina.Select(g => new SelectListItem { Text = g.Nome, Value = g.ID.ToString() }).ToList();
+            //ViewBag.Generi = selectListGeneri;
+            return View(manga);
         }
 
         // POST: Manga/Create
@@ -95,7 +98,7 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Copertina,Trama")] Manga manga) // DA AGGIUNGERE Categoria,Genere,
+        public ActionResult Create([Bind(Include = "Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Categoria,Genere,Copertina,Trama")] Manga manga)
         {
             if (ModelState.IsValid)
             {
@@ -113,8 +116,14 @@ namespace MangaVillage.Controllers
                     }
                 }
 
+                //manga.Categoria = new List<Categoria>();
+                //Categoria categoria = db.Categoria.Find(1);
+                //manga.Categoria.Add(categoria);
+
                 db.Manga.Add(manga);
                 db.SaveChanges();
+
+
                 return RedirectToAction("Index");
             }
 
@@ -279,7 +288,7 @@ namespace MangaVillage.Controllers
             {
                 query = query.Where(m => m.Nazionalita == nazionalita);
             }
-            
+
             if (!string.IsNullOrEmpty(statoPubblicazione))
             {
                 query = query.Where(m => m.StatoPubblicazione == statoPubblicazione);
@@ -289,5 +298,6 @@ namespace MangaVillage.Controllers
 
             return View(results);
         }
+
     }
 }
