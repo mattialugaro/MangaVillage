@@ -66,6 +66,23 @@
         <dd>
             @Html.DisplayFor(model => model.Ruolo)
         </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Avatar)
+        </dt>
+
+        <dd>
+       @if (Model.Avatar == null)
+        {
+            <img src="@Url.Content("~/Content/Avatar/default.jpeg")" class="border rounded-circle" alt="Avatar utente" width="100px" height="100px" style="object-fit: cover" />
+        }
+        else
+        {
+            <img src="@Url.Content("~/Content/Avatar/" + Model.Avatar)" class="border rounded-circle" alt="Avatar utente" width="100px" height="100px" style="object-fit: cover" />
+        }
+
+        @*<img src="@Url.Content("~/Content/Avatar/" + Model.Avatar)" class="border rounded-circle" alt="Avatar utente" width="100px" height="100px" style="object-fit: cover" />*@
+        </dd>
 
     </dl>
 

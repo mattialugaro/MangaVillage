@@ -1,0 +1,49 @@
+﻿@model MangaVillage.Models.Recensione
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Recensione</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Manga.Titolo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Manga.Titolo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Utente.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utente.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Voto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Voto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descrizione)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descrizione)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

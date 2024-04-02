@@ -1,5 +1,6 @@
-namespace MangaVillage
+namespace MangaVillage.Models
 {
+    using MangaVillage;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -9,26 +10,21 @@ namespace MangaVillage
     [Table("Recensione")]
     public partial class Recensione
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Recensione()
-        {
-            Foto_Recensione = new HashSet<Foto_Recensione>();
-        }
-        [ScaffoldColumn(false)]
-        [Key]
         public int ID { get; set; }
+
+        [Required]
+        public decimal Voto { get; set; }
 
         [Required]
         public string Descrizione { get; set; }
 
-        public decimal Voto { get; set; }
-       
+        [Required]
+        [Display(Name = "Titolo Manga")]
         public int IDMangaFk { get; set; }
 
+        [Required]
+        [Display(Name = "Autore Recensione")]
         public int IDUtenteFk { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Foto_Recensione> Foto_Recensione { get; set; }
 
         public virtual Manga Manga { get; set; }
 

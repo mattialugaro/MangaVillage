@@ -7,11 +7,11 @@
     <title>@ViewBag.Title - Applicazione ASP.NET</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    @*<link rel="stylesheet" href="~/Content/site.css" asp-append-version="true" /> <-----da controllare!*@
+    <link rel="stylesheet" href="~/Content/Site.css" asp-append-version="true" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
+<body class="@ViewBag.Sfondo">
 
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
         <div class="container">
@@ -30,6 +30,7 @@
                         <li>@Html.ActionLink("Lista Generi", "Index", "Genere", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Lista Manga", "Index", "Manga", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Biblioteca", "Biblioteca", "Manga", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Recensioni", "Index", "Recensione", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                     else
                     {
@@ -41,7 +42,9 @@
                     }
                     else
                     {
-                        <li>@Html.ActionLink("Logout", "Logout", "Utente", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="ms-auto">@Html.ActionLink("Logout", "Logout", "Utente", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="nav-link">Benvenuto @User.Identity.Name</li>
+
                     }
                 </ul>
             </div>
@@ -49,8 +52,7 @@
     </nav>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
+        <footer class="text-white mt-3">
             <p>&copy; @DateTime.Now.Year - MangaVillage ASP.NET</p>
         </footer>
     </div>
@@ -58,5 +60,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <section id="scripts">
+        <script src="~/Scripts/frasiAlternate.js"></script>
+    </section>
 </body>
 </html>

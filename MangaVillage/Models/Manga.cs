@@ -1,5 +1,6 @@
 namespace MangaVillage
 {
+    using MangaVillage.Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

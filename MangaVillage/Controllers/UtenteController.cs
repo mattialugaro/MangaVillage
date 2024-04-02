@@ -4,12 +4,14 @@ using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using MangaVillage;
+using MangaVillage.Models;
 
 namespace MangaVillage.Controllers
 {
@@ -81,7 +83,7 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Cognome,DataNascita,Email,Username,Password,Ruolo")] Utente utente)
+        public ActionResult Edit([Bind(Include = "ID,Nome,Cognome,DataNascita,Email,Username,Password,Ruolo,Avatar")] Utente utente)
         {
             if (ModelState.IsValid)
             {
@@ -130,6 +132,9 @@ namespace MangaVillage.Controllers
         [AllowAnonymous]
         public ActionResult Login()
         {
+            string sfondo = "home";
+            ViewBag.Sfondo = sfondo;
+
             return View();
         }
 
@@ -137,6 +142,9 @@ namespace MangaVillage.Controllers
         [AllowAnonymous]
         public ActionResult Login(Utente u)
         {
+            string sfondo = "home";
+            ViewBag.Sfondo = sfondo;
+
             string connectionstring = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString.ToString();
             SqlConnection conn = new SqlConnection(connectionstring);
 
@@ -164,7 +172,8 @@ namespace MangaVillage.Controllers
             }
             catch (Exception ex)
             {
-                Response.Write(ex.Message);
+                TempData["Errore"] = "Errore: " + ex.Message;
+                //Response.Write(ex.Message);
             }
             finally
             {
@@ -177,6 +186,9 @@ namespace MangaVillage.Controllers
         [AllowAnonymous]
         public ActionResult Registrazione()
         {
+            string sfondo = "home";
+            ViewBag.Sfondo = sfondo;
+
             return View();
         }
 
@@ -184,6 +196,9 @@ namespace MangaVillage.Controllers
         [AllowAnonymous]
         public ActionResult Registrazione(Utente u)
         {
+            string sfondo = "home";
+            ViewBag.Sfondo = sfondo;
+
             string connectionstring = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString.ToString();
             SqlConnection conn = new SqlConnection(connectionstring);
 
@@ -203,17 +218,21 @@ namespace MangaVillage.Controllers
                 cmd.Parameters.AddWithValue("@Ruolo", "Utente");
                 cmd.ExecuteNonQuery();
 
+                TempData["Message"] = "Registrazione effettuata con successo";
+                return RedirectToAction("Login");
+
             }
             catch (Exception ex)
             {
-                Response.Write(ex.Message);
+                TempData["Errore"] = "Errore: " + ex.Message;
+                //Response.Write(ex.Message);
             }
             finally
             {
                 conn.Close();
             }
 
-            return RedirectToAction("Login");
+            return View();
         }
 
         [AllowAnonymous]
@@ -222,6 +241,19 @@ namespace MangaVillage.Controllers
             FormsAuthentication.SignOut();
             TempData["Message"] = "Logout effettuato con successo";
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult GetAvatars()
+        {
+            var avatars = new List<SelectListItem>();
+            var files = Directory.GetFiles(Server.MapPath("~/Content/Avatar"));
+            foreach (var file in files)
+            {
+                var fileName = Path.GetFileNameWithoutExtension(file);
+                avatars.Add(new SelectListItem { Value = fileName, Text = fileName });
+            }
+
+            return Json(avatars, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -2,117 +2,125 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MangaVillage;
 using MangaVillage.Models;
 
 namespace MangaVillage.Controllers
 {
-    [Authorize(Roles = "admin")]
-    public class GenereController : Controller
+    public class RecensioneController : Controller
     {
         private ModelDbContext db = new ModelDbContext();
 
-        // GET: Genere
+        // GET: Recensione
         public ActionResult Index()
         {
-            return View(db.Genere.ToList());
+            var recensione = db.Recensione.Include(r => r.Manga).Include(r => r.Utente);
+            return View(recensione.ToList());
         }
 
-        // GET: Genere/Details/5
+        // GET: Recensione/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genere genere = db.Genere.Find(id);
-            if (genere == null)
+            Recensione recensione = db.Recensione.Find(id);
+            if (recensione == null)
             {
                 return HttpNotFound();
             }
-            return View(genere);
+            return View(recensione);
         }
 
-        // GET: Genere/Create
+        // GET: Recensione/Create
         public ActionResult Create()
         {
+            ViewBag.IDMangaFk = new SelectList(db.Manga, "ID", "Titolo");
+            ViewBag.IDUtenteFk = new SelectList(db.Utente, "ID", "Username");
             return View();
         }
 
-        // POST: Genere/Create
+        // POST: Recensione/Create
         // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome")] Genere genere)
+        public ActionResult Create([Bind(Include = "Voto,Descrizione,Img,IDMangaFk,IDUtenteFk")] Recensione recensione)
         {
             if (ModelState.IsValid)
             {
-                db.Genere.Add(genere);
+                db.Recensione.Add(recensione);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(genere);
+            ViewBag.IDMangaFk = new SelectList(db.Manga, "ID", "Titolo", recensione.IDMangaFk);
+            ViewBag.IDUtenteFk = new SelectList(db.Utente, "ID", "Username", recensione.IDUtenteFk);
+            return View(recensione);
         }
 
-        // GET: Genere/Edit/5
+        // GET: Recensione/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genere genere = db.Genere.Find(id);
-            if (genere == null)
+            Recensione recensione = db.Recensione.Find(id);
+            if (recensione == null)
             {
                 return HttpNotFound();
             }
-            return View(genere);
+            ViewBag.IDMangaFk = new SelectList(db.Manga, "ID", "Titolo", recensione.IDMangaFk);
+            ViewBag.IDUtenteFk = new SelectList(db.Utente, "ID", "Username", recensione.IDUtenteFk);
+            return View(recensione);
         }
 
-        // POST: Genere/Edit/5
+        // POST: Recensione/Edit/5
         // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome")] Genere genere)
+        public ActionResult Edit([Bind(Include = "ID,Voto,Descrizione,Img,IDMangaFk,IDUtenteFk")] Recensione recensione)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(genere).State = EntityState.Modified;
+                db.Entry(recensione).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(genere);
+            ViewBag.IDMangaFk = new SelectList(db.Manga, "ID", "Titolo", recensione.IDMangaFk);
+            ViewBag.IDUtenteFk = new SelectList(db.Utente, "ID", "Username", recensione.IDUtenteFk);
+            return View(recensione);
         }
 
-        // GET: Genere/Delete/5
+        // GET: Recensione/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genere genere = db.Genere.Find(id);
-            if (genere == null)
+            Recensione recensione = db.Recensione.Find(id);
+            if (recensione == null)
             {
                 return HttpNotFound();
             }
-            return View(genere);
+            return View(recensione);
         }
 
-        // POST: Genere/Delete/5
+        // POST: Recensione/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Genere genere = db.Genere.Find(id);
-            db.Genere.Remove(genere);
+            Recensione recensione = db.Recensione.Find(id);
+            db.Recensione.Remove(recensione);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -1,10 +1,11 @@
+using MangaVillage.Models;
 using MangaVillage;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 
-namespace MangaVillage
+namespace MangaVillage.Models
 {
     public partial class ModelDbContext : DbContext
     {
@@ -15,7 +16,6 @@ namespace MangaVillage
 
         public virtual DbSet<Categoria> Categoria { get; set; }
         public virtual DbSet<Foto> Foto { get; set; }
-        public virtual DbSet<Foto_Recensione> Foto_Recensione { get; set; }
         public virtual DbSet<Genere> Genere { get; set; }
         public virtual DbSet<Manga> Manga { get; set; }
         public virtual DbSet<Recensione> Recensione { get; set; }
@@ -48,12 +48,6 @@ namespace MangaVillage
             modelBuilder.Entity<Recensione>()
                 .Property(e => e.Voto)
                 .HasPrecision(18, 1);
-
-            modelBuilder.Entity<Recensione>()
-                .HasMany(e => e.Foto_Recensione)
-                .WithRequired(e => e.Recensione)
-                .HasForeignKey(e => e.IDRecensioneFk)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Utente>()
                 .HasMany(e => e.Recensione)

@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using MangaVillage;
 using Newtonsoft.Json;
+using MangaVillage.Models;
 
 namespace MangaVillage.Controllers
 {
@@ -168,10 +169,6 @@ namespace MangaVillage.Controllers
                             var pathToDelete = Path.Combine("~/Content/Img", manga.Copertina);
                             var absolutePathToDelete = Server.MapPath(pathToDelete);
                             System.IO.File.Delete(absolutePathToDelete);
-                            //if (System.IO.File.Exists(oldImagePath))
-                            //{
-                            //    System.IO.File.Delete(oldImagePath);
-                            //}
                         }
                         db.Entry(articoloSalvato).State = EntityState.Detached;
 
