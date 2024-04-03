@@ -56,5 +56,11 @@ namespace MangaVillage
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Recensione> Recensione { get; set; }
+
+        public List<string> listaAvatars { get; set; } = new List<string>();
+        
+        [NotMapped]
+        public string SelectedAvatar {  get; set; }
+
     }
 }

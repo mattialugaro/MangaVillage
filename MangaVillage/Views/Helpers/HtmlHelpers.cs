@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace MangaVillage.Views.Helpers
 {
@@ -50,5 +53,38 @@ namespace MangaVillage.Views.Helpers
 
             return MvcHtmlString.Create(listBox.ToString());
         }
+
+        public static MvcHtmlString MostraImmagini(this HtmlHelper helper, List<string> nomiImmagini, string selectedImage = null)
+        {
+            var html = new StringBuilder();
+            int i = 0; // Counter for unique radio button IDs
+
+            html.Append("<div class=\"row\">"); // Start of a row
+            selectedImage = selectedImage ?? nomiImmagini.FirstOrDefault();
+
+            foreach (var nomeImmagine in nomiImmagini)
+            {
+                var pathImmagine = VirtualPathUtility.ToAbsolute("~/Content/Avatar/" + nomeImmagine);
+                var isChecked = nomeImmagine == selectedImage;
+                var radioButtonId = $"SelectedAvatar-{i++}";
+
+                html.Append($@"
+            <div class=""col-2"">
+                <label for=""{radioButtonId}"">
+                    <input type=""radio"" id=""{radioButtonId}"" name=""SelectedAvatar"" value={nomeImmagine} {(isChecked ? "checked" : "")} />
+                    <img src=""{pathImmagine}"" alt=""{nomeImmagine}"" width=""100px"" height=""100px"" style=""object-fit:cover"" class=""rounded-circle"" />
+                </label>
+            </div>");
+            }
+
+            html.Append("</div>"); // End of the row
+
+            return MvcHtmlString.Create(html.ToString());
+        }
+
+
+
+
+
     }
 }

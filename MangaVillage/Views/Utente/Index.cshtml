@@ -62,13 +62,13 @@
             @Html.DisplayFor(modelItem => item.Ruolo)
         </td>
         <td>
-            @if (item.Avatar == null)
+            @if (item.Avatar != null)
             {
-                <img src="@Url.Content("~/Content/Avatar/default.jpeg")" class="border rounded-circle" alt="Avatar utente" width="100px" height="100px" style="object-fit: cover" />
+                <img src="@Url.Content("~/Content/Avatar/" + item.Avatar)" class="border rounded-circle" alt="Avatar utente" width="100px" height="100px" style="object-fit: cover" />
             }
             else
             {
-                <img src="@Url.Content("~/Content/Avatar/" + item.Avatar)" class="border rounded-circle" alt="Avatar utente" width="100px" height="100px" style="object-fit: cover" />
+                <img src="@Url.Content("~/Content/Avatar/default.jpeg")" class="border rounded-circle" alt="Avatar utente" width="100px" height="100px" style="object-fit: cover" />
             }
         </td>
         <td>

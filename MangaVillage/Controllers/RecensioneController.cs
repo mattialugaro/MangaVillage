@@ -50,7 +50,7 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Voto,Descrizione,Img,IDMangaFk,IDUtenteFk")] Recensione recensione)
+        public ActionResult Create([Bind(Include = "Voto,Descrizione,IDMangaFk,IDUtenteFk")] Recensione recensione)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Voto,Descrizione,Img,IDMangaFk,IDUtenteFk")] Recensione recensione)
+        public ActionResult Edit([Bind(Include = "ID,Voto,Descrizione,IDMangaFk,IDUtenteFk")] Recensione recensione)
         {
             if (ModelState.IsValid)
             {
@@ -132,6 +132,53 @@ namespace MangaVillage.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // GET: Recensione/Create
+        public ActionResult Aggiungi()
+        {
+            // Recupera l'ID del manga dalla query
+            int idManga = int.Parse(Request.QueryString["id"]);
+
+            // Recupera l'ID utente dal cookie
+            int idUtente = 0;
+            if (Request.Cookies["ID"] != null)
+            {
+                idUtente = int.Parse(Request.Cookies["ID"].Value);
+            }
+
+            var recensioni = db.Recensione.Where(r => r.IDMangaFk == idManga).ToList();
+            
+            // Popola la ViewBag con i dati filtrati
+            ViewBag.Recensioni = recensioni;
+            ViewBag.IDMangaFk = new SelectList(db.Manga.Where(m => m.ID == idManga), "ID", "Titolo");
+            ViewBag.IDUtenteFk = new SelectList(db.Utente.Where(u => u.ID == idUtente), "ID", "Username");
+
+
+            return View();
+        }
+
+
+        // POST: Recensione/Create
+        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
+        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Aggiungi([Bind(Include = "Voto,Descrizione,IDMangaFk,IDUtenteFk")] Recensione recensione)
+        {
+            if (ModelState.IsValid)
+            {
+                if (recensione != null)
+                {
+                    db.Recensione.Add(recensione);
+                    db.SaveChanges();
+                }
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.IDMangaFk = new SelectList(db.Manga, "ID", "Titolo", recensione.IDMangaFk);
+            ViewBag.IDUtenteFk = new SelectList(db.Utente, "ID", "Username", recensione.IDUtenteFk);
+            return View("Details", "Manga");
         }
     }
 }

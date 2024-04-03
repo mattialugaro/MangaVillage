@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -71,6 +72,15 @@ namespace MangaVillage.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Utente utente = db.Utente.Find(id);
+
+            var avatars = new List<string>();
+            var files = Directory.GetFiles(Server.MapPath("~/Content/Avatar"));
+            foreach (var file in files)
+            {
+                avatars.Add(Path.GetFileName(file));
+            }
+            utente.listaAvatars = avatars;
+
             if (utente == null)
             {
                 return HttpNotFound();
@@ -83,10 +93,12 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Cognome,DataNascita,Email,Username,Password,Ruolo,Avatar")] Utente utente)
+        public ActionResult Edit([Bind(Include = "ID,Nome,Cognome,DataNascita,Email,Username,Password,Ruolo,Avatar")]string SelectedAvatar, Utente utente)
         {
             if (ModelState.IsValid)
             {
+                utente.Avatar = SelectedAvatar;
+                Debug.WriteLine("Avatar selezionato: " + SelectedAvatar);
                 db.Entry(utente).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -160,6 +172,12 @@ namespace MangaVillage.Controllers
                 if (reader.HasRows)
                 {
                     FormsAuthentication.SetAuthCookie(u.Username, false);
+                    Utente utente = db.Utente.FirstOrDefault(x => x.Username == u.Username && x.Password == u.Password);
+
+                    string idUtente = Response.Cookies["ID"].Value;
+                    Response.Cookies.Add(new HttpCookie("ID", idUtente));
+                    Response.Cookies.Add(new HttpCookie("Avatar", utente.Avatar));
+
                     TempData["Message"] = "Login effettuato con successo";
                     return RedirectToAction("Index", "Home");
                 }
@@ -205,7 +223,7 @@ namespace MangaVillage.Controllers
             try
             {
                 conn.Open();
-                string query = "INSERT INTO Utente(Nome, Cognome, DataNascita, Email, Username, Password, Ruolo) VALUES(@Nome, @Cognome, @DataNascita, @Email, @Username, @Password, @Ruolo)";
+                string query = "INSERT INTO Utente(Nome, Cognome, DataNascita, Email, Username, Password, Ruolo, Avatar) VALUES(@Nome, @Cognome, @DataNascita, @Email, @Username, @Password, @Ruolo, @Avatar)";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
 
@@ -216,6 +234,7 @@ namespace MangaVillage.Controllers
                 cmd.Parameters.AddWithValue("@Username", u.Username);
                 cmd.Parameters.AddWithValue("@Password", u.Password);
                 cmd.Parameters.AddWithValue("@Ruolo", "Utente");
+                cmd.Parameters.AddWithValue("@Avatar", "default.jpeg");
                 cmd.ExecuteNonQuery();
 
                 TempData["Message"] = "Registrazione effettuata con successo";
@@ -243,17 +262,17 @@ namespace MangaVillage.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult GetAvatars()
-        {
-            var avatars = new List<SelectListItem>();
-            var files = Directory.GetFiles(Server.MapPath("~/Content/Avatar"));
-            foreach (var file in files)
-            {
-                var fileName = Path.GetFileNameWithoutExtension(file);
-                avatars.Add(new SelectListItem { Value = fileName, Text = fileName });
-            }
+        //public ActionResult GetAvatars()
+        //{
+        //    var avatars = new List<SelectListItem>();
+        //    var files = Directory.GetFiles(Server.MapPath("~/Content/Avatar"));
+        //    foreach (var file in files)
+        //    {
+        //        var fileName = Path.GetFileNameWithoutExtension(file);
+        //        avatars.Add(new SelectListItem { Value = fileName, Text = fileName });
+        //    }
 
-            return Json(avatars, JsonRequestBehavior.AllowGet);
-        }
+        //    return Json(avatars, JsonRequestBehavior.AllowGet);
+        //}
     }
 }

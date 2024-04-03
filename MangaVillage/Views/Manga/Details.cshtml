@@ -1,4 +1,6 @@
 ﻿@model MangaVillage.Manga
+@using MangaVillage.Models
+
 
 @{
     ViewBag.Title = "Details";
@@ -16,8 +18,8 @@
     </div>
 </div>
 
-<div>
-    <hr />
+<hr />
+<div class="container">
     <dl class="dl-horizontal">
         <div class="row">
             <div class="col-4">
@@ -96,8 +98,50 @@
     </dl>
 </div>
 
-<!--container blurato per far loggare o registrare la gente(visibile solo se non sei autenticato)-->
-<!--container per visualizzare le recensioni, con anche la possibilita di aggiungere una recensione (visibile solo se  sei autenticato)-->
-<!--aggiungere avatar all'utente-->
-<!--aggiungere alla navbar nome utente e avatar-->
+@if (!User.Identity.IsAuthenticated)
+{
+    <p class="text-center display-6 mt-5">
+        <a class="text-decoration-none fw-semibold" href="~/Utente/Login">Accedi</a> per lasciarci una recensione
+    </p>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h4>Aggiungi Recensione:</h4>
+                <form action="@Url.Action("Aggiungi", "Recensione")" method="post">
+                    <p>
+                        <label for="voto">Voto:</label>
+                        <input type="number" min="1" max="10" id="voto" name="voto" />
+                    </p>
+                    <p>
+                        <label for="descrizione">Descrizione:</label>
+                        <input type="text" id="descrizione" name="descrizione" />
+                    </p>
+                    <p>
+                        <input type="submit" value="Aggiungi" />
+                    </p>
+                </form>
+            </div>
+            @if (ViewBag.Recensioni != null && ViewBag.Recensioni.Count > 0)
+            {
+                foreach (var recensione in (List<Recensione>)ViewBag.Recensioni)
+                {
+                    <div class="col-6">
+                        <div>
+                            <p>Autore: @recensione.Utente.Username<img src="@Url.Content("~/Content/Avatar/" + recensione.Utente.Avatar)" class="border rounded-circle" alt="Avatar utente" width="100px" height="100px" style="object-fit: cover" /></p>
+                            <p>Voto: @recensione.Voto</p>
+                            <p>Descrizione: @recensione.Descrizione</p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Nessuna recensione disponibile per questo manga.</p>
+            }
 
+        </div>
+    </div>
+}

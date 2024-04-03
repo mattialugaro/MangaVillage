@@ -1,60 +1,66 @@
 ﻿@model IEnumerable<MangaVillage.Manga>
 
-<h2>Ricerca Manga</h2>
+<h2 class="text-center my-5">Ricerca Manga</h2>
 
-<form action="@Url.Action("Ricerca")" method="post">
-    <p>
-        <label for="titolo">Titolo:</label>
-        <input type="text" id="titolo" name="titolo" />
-    </p>
-    <p>
-        <label for="autore">Autore:</label>
-        <input type="text" id="autore" name="autore" />
-    </p>
-    <p>
-        <label for="annoUscita">Anno di uscita:</label>
-        <input type="number" id="annoUscita" name="annoUscita" />
-    </p>
-    <p>
-        <label for="nazionalita">Nazionalità:</label>
-        <input type="text" id="nazionalita" name="nazionalita" />
-    </p>
-    <p>
-        <label for="statoPubblicazione">Stato di pubblicazione:</label>
-        <input type="text" id="statoPubblicazione" name="statoPubblicazione" />
-    </p>
-    <p>
-        <input type="submit" value="Ricerca" />
-    </p>
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <form action="@Url.Action("Ricerca")" method="post">
+                <div class="mb-3">
+                    <label class="d-block fw-bold" for="titolo">Titolo:</label>
+                    <input class="form-control" type="text" id="titolo" name="titolo" placeholder="Inserisci un titolo" />
+                </div>
+                <div class="mb-3">
+                    <label class="d-block fw-bold" for="autore">Autore:</label>
+                    <input class="form-control" type="text" id="autore" name="autore" placeholder="Inserisci un autore" />
+                </div>
+                <div class="mb-3">
+                    <label class="d-block fw-bold" for="annoUscita">Anno di uscita:</label>
+                    <input class="form-control" min="1970" max="2024" type="number" id="annoUscita" name="annoUscita" placeholder="Inserisci l'anno di uscita'" />
+                </div>
+                <div class="mb-3">
+                    <label class="d-block fw-bold" for="nazionalita">Nazionalità:</label>
+                    <input class="form-control" type="text" id="nazionalita" name="nazionalita" placeholder="Inserisci una nazionalità" />
+                </div>
+                <div class="mb-3">
+                    <label class="d-block fw-bold" for="statoPubblicazione">Stato di pubblicazione:</label>
+                    <select class="form-control" id="statoPubblicazione" name="statoPubblicazione">
+                        <option value="">Scegli un'opzione</option>
+                        <option value="InCorso">In Corso</option>
+                        <option value="Completato">Completato</option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a class="btn btn-success" href="@Url.Action("Biblioteca")">Torna alla Biblioteca</a>
+                    <input type="submit" class="btn btn-success" value="Ricerca" />
+                </div>
+            </form>
+        </div>
 
-<div>
-    @Html.ActionLink("Torna alla Biblioteca", "Biblioteca")
-</div>
+        @if (Model != null && Model.Any())
+        {
 
-@if (Model != null && Model.Any())
-{
-    <div class="container">
-        <div class="row">
-            @foreach (var manga in Model)
+            foreach (var manga in Model)
             {
-                <div class="col-12 col-sm-6 col-md-4 col-xxl-3">
+                <div class="col-12 col-sm-6 col-md-4 col-xxl-3 text-center">
                     <div class="card mb-3 postit">
                         <img src="@Url.Content("~/Content/Img/" + @manga.Copertina)" class="card-img-top rounded-2 position-relative" width="200" height="440" alt="@manga.Titolo">
                         <p class="card-text position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger border">@manga.AnnoUscita</p>
                         <div class="text-center">
-                            <a href="@Url.Action("Details", "Manga", new { id = @manga.ID })" class="btn btn-primary position-absolute bottom-0 start-50 translate-middle badge rounded-pill border">Dettagli</a>
+                            <a href="@Url.Action("Details", "Manga", new { id = @manga.ID })" class="btn btn-success position-absolute bottom-0 start-50 translate-middle badge rounded-pill border">@manga.Titolo - Dettagli</a>
                         </div>
                     </div>
                 </div>
             }
-        </div>
+        }
+        else
+        {
+            <div class="col-9">
+                <p class="text-center">Nessun manga trovato.</p>
+            </div>
+        }
     </div>
-}
-else
-{
-    <p>Nessun manga trovato.</p>
-}
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -27,7 +27,7 @@ textarea {
 }
 
 .shadow{
-    text-shadow: 2px 2px 15px black;
+    text-shadow: 0px 0px 15px black;
 }
 
 /*.hover-effect:hover {
@@ -83,4 +83,8 @@ div.postit {
 .btn-success {
     background-color: #7F9B66 !important;
     border-color: #7F9B66 !important;
+}
+
+.cover {
+    object-fit:cover;
 }
