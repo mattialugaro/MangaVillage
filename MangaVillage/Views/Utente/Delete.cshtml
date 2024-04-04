@@ -4,18 +4,17 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<div class="my-4">
+    <h2>Elimina Utente</h2>
+    <h3>Sei sicuro di volere eliminare questo utente?</h3>
+</div>
 <div>
-    <h4>Utente</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
 
-        <dd>
+        <dd class="mb-3">
             @Html.DisplayFor(model => model.Nome)
         </dd>
 
@@ -23,7 +22,7 @@
             @Html.DisplayNameFor(model => model.Cognome)
         </dt>
 
-        <dd>
+        <dd class="mb-3">
             @Html.DisplayFor(model => model.Cognome)
         </dd>
 
@@ -31,7 +30,7 @@
             @Html.DisplayNameFor(model => model.DataNascita)
         </dt>
 
-        <dd>
+        <dd class="mb-3">
             @Html.DisplayFor(model => model.DataNascita)
         </dd>
 
@@ -39,7 +38,7 @@
             @Html.DisplayNameFor(model => model.Email)
         </dt>
 
-        <dd>
+        <dd class="mb-3">
             @Html.DisplayFor(model => model.Email)
         </dd>
 
@@ -47,7 +46,7 @@
             @Html.DisplayNameFor(model => model.Username)
         </dt>
 
-        <dd>
+        <dd class="mb-3">
             @Html.DisplayFor(model => model.Username)
         </dd>
 
@@ -55,7 +54,7 @@
             @Html.DisplayNameFor(model => model.Password)
         </dt>
 
-        <dd>
+        <dd class="mb-3">
             @Html.DisplayFor(model => model.Password)
         </dd>
 
@@ -63,35 +62,36 @@
             @Html.DisplayNameFor(model => model.Ruolo)
         </dt>
 
-        <dd>
+        <dd class="mb-3">
             @Html.DisplayFor(model => model.Ruolo)
         </dd>
-        
+
         <dt>
             @Html.DisplayNameFor(model => model.Avatar)
         </dt>
 
-        <dd>
-       @if (Model.Avatar == null)
-        {
-            <img src="@Url.Content("~/Content/Avatar/default.jpeg")" class="border rounded-circle" alt="Avatar utente" width="100px" height="100px" style="object-fit: cover" />
-        }
-        else
-        {
-            <img src="@Url.Content("~/Content/Avatar/" + Model.Avatar)" class="border rounded-circle" alt="Avatar utente" width="100px" height="100px" style="object-fit: cover" />
-        }
+        <dd class="mb-3">
+            @if (Model.Avatar == null)
+            {
+                <img src="@Url.Content("~/Content/Avatar/default.jpeg")" class="border rounded-circle" alt="Avatar utente" width="100px" height="100px" style="object-fit: cover" />
+            }
+            else
+            {
+                <img src="@Url.Content("~/Content/Avatar/" + Model.Avatar)" class="border rounded-circle" alt="Avatar utente" width="100px" height="100px" style="object-fit: cover" />
+            }
 
-        @*<img src="@Url.Content("~/Content/Avatar/" + Model.Avatar)" class="border rounded-circle" alt="Avatar utente" width="100px" height="100px" style="object-fit: cover" />*@
+            @*<img src="@Url.Content("~/Content/Avatar/" + Model.Avatar)" class="border rounded-circle" alt="Avatar utente" width="100px" height="100px" style="object-fit: cover" />*@
         </dd>
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Elimina" class="btn btn-danger me-2" />
+            <a class="btn btn-wg" href="@Url.Action("Index")">Lista Utenti</a>
         </div>
     }
 </div>

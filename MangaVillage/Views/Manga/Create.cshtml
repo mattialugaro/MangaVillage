@@ -5,18 +5,14 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
-
+<h2 class="my-4">Aggiungi Manga</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
 <div class="form-horizontal">
-    <h4>Manga</h4>
-    <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
+    <div class="form-group mb-3">
         @Html.LabelFor(model => model.Titolo, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Titolo, new { htmlAttributes = new { @class = "form-control" } })
@@ -24,7 +20,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mb-3">
         @Html.LabelFor(model => model.Autore, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Autore, new { htmlAttributes = new { @class = "form-control" } })
@@ -32,7 +28,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mb-3">
         @Html.LabelFor(model => model.AnnoUscita, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.AnnoUscita, new { htmlAttributes = new { @class = "form-control" } })
@@ -40,7 +36,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mb-3">
         @Html.LabelFor(model => model.Nazionalita, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Nazionalita, new { htmlAttributes = new { @class = "form-control" } })
@@ -48,7 +44,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mb-3">
         @Html.LabelFor(model => model.StatoPubblicazione, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.StatoPubblicazione, new SelectList(new[] { "in corso", "completato" }), htmlAttributes: new { @class = "form-control" })
@@ -57,14 +53,14 @@
     </div>
 
     @*<div class="form-group">
-        @Html.LabelFor(model => model.Genere, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.MultiSelectList("Generi", Model.GenereTendina, Model.Genere, "Scegli i tuoi generi...")
-            @Html.ValidationMessageFor(model => model.Genere, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
+            @Html.LabelFor(model => model.Genere, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.MultiSelectList("Generi", Model.GenereTendina, Model.Genere, "Scegli i tuoi generi...")
+                @Html.ValidationMessageFor(model => model.Genere, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
-    <div class="form-group">
+    <div class="form-group mb-3">
         @Html.LabelFor(model => model.Genere, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.MultiSelectList("Generi", Model.GenereTendina?.Select(g => new SelectListItem { Text = g.Nome, Value = g.ID.ToString() }) ?? Enumerable.Empty<SelectListItem>(), Model.Genere, "Scegli i tuoi generi...")
@@ -72,7 +68,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mb-3">
         @Html.LabelFor(model => model.Copertina, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Copertina, new { htmlAttributes = new { @class = "form-control", type = "file" } })
@@ -80,25 +76,22 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mb-3">
         @Html.LabelFor(model => model.Trama, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Trama, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.TextAreaFor(model => model.Trama, new { @class = "form-control", rows = "5" })
             @Html.ValidationMessageFor(model => model.Trama, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+        <div class="col-md-offset-2 col-md-10 d-flex">
+            <input type="submit" value="Aggiungi" class="btn btn-success me-3" />
+            <a class="btn btn-wg" href="@Url.Action("Index")">Lista Manga</a>
         </div>
     </div>
 </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

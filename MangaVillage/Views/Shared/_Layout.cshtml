@@ -13,7 +13,7 @@
 </head>
 <body class="@ViewBag.Sfondo">
 
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark opacity-75">
         <div class="container">
             @Html.ActionLink("Manga Village", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Attiva/Disattiva spostamento" aria-controls="navbarSupportedContent"
@@ -29,12 +29,12 @@
                         <li>@Html.ActionLink("Lista Categorie", "Index", "Categoria", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Lista Generi", "Index", "Genere", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Lista Manga", "Index", "Manga", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Biblioteca", "Biblioteca", "Manga", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Archivio", "Archivio", "Manga", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Recensioni", "Index", "Recensione", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                     else
                     {
-                        <li>@Html.ActionLink("Biblioteca", "Biblioteca", "Manga", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Archivio", "Archivio", "Manga", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                     @if (!User.Identity.IsAuthenticated)
                     {
@@ -51,7 +51,7 @@
                         if (Request.Cookies["Avatar"] != null)
                         {
                             var valoreCookie = Request.Cookies["Avatar"].Value;
-                            <img src="@Url.Content("~/Content/Avatar/" + @valoreCookie)" width="40" height="40" class="rounded-circle nav-link cover" alt="Avatar utente" />
+                            <li><img src="@Url.Content("~/Content/Avatar/" + @valoreCookie)" width="40" height="40" class="rounded-circle nav-link cover" alt="Avatar utente" /></li>
                         }
 
                     }

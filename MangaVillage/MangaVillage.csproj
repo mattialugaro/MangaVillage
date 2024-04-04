@@ -227,6 +227,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Sito\archivio.jpg" />
+    <Content Include="Content\Sito\categoria.jpg" />
     <Content Include="Content\Sito\home.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -278,19 +280,16 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Utente\Create.cshtml" />
     <Content Include="Views\Utente\Delete.cshtml" />
-    <Content Include="Views\Utente\Details.cshtml" />
     <Content Include="Views\Utente\Edit.cshtml" />
     <Content Include="Views\Utente\Index.cshtml" />
     <Content Include="Views\Utente\Login.cshtml" />
     <Content Include="Views\Utente\Registrazione.cshtml" />
     <Content Include="Views\Categoria\Create.cshtml" />
     <Content Include="Views\Categoria\Delete.cshtml" />
-    <Content Include="Views\Categoria\Details.cshtml" />
     <Content Include="Views\Categoria\Edit.cshtml" />
     <Content Include="Views\Categoria\Index.cshtml" />
     <Content Include="Views\Genere\Create.cshtml" />
     <Content Include="Views\Genere\Delete.cshtml" />
-    <Content Include="Views\Genere\Details.cshtml" />
     <Content Include="Views\Genere\Edit.cshtml" />
     <Content Include="Views\Genere\Index.cshtml" />
     <Content Include="Views\Manga\Create.cshtml" />
@@ -298,11 +297,10 @@
     <Content Include="Views\Manga\Details.cshtml" />
     <Content Include="Views\Manga\Edit.cshtml" />
     <Content Include="Views\Manga\Index.cshtml" />
-    <Content Include="Views\Manga\Biblioteca.cshtml" />
+    <Content Include="Views\Manga\Archivio.cshtml" />
     <Content Include="Views\Manga\Ricerca.cshtml" />
     <Content Include="Views\Recensione\Create.cshtml" />
     <Content Include="Views\Recensione\Delete.cshtml" />
-    <Content Include="Views\Recensione\Details.cshtml" />
     <Content Include="Views\Recensione\Edit.cshtml" />
     <Content Include="Views\Recensione\Index.cshtml" />
   </ItemGroup>

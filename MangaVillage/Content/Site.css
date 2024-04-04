@@ -80,11 +80,39 @@ div.postit {
     }
 }
 
-.btn-success {
+/* Bottoni */
+
+.btn-success, .btn-wg:hover {
     background-color: #7F9B66 !important;
     border-color: #7F9B66 !important;
+    color: white;
+}
+
+.btn-wg {               /*NON FUNZIONA*/
+    border: 1px solid #7F9B66;
+    color: #7F9B66;
+}
+
+.btn-danger {
+    background-color: #c70202 !important;
+    border-color: #c70202 !important;
+}
+
+.btn-warning {
+    background-color: #e8d902 !important;
+    border-color: #e8d902 !important;
 }
 
 .cover {
     object-fit:cover;
+}
+
+.archivio {
+    background: url('/Content/Sito/archivio.jpg') no-repeat center center fixed;
+    background-size: cover;
+    /*opacity: 1;*/
+}
+
+.middle {
+    vertical-align: middle;
 }

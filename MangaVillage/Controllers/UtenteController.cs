@@ -26,21 +26,6 @@ namespace MangaVillage.Controllers
             return View(db.Utente.ToList());
         }
 
-        // GET: Utente/Details/5
-        public ActionResult Details(int? id)    // possibile eliminare
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Utente utente = db.Utente.Find(id);
-            if (utente == null)
-            {
-                return HttpNotFound();
-            }
-            return View(utente);
-        }
-
         // GET: Utente/Create
         public ActionResult Create()    // possibile eliminare
         {

@@ -22,21 +22,6 @@ namespace MangaVillage.Controllers
             return View(recensione.ToList());
         }
 
-        // GET: Recensione/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Recensione recensione = db.Recensione.Find(id);
-            if (recensione == null)
-            {
-                return HttpNotFound();
-            }
-            return View(recensione);
-        }
-
         // GET: Recensione/Create
         public ActionResult Create()
         {

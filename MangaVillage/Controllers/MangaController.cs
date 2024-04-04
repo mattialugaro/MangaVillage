@@ -17,21 +17,6 @@ namespace MangaVillage.Controllers
     {
         private ModelDbContext db = new ModelDbContext();
 
-        // GET: Manga
-        public ActionResult Index()
-        {
-            var mangaList = db.Manga.ToList();
-            if (mangaList != null && mangaList.Count > 0)
-            {
-                foreach (var manga in mangaList)
-                {
-                    LoadCategoriaGenere(manga);
-                }
-            }
-
-            return View(mangaList);
-        }
-
         private static void LoadCategoriaGenere(Manga manga)
         {
             if (manga != null && manga.Genere != null && manga.Genere.Count > 0)
@@ -65,6 +50,21 @@ namespace MangaVillage.Controllers
                     manga.CategoriaString = manga.CategoriaString.Substring(0, manga.CategoriaString.Length - 2);
                 }
             }
+        }
+
+        // GET: Manga
+        public ActionResult Index()
+        {
+            var mangaList = db.Manga.ToList();
+            if (mangaList != null && mangaList.Count > 0)
+            {
+                foreach (var manga in mangaList)
+                {
+                    LoadCategoriaGenere(manga);
+                }
+            }
+
+            return View(mangaList);
         }
 
         // GET: Manga/Details/5
@@ -227,8 +227,11 @@ namespace MangaVillage.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult Biblioteca(string sortOrder)
+        public ActionResult Archivio(string sortOrder)
         {
+            string sfondo = "archivio";
+            ViewBag.Sfondo = sfondo;
+
             var manga = db.Manga.ToList();
 
             switch (sortOrder)
@@ -258,12 +261,18 @@ namespace MangaVillage.Controllers
 
         public ActionResult Ricerca()
         {
+            string sfondo = "archivio";
+            ViewBag.Sfondo = sfondo;
+
             return View();
         }
 
         [HttpPost]
         public ActionResult Ricerca(string titolo, string autore, string annoUscita, string nazionalita, string statoPubblicazione)
         {
+            string sfondo = "archivio";
+            ViewBag.Sfondo = sfondo;
+
             var query = db.Manga.AsQueryable();
 
             if (!string.IsNullOrEmpty(titolo))

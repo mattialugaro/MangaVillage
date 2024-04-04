@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<MangaVillage.Manga>
 
-<h2 class="text-center my-5">Ricerca Manga</h2>
+<h2 class="text-center my-5 text-white shadow">Ricerca Manga</h2>
 
 <div class="container">
     <div class="row">
-        <div class="col-3">
+        <div class="col-3 text-white shadow">
             <form action="@Url.Action("Ricerca")" method="post">
                 <div class="mb-3">
                     <label class="d-block fw-bold" for="titolo">Titolo:</label>
@@ -22,6 +22,29 @@
                     <label class="d-block fw-bold" for="nazionalita">Nazionalità:</label>
                     <input class="form-control" type="text" id="nazionalita" name="nazionalita" placeholder="Inserisci una nazionalità" />
                 </div>
+
+                @*<div class="mb-3">
+                    <label class="d-block fw-bold" for="categoria">Categoria:</label>
+                    <select class="form-control" id="categoria" name="categoria">
+                        <option value="">Scegli un'opzione</option>
+                        @foreach(var manga in Model)
+                        {
+                            <option value="@manga.CategoriaTendina">@manga.CategoriaTendina</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="d-block fw-bold" for="genere">Genere:</label>
+                    <select class="form-control" id="genere" name="genere">
+                        <option value="">Scegli un'opzione</option>
+                        @foreach(var manga in Model)
+                        {
+                            <option value="@manga.GenereTendina">@manga.GenereTendina</option>
+                        }
+                    </select>
+                </div>*@
+
                 <div class="mb-3">
                     <label class="d-block fw-bold" for="statoPubblicazione">Stato di pubblicazione:</label>
                     <select class="form-control" id="statoPubblicazione" name="statoPubblicazione">
@@ -31,8 +54,8 @@
                     </select>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <a class="btn btn-success" href="@Url.Action("Biblioteca")">Torna alla Biblioteca</a>
-                    <input type="submit" class="btn btn-success" value="Ricerca" />
+                    <a class="btn btn-success" href="@Url.Action("Archivio")">Torna all' Archivio</a>
+                    <input type="submit" class="btn btn-success" value="Cerca" />
                 </div>
             </form>
         </div>
@@ -42,12 +65,12 @@
 
             foreach (var manga in Model)
             {
-                <div class="col-12 col-sm-6 col-md-4 col-xxl-3 text-center">
+                <div class="col-12 col-sm-6 col-md-4 col-xxl-3">
                     <div class="card mb-3 postit">
                         <img src="@Url.Content("~/Content/Img/" + @manga.Copertina)" class="card-img-top rounded-2 position-relative" width="200" height="440" alt="@manga.Titolo">
-                        <p class="card-text position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger border">@manga.AnnoUscita</p>
+                        @*<p class="card-text position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger border">@item.AnnoUscita</p>*@
                         <div class="text-center">
-                            <a href="@Url.Action("Details", "Manga", new { id = @manga.ID })" class="btn btn-success position-absolute bottom-0 start-50 translate-middle badge rounded-pill border">@manga.Titolo - Dettagli</a>
+                            <a href="@Url.Action("Details", "Manga", new { id = @manga.ID })" class="btn btn-success position-absolute bottom-0 start-50 translate-middle badge rounded-pill border fs-5">@manga.Titolo - Dettagli</a>
                         </div>
                     </div>
                 </div>

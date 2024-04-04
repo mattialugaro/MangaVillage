@@ -22,21 +22,6 @@ namespace MangaVillage.Controllers
             return View(db.Genere.ToList());
         }
 
-        // GET: Genere/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Genere genere = db.Genere.Find(id);
-            if (genere == null)
-            {
-                return HttpNotFound();
-            }
-            return View(genere);
-        }
-
         // GET: Genere/Create
         public ActionResult Create()
         {

@@ -23,7 +23,6 @@ namespace MangaVillage.Models
         /*FORSE aggiunta di dropdown nella navbar per le varie voci presenti*/
         /*eliminare le datails di diversi controller (inutili sia per utente che per admin)*/
         /*aumentare dati manga nel DB*/
-        /*creare una dropdown per le ordinare la lista biblioteca/archivio di manga*/
         /**/
         /**/
         /*aggiungere quiz per domande anime/manga (FACOLATTIVO)*/

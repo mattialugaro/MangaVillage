@@ -4,9 +4,10 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Elimina</h2>
-
-<h3>Sei sicuro di voler eliminare questo manga?</h3>
+<div class="my-4">
+    <h2>Elimina Manga</h2>
+    <h3>Sei sicuro di voler eliminare questo manga?</h3>
+</div>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -17,7 +18,7 @@
                 </dt>
 
                 <dd>
-                    <img src="@Url.Content("~/Content/Img/" + Model.Copertina)" class="border" alt="model.Titolo" width="360px" height="500px" />
+                    <img src="@Url.Content("~/Content/Img/" + Model.Copertina)" class="border" alt="model.Titolo" width="360" height="500" />
                 </dd>
             </div>
             <div class="col-8">
@@ -59,6 +60,23 @@
                 <dd class="mb-3">
                     @Html.DisplayFor(model => model.StatoPubblicazione)
                 </dd>
+                
+                <dt>
+                    @Html.DisplayNameFor(model => model.CategoriaString)
+                </dt>
+
+                <dd class="mb-3">
+                    @Html.DisplayFor(model => model.CategoriaString)
+                </dd>
+                
+                <dt>
+                    @Html.DisplayNameFor(model => model.GenereString)
+                </dt>
+
+                <dd class="mb-3">
+                    @Html.DisplayFor(model => model.GenereString)
+                </dd>
+
                 <dt>
                     @Html.DisplayNameFor(model => model.Trama)
                 </dt>
@@ -71,8 +89,8 @@
                     @Html.AntiForgeryToken()
 
                     <div class="form-actions no-color">
-                        <input type="submit" value="Elimina" class="btn btn-danger" />
-                        @Html.ActionLink("Back to List", "Index")
+                        <input type="submit" value="Elimina" class="btn btn-danger me-2" />
+                        <a class="btn btn-wg" href="@Url.Action("Index")">Lista Manga</a>
                     </div>
                 }
             </div>

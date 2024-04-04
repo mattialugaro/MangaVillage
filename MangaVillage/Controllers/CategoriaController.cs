@@ -22,21 +22,6 @@ namespace MangaVillage.Controllers
             return View(db.Categoria.ToList());
         }
 
-        // GET: Categoria/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Categoria categoria = db.Categoria.Find(id);
-            if (categoria == null)
-            {
-                return HttpNotFound();
-            }
-            return View(categoria);
-        }
-
         // GET: Categoria/Create
         public ActionResult Create()
         {
@@ -48,7 +33,7 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome")] Categoria categoria)
+        public ActionResult Create([Bind(Include = "Nome")] Categoria categoria)
         {
             if (ModelState.IsValid)
             {
