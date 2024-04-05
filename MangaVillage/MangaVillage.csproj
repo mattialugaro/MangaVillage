@@ -229,6 +229,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Sito\archivio.jpg" />
     <Content Include="Content\Sito\categoria.jpg" />
+    <Content Include="Content\Sito\chat.jpg" />
     <Content Include="Content\Sito\home.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -258,12 +259,14 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\chatAlternate.js" />
     <Content Include="Scripts\frasiAlternate.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\vediPassword.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -303,6 +306,7 @@
     <Content Include="Views\Recensione\Delete.cshtml" />
     <Content Include="Views\Recensione\Edit.cshtml" />
     <Content Include="Views\Recensione\Index.cshtml" />
+    <Content Include="Views\Utente\Profilo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

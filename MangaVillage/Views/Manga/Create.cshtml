@@ -61,9 +61,17 @@
         </div>*@
 
     <div class="form-group mb-3">
+        @Html.LabelFor(model => model.Categoria, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.MultiSelectList("Generi", Model.CategoriaTendina?.Select(g => new SelectListItem { Text = g.Nome, Value = g.ID.ToString() }) ?? Enumerable.Empty<SelectListItem>(), Model.Categoria, "Scegli Categorie...")
+            @Html.ValidationMessageFor(model => model.Categoria, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    
+    <div class="form-group mb-3">
         @Html.LabelFor(model => model.Genere, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.MultiSelectList("Generi", Model.GenereTendina?.Select(g => new SelectListItem { Text = g.Nome, Value = g.ID.ToString() }) ?? Enumerable.Empty<SelectListItem>(), Model.Genere, "Scegli i tuoi generi...")
+            @Html.MultiSelectList("Generi", Model.GenereTendina?.Select(g => new SelectListItem { Text = g.Nome, Value = g.ID.ToString() }) ?? Enumerable.Empty<SelectListItem>(), Model.Genere, "Scegli Generi...")
             @Html.ValidationMessageFor(model => model.Genere, "", new { @class = "text-danger" })
         </div>
     </div>

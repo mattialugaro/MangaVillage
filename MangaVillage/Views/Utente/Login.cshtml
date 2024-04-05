@@ -6,7 +6,8 @@
 
 <div class="mtx">
     <h2 class="text-center text-white display-3 fw-semibold shadow bg-transparent mb-0">Login</h2>
-    <p class="text-center text-white display-6 shadow bg-transparent">Non sei ancora Registrato?
+    <p class="text-center text-white display-6 shadow bg-transparent">
+        Non sei ancora Registrato?
         <a class="text-decoration-none text-white fw-semibold" href="~/Utente/Registrazione">Registrati</a>
     </p>
 
@@ -27,7 +28,10 @@
             <div class="form-group mb-3">
                 @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2 fw-bold" })
                 <div class="col-md-12">
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control mx-auto text-center", @type = "password", @placeholder = "Inserisci la tua password" } })
+                    <div class="position-relative">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control mx-auto text-center d-inline", type = "password", id = "password", @placeholder = "Inserisci la tua password" } })
+                        <button type="button" class="btn btn-success position-absolute bottom-0 ms-2" id="showPassword">Mostra</button>
+                    </div>
                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger bg-black" })
                 </div>
             </div>

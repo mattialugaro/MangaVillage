@@ -18,7 +18,6 @@
     </div>
 </div>
 
-<hr />
 <div class="container">
     <dl class="dl-horizontal">
         <div class="row">
@@ -28,7 +27,7 @@
                 </dt>
 
                 <dd>
-                    <img src="@Url.Content("~/Content/Img/" + Model.Copertina)" class="border" alt="model.Titolo" width="400" height="600" />
+                    <img src="@Url.Content("~/Content/Img/" + Model.Copertina)" class="border rounded-1" alt="model.Titolo" width="400" height="600" />
                 </dd>
             </div>
             <div class="col-8">
@@ -108,40 +107,56 @@ else
 {
     <div class="container">
         <div class="row">
-            <div class="col-6">
+            <div class="col-12 text-center">
                 <h4>Aggiungi Recensione:</h4>
-                <form action="@Url.Action("Aggiungi", "Recensione")" method="post">
-                    <p>
-                        <label for="voto">Voto:</label>
-                        <input type="number" min="1" max="10" id="voto" name="voto" />
-                    </p>
-                    <p>
-                        <label for="descrizione">Descrizione:</label>
-                        <input type="text" id="descrizione" name="descrizione" />
-                    </p>
-                    <p>
-                        <input type="submit" value="Aggiungi" />
-                    </p>
-                </form>
-            </div>
-            @if (ViewBag.Recensioni != null && ViewBag.Recensioni.Count > 0)
-            {
-                foreach (var recensione in (List<Recensione>)ViewBag.Recensioni)
+                @using (Html.BeginForm("Aggiungi", "Manga", FormMethod.Post))
                 {
-                    <div class="col-6">
-                        <div>
-                            <p>Autore: @recensione.Utente.Username<img src="@Url.Content("~/Content/Avatar/" + recensione.Utente.Avatar)" class="border rounded-circle" alt="Avatar utente" width="100px" height="100px" style="object-fit: cover" /></p>
-                            <p>Voto: @recensione.Voto</p>
-                            <p>Descrizione: @recensione.Descrizione</p>
-                        </div>
-                    </div>
-                }
-            }
-            else
-            {
-                <p>Nessuna recensione disponibile per questo manga.</p>
-            }
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("IDMangaFk", Model.ID)
 
+                    <div class="mb-3">
+                        <label class="fw-bold" for="voto">Voto:</label>
+                        <input class="form-control mx-auto" type="number" min="1" max="10" id="voto" name="voto" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="fw-bold" for="descrizione">Descrizione:</label>
+                        <input class="form-control mx-auto" type="text" id="descrizione" name="descrizione" />
+                    </div>
+                    <div class="mb-3">
+                        <input class="btn btn-success" type="submit" value="Aggiungi" />
+                    </div>
+
+                }
+            </div>
+            <div class="row chat rounded-3">
+                @if (Model.Recensione != null && Model.Recensione.Count > 0)
+                {
+                    foreach (var recensione in Model.Recensione)
+                    {
+                        <div class="col-9 mx-auto">
+                            <div class="bg-light my-2 rounded-3 w-75 right p-2 opacity">
+                                
+                                    <div class="mb-2">
+                                        <img src="@Url.Content("~/Content/Avatar/" + recensione.Utente.Avatar)" class="border rounded-circle" alt="Avatar utente" width="60" height="60" style="object-fit: cover" />
+                                        <p class="d-inline fs-5">@recensione.Utente.Username</p>
+                                    </div>
+                                    <div >
+                                        <p class="m-0">Voto: @recensione.Voto</p>
+                                        <p class="m-0">Descrizione: @recensione.Descrizione</p>
+                                    </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="text-center bg-light my-4 rounded-3 w-50 mx-auto">
+                        <p class="my-1">Nessuna recensione disponibile per questo manga.</p>
+                    </div>
+                    
+                }
+
+            </div>
         </div>
     </div>
 }

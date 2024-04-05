@@ -116,3 +116,12 @@ div.postit {
 .middle {
     vertical-align: middle;
 }
+
+div .chat {
+    background: url('/Content/Sito/chat.jpg') no-repeat center center;
+    background-size: cover;
+}
+
+.opacity{
+    opacity: 0.9;
+}

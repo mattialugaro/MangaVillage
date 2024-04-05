@@ -9,8 +9,9 @@ namespace MangaVillage.Models
 {
     public class TODOLIST
     {
+        /*sistemare pagina profilo come pagina edit di utente*/
+        /*categoria e genere index metterle in ordine alfabetico*/
         /*sistemare le tendine di categoria e genere nella creazione e nella edit di manga*/
-        /*container per visualizzare le recensioni, con anche la possibilita di aggiungere una recensione(visibile solo se sei autenticato)*/
         /*sistemare foto avatar nella navbar(correzione metodo di passaggio dell'avatar) in combinazione con edit*/
         /*sistemare visualizzazione degli avatar che possibile scegliere*/
         /*implementare una pagina di profilo per utente dove puo' modificare dati*/
@@ -21,9 +22,8 @@ namespace MangaVillage.Models
         /*aggiungere controlli ruolo e antiForgeryToken*/
         /*implementare toaster come messaggi di notifiche per esito positivo/negativo di ogni operazione*/
         /*FORSE aggiunta di dropdown nella navbar per le varie voci presenti*/
-        /*eliminare le datails di diversi controller (inutili sia per utente che per admin)*/
+        /*eliminare le details di diversi controller (inutili sia per utente che per admin)*/
         /*aumentare dati manga nel DB*/
-        /**/
         /**/
         /*aggiungere quiz per domande anime/manga (FACOLATTIVO)*/
 

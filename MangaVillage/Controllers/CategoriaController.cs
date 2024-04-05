@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,9 +18,18 @@ namespace MangaVillage.Controllers
         private ModelDbContext db = new ModelDbContext();
 
         // GET: Categoria
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
-            return View(db.Categoria.ToList());
+            var categoria = db.Categoria.ToList();
+
+            switch (sortOrder)
+            {
+                default:
+                    categoria = categoria.OrderBy(m => m.Nome).ToList();
+                    break;
+            }
+
+            return View(categoria);
         }
 
         // GET: Categoria/Create

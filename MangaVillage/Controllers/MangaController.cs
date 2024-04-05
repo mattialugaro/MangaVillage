@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using MangaVillage;
 using Newtonsoft.Json;
 using MangaVillage.Models;
+using System.Data.SqlClient;
 
 namespace MangaVillage.Controllers
 {
@@ -75,12 +76,58 @@ namespace MangaVillage.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Manga manga = db.Manga.Find(id);
+            manga.Recensione = db.Recensione.Where(r => r.IDMangaFk == manga.ID).ToList();
             LoadCategoriaGenere(manga);
             if (manga == null)
             {
                 return HttpNotFound();
             }
             return View(manga);
+        }
+
+        //// GET: Recensione/Create
+        //public ActionResult Aggiungi()
+        //{
+        //    // Recupera l'ID del manga dalla query
+        //    int idManga = int.Parse(Request.QueryString["id"]);
+
+        //    // Recupera l'ID utente dal cookie
+        //    int idUtente = 0;
+        //    if (Request.Cookies["ID"] != null)
+        //    {
+        //        idUtente = int.Parse(Request.Cookies["ID"].Value);
+        //    }
+
+        //    var recensioni = db.Recensione.Where(r => r.IDMangaFk == idManga).ToList();
+
+        //    // Popola la ViewBag con i dati filtrati
+        //    ViewBag.Recensioni = recensioni;
+        //    ViewBag.IDMangaFk = new SelectList(db.Manga.Where(m => m.ID == idManga), "ID", "Titolo");
+        //    ViewBag.IDUtenteFk = new SelectList(db.Utente.Where(u => u.ID == idUtente), "ID", "Username");
+
+
+        //    return View();
+        //}
+
+        // POST: Recensione/Create
+        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
+        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Aggiungi([Bind(Include = "Voto,Descrizione,IDMangaFk,IDUtenteFk")] Recensione recensione)
+        {
+            if (ModelState.IsValid)
+            {
+                if (recensione != null)
+                {
+                    recensione.IDUtenteFk = int.Parse(Request.Cookies.Get("ID").Value);
+                    db.Recensione.Add(recensione);
+                    db.SaveChanges();
+                }
+                return RedirectToAction("Details/" + recensione.IDMangaFk);
+            }
+
+            return View("Details", "Manga");
         }
 
         // GET: Manga/Create

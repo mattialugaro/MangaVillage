@@ -29,7 +29,16 @@ namespace MangaVillage.Controllers
         // GET: Utente/Create
         public ActionResult Create()    // possibile eliminare
         {
-            return View();
+            Utente utente = new Utente();
+            var avatars = new List<string>();
+            var files = Directory.GetFiles(Server.MapPath("~/Content/Avatar"));
+            foreach (var file in files)
+            {
+                avatars.Add(Path.GetFileName(file));
+            }
+            utente.listaAvatars = avatars;
+
+            return View(utente);
         }
 
         // POST: Utente/Create
@@ -37,10 +46,12 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,Cognome,DataNascita,Email,Username,Password,Ruolo")] Utente utente)
+        public ActionResult Create([Bind(Include = "Nome,Cognome,DataNascita,Email,Username,Password,Ruolo,Avatar")] string SelectedAvatar, Utente utente)
         {
             if (ModelState.IsValid)
             {
+                utente.Avatar = SelectedAvatar;
+
                 db.Utente.Add(utente);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -83,7 +94,6 @@ namespace MangaVillage.Controllers
             if (ModelState.IsValid)
             {
                 utente.Avatar = SelectedAvatar;
-                Debug.WriteLine("Avatar selezionato: " + SelectedAvatar);
                 db.Entry(utente).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -159,8 +169,13 @@ namespace MangaVillage.Controllers
                     FormsAuthentication.SetAuthCookie(u.Username, false);
                     Utente utente = db.Utente.FirstOrDefault(x => x.Username == u.Username && x.Password == u.Password);
 
-                    string idUtente = Response.Cookies["ID"].Value;
-                    Response.Cookies.Add(new HttpCookie("ID", idUtente));
+                    if (utente == null)
+                    {
+                        // TODO: gestire errore di login, cioe', utente o pwd sbagliata
+                    }
+
+                    // string idUtente = Response.Cookies["ID"].Value;
+                    Response.Cookies.Add(new HttpCookie("ID", utente.ID.ToString()));
                     Response.Cookies.Add(new HttpCookie("Avatar", utente.Avatar));
 
                     TempData["Message"] = "Login effettuato con successo";
@@ -259,5 +274,46 @@ namespace MangaVillage.Controllers
 
         //    return Json(avatars, JsonRequestBehavior.AllowGet);
         //}
+
+        // GET: Utente/Edit/5
+        public ActionResult Profilo(int? id)   // cambio ruolo se necessario
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Utente utente = db.Utente.Find(id);
+
+            var avatars = new List<string>();
+            var files = Directory.GetFiles(Server.MapPath("~/Content/Avatar"));
+            foreach (var file in files)
+            {
+                avatars.Add(Path.GetFileName(file));
+            }
+            utente.listaAvatars = avatars;
+
+            if (utente == null)
+            {
+                return HttpNotFound();
+            }
+            return View(utente);
+        }
+
+        // POST: Utente/Edit/5
+        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
+        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Profilo([Bind(Include = "ID,Nome,Cognome,DataNascita,Email,Username,Password,Ruolo,Avatar")] string SelectedAvatar, Utente utente)
+        {
+            if (ModelState.IsValid)
+            {
+                utente.Avatar = SelectedAvatar;
+                db.Entry(utente).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(utente);
+        }
     }
 }
