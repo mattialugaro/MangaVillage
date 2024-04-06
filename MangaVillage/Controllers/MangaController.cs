@@ -114,7 +114,7 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Aggiungi([Bind(Include = "Voto,Descrizione,IDMangaFk,IDUtenteFk")] Recensione recensione)
+        public ActionResult AggiungiRecensione([Bind(Include = "Voto,Descrizione,IDMangaFk,IDUtenteFk")] Recensione recensione)
         {
             if (ModelState.IsValid)
             {
@@ -315,7 +315,7 @@ namespace MangaVillage.Controllers
         }
 
         [HttpPost]
-        public ActionResult Ricerca(string titolo, string autore, string annoUscita, string nazionalita, string statoPubblicazione)
+        public ActionResult Ricerca(string titolo, string autore, string annoUscita, string nazionalita, string statoPubblicazione, string categoria, string genere)
         {
             string sfondo = "archivio";
             ViewBag.Sfondo = sfondo;
@@ -346,6 +346,16 @@ namespace MangaVillage.Controllers
             {
                 query = query.Where(m => m.StatoPubblicazione == statoPubblicazione);
             }
+            
+            //if (!string.IsNullOrEmpty(categoria))
+            //{
+            //    query = query.Where(m => m.CategoriaString == categoria);
+            //}
+            
+            //if (!string.IsNullOrEmpty(genere))
+            //{
+            //    query = query.Where(m => m.GenereString == genere);
+            //}
 
             var results = query.ToList();
 

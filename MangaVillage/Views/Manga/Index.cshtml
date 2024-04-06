@@ -6,11 +6,14 @@
 
 <div class="d-flex justify-content-between align-items-center my-4">
     <h2 class="mb-0">Manga</h2>
-    <a href="@Url.Action("Create")" class="btn btn-success">Aggiungi</a>
+    <div>
+        <a href="@Url.Action("Create")" class="btn btn-success">Aggiungi</a>
+        <a href="@Url.Action("Ricerca", "Manga")" class="btn btn-success"><i class="bi bi-search"></i></a>
+    </div>
 </div>
 
 <table class="table table table-striped text-center">
-    <tr>
+    <tr class="middle">
         <th>
             @Html.DisplayNameFor(model => model.Copertina)
         </th>

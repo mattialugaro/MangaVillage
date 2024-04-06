@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
@@ -19,6 +21,9 @@ namespace MangaVillage.Controllers
     public class UtenteController : Controller
     {
         private ModelDbContext db = new ModelDbContext();
+
+        [ConcurrencyCheck]
+        public byte[] RowVersion { get; set; }
 
         // GET: Utente
         public ActionResult Index()     // solo admin
@@ -68,7 +73,7 @@ namespace MangaVillage.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Utente utente = db.Utente.Find(id);
-
+            utente.DataNascitaString = parseData(utente.DataNascita);
             var avatars = new List<string>();
             var files = Directory.GetFiles(Server.MapPath("~/Content/Avatar"));
             foreach (var file in files)
@@ -84,21 +89,56 @@ namespace MangaVillage.Controllers
             return View(utente);
         }
 
+        private string parseData(DateTime dataNascita)
+        {
+            string result = dataNascita.Year.ToString() + "-" ;
+            if(dataNascita.Month.ToString().Length == 1)
+            {
+                result += "0" + dataNascita.Month.ToString();
+            }
+            else
+            {
+                result += dataNascita.Month.ToString();
+            }
+            result += "-";
+            if(dataNascita.Day.ToString().Length == 1)
+            {
+                result += "0" + dataNascita.Day.ToString();
+            }
+            else
+            {
+                result += dataNascita.Day.ToString();
+            }
+            return result;
+        }
+
         // POST: Utente/Edit/5
         // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Cognome,DataNascita,Email,Username,Password,Ruolo,Avatar")]string SelectedAvatar, Utente utente)
+        public ActionResult Edit([Bind(Include = "ID,Nome,Cognome,DataNascita,Email,Username,Password,Ruolo,Avatar")] string SelectedAvatar, Utente utente)
         {
             if (ModelState.IsValid)
             {
-                utente.Avatar = SelectedAvatar;
-                db.Entry(utente).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                utente.DataNascita = DateTime.Parse(utente.DataNascitaString);
+                    utente.Avatar = SelectedAvatar;
+
+                    Request.Cookies.Remove("Avatar");
+                    Response.Cookies.Add(new HttpCookie("Avatar", utente.Avatar));
+
+                    db.Entry(utente).State = EntityState.Modified;
+                    db.SaveChanges();
+                if (User.IsInRole("Admin"))
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("Index","Home");
+                }
             }
-            return View(utente);
+            return View();
         }
 
         // GET: Utente/Delete/5
@@ -172,6 +212,8 @@ namespace MangaVillage.Controllers
                     if (utente == null)
                     {
                         // TODO: gestire errore di login, cioe', utente o pwd sbagliata
+                        TempData["Errore"] = "Nome utente o password non corretti.";
+                        return View();
                     }
 
                     // string idUtente = Response.Cookies["ID"].Value;
@@ -262,58 +304,5 @@ namespace MangaVillage.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //public ActionResult GetAvatars()
-        //{
-        //    var avatars = new List<SelectListItem>();
-        //    var files = Directory.GetFiles(Server.MapPath("~/Content/Avatar"));
-        //    foreach (var file in files)
-        //    {
-        //        var fileName = Path.GetFileNameWithoutExtension(file);
-        //        avatars.Add(new SelectListItem { Value = fileName, Text = fileName });
-        //    }
-
-        //    return Json(avatars, JsonRequestBehavior.AllowGet);
-        //}
-
-        // GET: Utente/Edit/5
-        public ActionResult Profilo(int? id)   // cambio ruolo se necessario
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Utente utente = db.Utente.Find(id);
-
-            var avatars = new List<string>();
-            var files = Directory.GetFiles(Server.MapPath("~/Content/Avatar"));
-            foreach (var file in files)
-            {
-                avatars.Add(Path.GetFileName(file));
-            }
-            utente.listaAvatars = avatars;
-
-            if (utente == null)
-            {
-                return HttpNotFound();
-            }
-            return View(utente);
-        }
-
-        // POST: Utente/Edit/5
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Profilo([Bind(Include = "ID,Nome,Cognome,DataNascita,Email,Username,Password,Ruolo,Avatar")] string SelectedAvatar, Utente utente)
-        {
-            if (ModelState.IsValid)
-            {
-                utente.Avatar = SelectedAvatar;
-                db.Entry(utente).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(utente);
-        }
     }
 }

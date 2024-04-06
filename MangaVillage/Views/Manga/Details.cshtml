@@ -109,7 +109,7 @@ else
         <div class="row">
             <div class="col-12 text-center">
                 <h4>Aggiungi Recensione:</h4>
-                @using (Html.BeginForm("Aggiungi", "Manga", FormMethod.Post))
+                @using (Html.BeginForm("AggiungiRecensione", "Manga", FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
                     @Html.Hidden("IDMangaFk", Model.ID)
@@ -141,8 +141,8 @@ else
                                         <p class="d-inline fs-5">@recensione.Utente.Username</p>
                                     </div>
                                     <div >
-                                        <p class="m-0">Voto: @recensione.Voto</p>
-                                        <p class="m-0">Descrizione: @recensione.Descrizione</p>
+                                        <p class="m-0"><strong>Voto:</strong> @recensione.Voto</p>
+                                        <p class="m-0"><strong>Descrizione:</strong> @recensione.Descrizione</p>
                                     </div>
                             </div>
                         </div>

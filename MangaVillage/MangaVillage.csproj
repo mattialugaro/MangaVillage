@@ -306,7 +306,6 @@
     <Content Include="Views\Recensione\Delete.cshtml" />
     <Content Include="Views\Recensione\Edit.cshtml" />
     <Content Include="Views\Recensione\Index.cshtml" />
-    <Content Include="Views\Utente\Profilo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

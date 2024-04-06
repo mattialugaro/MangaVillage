@@ -34,6 +34,9 @@ namespace MangaVillage
         [DataType(DataType.DateTime)]
         public DateTime DataNascita { get; set; }
 
+        [NotMapped]
+        public string DataNascitaString { get; set; }
+
         [Required]
         [StringLength(50)]
         [EmailAddress(ErrorMessage = "Email non valida.")]

@@ -15,7 +15,7 @@ namespace MangaVillage.Models
         /*sistemare foto avatar nella navbar(correzione metodo di passaggio dell'avatar) in combinazione con edit*/
         /*sistemare visualizzazione degli avatar che possibile scegliere*/
         /*implementare una pagina di profilo per utente dove puo' modificare dati*/
-        /*aggiustare manga per implementare i volumi e probabile carrello per vendita/scambio*/
+        /*aggiustare manga per implementare i volumi e probabile carrello per vendita*/
         /*sistemazione css di tutto il sito e qualche animazione*/
         /*pulizia del codice, aggiuta di commenti, controllo approfondito*/
         /*controllo di accesso alle viste per utente e admin*/

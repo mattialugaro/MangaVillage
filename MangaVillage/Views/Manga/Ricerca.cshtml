@@ -6,22 +6,31 @@
     <div class="row">
         <div class="col-3 text-white shadow">
             <form action="@Url.Action("Ricerca")" method="post">
-                <div class="mb-3">
+                <div class="mb-2">
                     <label class="d-block fw-bold" for="titolo">Titolo:</label>
                     <input class="form-control" type="text" id="titolo" name="titolo" placeholder="Inserisci un titolo" />
                 </div>
-                <div class="mb-3">
+                <div class="mb-2">
                     <label class="d-block fw-bold" for="autore">Autore:</label>
                     <input class="form-control" type="text" id="autore" name="autore" placeholder="Inserisci un autore" />
                 </div>
-                <div class="mb-3">
+                <div class="mb-2">
                     <label class="d-block fw-bold" for="annoUscita">Anno di uscita:</label>
                     <input class="form-control" min="1970" max="2024" type="number" id="annoUscita" name="annoUscita" placeholder="Inserisci l'anno di uscita'" />
                 </div>
-                <div class="mb-3">
+                <div class="mb-2">
                     <label class="d-block fw-bold" for="nazionalita">Nazionalità:</label>
                     <input class="form-control" type="text" id="nazionalita" name="nazionalita" placeholder="Inserisci una nazionalità" />
                 </div>
+
+                @*<div class="mb-2">
+                    <label class="d-block fw-bold" for="categoria">Categoria:</label>
+                    <input class="form-control" type="text" id="categoria" name="categoria" placeholder="Inserisci una categoria" />
+                </div>
+                <div class="mb-2">
+                    <label class="d-block fw-bold" for="genere">Genere:</label>
+                    <input class="form-control" type="text" id="genere" name="genere" placeholder="Inserisci una genere" />
+                </div>*@
 
                 @*<div class="mb-3">
                     <label class="d-block fw-bold" for="categoria">Categoria:</label>
