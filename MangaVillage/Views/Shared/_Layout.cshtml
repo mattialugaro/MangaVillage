@@ -7,6 +7,9 @@
     <title>@ViewBag.Title - Applicazione ASP.NET</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css" rel="stylesheet" />--> @*SCRIPT PER TOASTER NOTY*@
+    
     <link rel="stylesheet" href="~/Content/Site.css" asp-append-version="true" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -38,20 +41,21 @@
                     }
                     @if (!User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Login", "Login", "Utente", new { area = "" }, new { @class = "nav-link ms-auto" })</li>
+                        <li class="ms-auto">@Html.ActionLink("Login", "Login", "Utente", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                     else
                     {
-                        <li>@Html.ActionLink("Logout", "Logout", "Utente", new { area = "" }, new { @class = "nav-link ms-auto" })</li>                 
+                        <li class="ms-auto">@Html.ActionLink("Logout", "Logout", "Utente", new { area = "" }, new { @class = "nav-link ms-auto" })</li>
+
                         <li class="nav-link dropdown">
                             <a class="dropdown-toggle text-decoration-none text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Benvenuto @User.Identity.Name
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">                                           
-                                <li>@Html.ActionLink("Profilo","Edit", "Utente", new { id = Request.Cookies["ID"].Value }, new { @class = "nav-link text-black" })</li>                    
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>@Html.ActionLink("Profilo", "Edit", "Utente", new { id = Request.Cookies["ID"].Value }, new { @class = "nav-link text-black" })</li>
                             </ul>
                         </li>
-                       
+
                         if (Request.Cookies["Avatar"] != null)
                         {
                             var valoreCookie = Request.Cookies["Avatar"].Value;
@@ -73,11 +77,16 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    <section id="scripts">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <script src="~/Scripts/frasiAlternate.js"></script>
-        <script src="~/Scripts/chatAlternate.js"></script>
-        <script src="~/Scripts/vediPassword.js"></script>
-    </section>
+<section id="scripts">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    @*<script src="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.js"></script>*@ @*SCRIPT PER TOASTER*@
+
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>--> @*SCRIPT PER TOASTER NOTY*@
+
+    <script src="~/Scripts/frasiAlternate.js"></script>
+    <script src="~/Scripts/chatAlternate.js"></script>
+    <script src="~/Scripts/vediPassword.js"></script>
+</section>
 </body>
 </html>

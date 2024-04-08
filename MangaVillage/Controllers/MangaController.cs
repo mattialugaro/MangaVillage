@@ -64,7 +64,6 @@ namespace MangaVillage.Controllers
                     LoadCategoriaGenere(manga);
                 }
             }
-
             return View(mangaList);
         }
 
@@ -84,30 +83,6 @@ namespace MangaVillage.Controllers
             }
             return View(manga);
         }
-
-        //// GET: Recensione/Create
-        //public ActionResult Aggiungi()
-        //{
-        //    // Recupera l'ID del manga dalla query
-        //    int idManga = int.Parse(Request.QueryString["id"]);
-
-        //    // Recupera l'ID utente dal cookie
-        //    int idUtente = 0;
-        //    if (Request.Cookies["ID"] != null)
-        //    {
-        //        idUtente = int.Parse(Request.Cookies["ID"].Value);
-        //    }
-
-        //    var recensioni = db.Recensione.Where(r => r.IDMangaFk == idManga).ToList();
-
-        //    // Popola la ViewBag con i dati filtrati
-        //    ViewBag.Recensioni = recensioni;
-        //    ViewBag.IDMangaFk = new SelectList(db.Manga.Where(m => m.ID == idManga), "ID", "Titolo");
-        //    ViewBag.IDUtenteFk = new SelectList(db.Utente.Where(u => u.ID == idUtente), "ID", "Username");
-
-
-        //    return View();
-        //}
 
         // POST: Recensione/Create
         // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
@@ -146,7 +121,7 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Categoria,Genere,Copertina,Trama")] Manga manga)
+        public ActionResult Create([Bind(Include = "Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Categoria,Genere,Copertina,Trama,UltimoVolume,Prezzo")] Manga manga)
         {
             if (ModelState.IsValid)
             {
@@ -199,7 +174,7 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Copertina,Trama")] Manga manga)
+        public ActionResult Edit([Bind(Include = "ID,Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Copertina,Trama,UltimoVolume,Prezzo")] Manga manga)
         {
             if (ModelState.IsValid)
             {
@@ -298,11 +273,16 @@ namespace MangaVillage.Controllers
                 case "InCorso":
                     manga = manga.Where(m => m.StatoPubblicazione == "in corso").ToList();
                     break;
+                case "Prezzo":
+                    manga = manga.OrderBy(m => m.Prezzo).ToList();
+                    break;
+                case "PrezzoDesc":
+                    manga = manga.OrderByDescending(m => m.Prezzo).ToList();
+                    break;
                 default:
                     manga = manga.OrderBy(m => m.Titolo).ToList();
                     break;
             }
-
             return View(manga);
         }
 

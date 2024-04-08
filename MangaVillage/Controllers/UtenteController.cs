@@ -220,7 +220,7 @@ namespace MangaVillage.Controllers
                     Response.Cookies.Add(new HttpCookie("ID", utente.ID.ToString()));
                     Response.Cookies.Add(new HttpCookie("Avatar", utente.Avatar));
 
-                    TempData["Message"] = "Login effettuato con successo";
+                    TempData["Messaggio"] = "Login effettuato con successo";
                     return RedirectToAction("Index", "Home");
                 }
                 else

@@ -20,7 +20,7 @@
     mostraFrase();
 
     // Intervallo per l'alternanza delle frasi
-    setInterval(mostraFrase, 4000); // 4 secondi
+    setInterval(mostraFrase, 3000); // 4 secondi
 });
 
 

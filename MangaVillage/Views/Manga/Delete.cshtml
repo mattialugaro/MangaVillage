@@ -60,7 +60,7 @@
                 <dd class="mb-3">
                     @Html.DisplayFor(model => model.StatoPubblicazione)
                 </dd>
-                
+
                 <dt>
                     @Html.DisplayNameFor(model => model.CategoriaString)
                 </dt>
@@ -68,7 +68,7 @@
                 <dd class="mb-3">
                     @Html.DisplayFor(model => model.CategoriaString)
                 </dd>
-                
+
                 <dt>
                     @Html.DisplayNameFor(model => model.GenereString)
                 </dt>
@@ -78,22 +78,43 @@
                 </dd>
 
                 <dt>
+                    @Html.DisplayNameFor(model => model.UltimoVolume)
+                </dt>
+
+                <dd class="mb-3">
+                    @Html.DisplayFor(model => model.UltimoVolume)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Prezzo)
+                </dt>
+
+                <dd class="mb-3">
+                    @Html.DisplayFor(model => model.Prezzo) €
+                </dd>
+            </div>
+
+
+            <div class="col-12">
+                <dt>
                     @Html.DisplayNameFor(model => model.Trama)
                 </dt>
 
                 <dd class="mb-3">
                     @Html.DisplayFor(model => model.Trama)
                 </dd>
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-
-                    <div class="form-actions no-color">
-                        <input type="submit" value="Elimina" class="btn btn-danger me-2" />
-                        <a class="btn btn-wg" href="@Url.Action("Index")">Lista Manga</a>
-                    </div>
-                }
             </div>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color text-end">
+                    <input type="submit" value="Elimina" class="btn btn-danger me-2" />
+                    <a class="btn btn-wg" href="@Url.Action("Index")">Lista Manga</a>
+                </div>
+            }
+
         </div>
     </dl>
 </div>

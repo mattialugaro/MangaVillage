@@ -17,6 +17,8 @@ namespace MangaVillage
             Recensione = new HashSet<Recensione>();
             //Generi = new HashSet<Genere>();
             //Categorie = new HashSet<Categoria>();
+            Categoria = new HashSet<Categoria>();
+            Genere = new HashSet<Genere>();
         }
 
         [ScaffoldColumn(false)]
@@ -51,6 +53,11 @@ namespace MangaVillage
 
         [Required]
         public string Trama { get; set; }
+
+        public decimal? Prezzo { get; set; }
+
+        [Display(Name = "Volumi Pubblicati")]
+        public int? UltimoVolume { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Foto> Foto { get; set; }
