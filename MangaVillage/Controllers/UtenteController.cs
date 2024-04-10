@@ -212,7 +212,7 @@ namespace MangaVillage.Controllers
                     if (utente == null)
                     {
                         // TODO: gestire errore di login, cioe', utente o pwd sbagliata
-                        TempData["Errore"] = "Nome utente o password non corretti.";
+                        TempData["errore"] = "Nome utente o password non corretti.";
                         return View();
                     }
 
@@ -220,19 +220,19 @@ namespace MangaVillage.Controllers
                     Response.Cookies.Add(new HttpCookie("ID", utente.ID.ToString()));
                     Response.Cookies.Add(new HttpCookie("Avatar", utente.Avatar));
 
-                    TempData["Messaggio"] = "Login effettuato con successo";
+                    TempData["messaggio"] = "Login effettuato con successo";
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     conn.Close();
-                    TempData["Errore"] = "Nome utente o password non corretti.";
+                    TempData["errore"] = "Nome utente o password non corretti.";
                     return View();
                 }
             }
             catch (Exception ex)
             {
-                TempData["Errore"] = "Errore: " + ex.Message;
+                TempData["errore"] = "Errore: " + ex.Message;
                 //Response.Write(ex.Message);
             }
             finally
@@ -242,6 +242,8 @@ namespace MangaVillage.Controllers
 
             return View();
         }
+
+
 
         [AllowAnonymous]
         public ActionResult Registrazione()
@@ -262,6 +264,7 @@ namespace MangaVillage.Controllers
             string connectionstring = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString.ToString();
             SqlConnection conn = new SqlConnection(connectionstring);
 
+
             try
             {
                 conn.Open();
@@ -274,18 +277,22 @@ namespace MangaVillage.Controllers
                 cmd.Parameters.AddWithValue("@DataNascita", u.DataNascita);
                 cmd.Parameters.AddWithValue("@Email", u.Email);
                 cmd.Parameters.AddWithValue("@Username", u.Username);
-                cmd.Parameters.AddWithValue("@Password", u.Password);
+
+                string hashedPassword = HashPassword(u.Password);
+                cmd.Parameters.AddWithValue("@Password", hashedPassword);
+                //cmd.Parameters.AddWithValue("@Password", u.Password);
+
                 cmd.Parameters.AddWithValue("@Ruolo", "Utente");
                 cmd.Parameters.AddWithValue("@Avatar", "default.jpeg");
                 cmd.ExecuteNonQuery();
 
-                TempData["Message"] = "Registrazione effettuata con successo";
+                TempData["SuccessMessage"] = "Registrazione effettuata con successo";
                 return RedirectToAction("Login");
 
             }
             catch (Exception ex)
             {
-                TempData["Errore"] = "Errore: " + ex.Message;
+                TempData["ErrorMessage"] = "Errore: " + ex.Message;
                 //Response.Write(ex.Message);
             }
             finally
@@ -304,5 +311,20 @@ namespace MangaVillage.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        private bool VerifyPasswordHash(string password, string storedHash)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, storedHash);
+        }
+
+        // questo metodo fa lhas della password
+        private string HashPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password);
+        }
+
+        private bool UtenteExist(int id)
+        {
+            return db.Utente.Any(e => e.ID == id);
+        }
     }
 }

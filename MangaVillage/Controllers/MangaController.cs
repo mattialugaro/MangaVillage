@@ -20,22 +20,6 @@ namespace MangaVillage.Controllers
 
         private static void LoadCategoriaGenere(Manga manga)
         {
-            if (manga != null && manga.Genere != null && manga.Genere.Count > 0)
-            {
-                foreach (var genere in manga.Genere)
-                {
-                    if (genere != null && genere.Nome != null)
-                    {
-                        manga.GenereString += genere.Nome + ", ";
-                    }
-                }
-
-                if (manga.GenereString != null && manga.GenereString.Length > 0)
-                {
-                    manga.GenereString = manga.GenereString.Substring(0, manga.GenereString.Length - 2);
-                }
-            }
-
             if (manga != null && manga.Categoria != null && manga.Categoria.Count > 0)
             {
                 foreach (var categoria in manga.Categoria)
@@ -49,6 +33,22 @@ namespace MangaVillage.Controllers
                 if (manga.CategoriaString != null && manga.CategoriaString.Length > 0)
                 {
                     manga.CategoriaString = manga.CategoriaString.Substring(0, manga.CategoriaString.Length - 2);
+                }
+            }
+
+            if (manga != null && manga.Genere != null && manga.Genere.Count > 0)
+            {
+                foreach (var genere in manga.Genere)
+                {
+                    if (genere != null && genere.Nome != null)
+                    {
+                        manga.GenereString += genere.Nome + ", ";
+                    }
+                }
+
+                if (manga.GenereString != null && manga.GenereString.Length > 0)
+                {
+                    manga.GenereString = manga.GenereString.Substring(0, manga.GenereString.Length - 2);
                 }
             }
         }
@@ -111,8 +111,6 @@ namespace MangaVillage.Controllers
             Manga manga = new Manga();
             manga.CategoriaTendina = db.Categoria.ToList();
             manga.GenereTendina = db.Genere.ToList();
-            //var selectListGeneri = manga.GenereTendina.Select(g => new SelectListItem { Text = g.Nome, Value = g.ID.ToString() }).ToList();
-            //ViewBag.Generi = selectListGeneri;
             return View(manga);
         }
 
@@ -121,7 +119,7 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Categoria,Genere,Copertina,Trama,UltimoVolume,Prezzo")] Manga manga)
+        public ActionResult Create([Bind(Include = "Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Copertina,Trama,UltimoVolume,Prezzo,CategoriaTendinaSelezione,GenereTendinaSelezione")] Manga manga)
         {
             if (ModelState.IsValid)
             {
@@ -139,13 +137,26 @@ namespace MangaVillage.Controllers
                     }
                 }
 
-                //manga.Categoria = new List<Categoria>();
-                //Categoria categoria = db.Categoria.Find(1);
-                //manga.Categoria.Add(categoria);
+                if (manga.CategoriaTendinaSelezione != null && manga.CategoriaTendinaSelezione.Count > 0)
+                {
+                    manga.Categoria = new List<Categoria>();
+                    foreach (var categoriaSelezione in manga.CategoriaTendinaSelezione) {
+                        Categoria categoria = db.Categoria.Find(int.Parse(categoriaSelezione));                        
+                        manga.Categoria.Add(categoria);
+                    }
+                }
+                
+                if (manga.GenereTendinaSelezione != null && manga.GenereTendinaSelezione.Count > 0)
+                {
+                    manga.Genere = new List<Genere>();
+                    foreach (var genereSelezione in manga.GenereTendinaSelezione) {
+                        Genere genere = db.Genere.Find(int.Parse(genereSelezione));                        
+                        manga.Genere.Add(genere);
+                    }
+                }
 
                 db.Manga.Add(manga);
                 db.SaveChanges();
-
 
                 return RedirectToAction("Index");
             }
@@ -162,6 +173,8 @@ namespace MangaVillage.Controllers
             }
             Manga manga = db.Manga.Find(id);
             LoadCategoriaGenere(manga);
+            manga.CategoriaTendina = db.Categoria.ToList();
+            manga.GenereTendina = db.Genere.ToList();
             if (manga == null)
             {
                 return HttpNotFound();
@@ -174,8 +187,10 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Copertina,Trama,UltimoVolume,Prezzo")] Manga manga)
+        public ActionResult Edit([Bind(Include = "ID,Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Copertina,Trama,UltimoVolume,Prezzo,CategoriaTendinaSelezione,GenereTendinaSelezione")] Manga manga) //MANCA CATEGORIA E GENERE
         {
+            manga.CategoriaTendina = db.Categoria.ToList();
+            manga.GenereTendina = db.Genere.ToList();
             if (ModelState.IsValid)
             {
                 // Controlla se è presente un file caricato
@@ -201,6 +216,45 @@ namespace MangaVillage.Controllers
                         copertina.SaveAs(absolutePath);
 
                         manga.Copertina = fileName;
+
+                    }
+                }
+
+                //if (manga.CategoriaTendinaSelezione != null && manga.CategoriaTendinaSelezione.Count > 0)
+                //{
+                //    foreach (var categoriaSelezione in manga.CategoriaTendinaSelezione)
+                //    {
+                //        var categoria = db.Categoria.Find(int.Parse(categoriaSelezione));
+                //        manga.Categoria.Add(categoria);
+                //    }
+                //}
+
+                //if (manga.GenereTendinaSelezione != null && manga.GenereTendinaSelezione.Count > 0)
+                //{
+                //    foreach (var genereSelezione in manga.GenereTendinaSelezione)
+                //    {
+                //        var genere = db.Genere.Find(int.Parse(genereSelezione));
+                //        manga.Genere.Add(genere);
+                //    }
+                //}
+
+                if (manga.CategoriaTendinaSelezione != null && manga.CategoriaTendinaSelezione.Count > 0)
+                {
+                    manga.Categoria = new List<Categoria>();
+                    foreach (var categoriaSelezione in manga.CategoriaTendinaSelezione)
+                    {
+                        Categoria categoria = db.Categoria.Find(int.Parse(categoriaSelezione));
+                        manga.Categoria.Add(categoria);
+                    }
+                }
+
+                if (manga.GenereTendinaSelezione != null && manga.GenereTendinaSelezione.Count > 0)
+                {
+                    manga.Genere = new List<Genere>();
+                    foreach (var genereSelezione in manga.GenereTendinaSelezione)
+                    {
+                        Genere genere = db.Genere.Find(int.Parse(genereSelezione));
+                        manga.Genere.Add(genere);
                     }
                 }
 
@@ -326,12 +380,12 @@ namespace MangaVillage.Controllers
             {
                 query = query.Where(m => m.StatoPubblicazione == statoPubblicazione);
             }
-            
+
             //if (!string.IsNullOrEmpty(categoria))
             //{
             //    query = query.Where(m => m.CategoriaString == categoria);
             //}
-            
+
             //if (!string.IsNullOrEmpty(genere))
             //{
             //    query = query.Where(m => m.GenereString == genere);

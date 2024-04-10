@@ -4,6 +4,18 @@
     ViewBag.Title = "Index";
 }
 
+@if (TempData["messaggio"] != null)
+{
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr.success('@TempData["messaggio"]');
+        toastr.warning('@TempData["messaggio"]');
+        toastr.danger('@TempData["messaggio"]');
+        toastr.info('@TempData["messaggio"]');
+    </script>
+}
+
 <div class="d-flex justify-content-between align-items-center my-4 w-50 mx-auto">
     <h2 class="mb-0">Categorie</h2>
     <a href="@Url.Action("Create")" class="btn btn-success">Aggiungi</a>

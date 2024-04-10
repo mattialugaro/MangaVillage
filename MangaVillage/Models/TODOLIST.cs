@@ -23,7 +23,7 @@ namespace MangaVillage.Models
         /*eliminare le details di diversi controller (inutili sia per utente che per admin)*/
         /*aumentare dati manga nel DB*/
         /**/
-        /*aggiungere quiz per domande anime/manga (FACOLATTIVO)*/
+        /*aggiungere quiz per domande anime/manga ("FACOLATTIVO")*/
 
     }
 

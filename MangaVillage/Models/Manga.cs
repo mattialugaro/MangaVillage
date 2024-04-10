@@ -6,6 +6,7 @@ namespace MangaVillage
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     [Table("Manga")]
     public partial class Manga
@@ -15,8 +16,6 @@ namespace MangaVillage
         {
             Foto = new HashSet<Foto>();
             Recensione = new HashSet<Recensione>();
-            //Generi = new HashSet<Genere>();
-            //Categorie = new HashSet<Categoria>();
             Categoria = new HashSet<Categoria>();
             Genere = new HashSet<Genere>();
         }
@@ -65,6 +64,18 @@ namespace MangaVillage
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Recensione> Recensione { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Categoria> Categoria { get; set; } = new List<Categoria>();
+
+        [NotMapped]
+        public virtual ICollection<Categoria> CategoriaTendina { get; set; }
+
+        [NotMapped]
+        public virtual IList<string> CategoriaTendinaSelezione { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Categoria")]
+        public string CategoriaString { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Genere> Genere { get; set; } = new List<Genere>();
@@ -73,19 +84,10 @@ namespace MangaVillage
         public virtual ICollection<Genere> GenereTendina { get; set; }
 
         [NotMapped]
+        public virtual IList<string> GenereTendinaSelezione { get; set; }
+
+        [NotMapped]
         [Display(Name = "Genere")]
         public string GenereString {  get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Categoria> Categoria { get; set; } = new List<Categoria>();
-
-        [NotMapped]
-        public virtual ICollection<Categoria> CategoriaTendina { get; set; }
-
-        [NotMapped]
-        [Display(Name = "Categoria")]
-        public string CategoriaString { get; set; }
-
-
     }
 }

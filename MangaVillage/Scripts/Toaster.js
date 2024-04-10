@@ -28,14 +28,3 @@
 
 //// Mostra il toast
 //toast.show();
-
-
-// Inizializza Noty
-//var messaggio = TempData["Messaggio"];
-
-//new Noty({
-//    text: messaggio,
-//    type: "success",
-//    layout: "topRight",
-//    timeout: 3000
-//});

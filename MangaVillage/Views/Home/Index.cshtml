@@ -1,12 +1,22 @@
-﻿<div id="home" class="mtx">
-    <h1 class="text-center text-white display-1 fw-bold shadow bg-transparent">Manga Village</h1>
+﻿@if (TempData["messaggio"] != null)
+{
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr.success('@TempData["messaggio"]');
+    </script>
+}
+
+
+<div id="home" class="mtx">
+    <h1 class="text-center text-white display-1 fw-bold bg-transparent shadow">Manga Village</h1>
     <p id="frase" class="text-center text-white display-6 bg-transparent fw-bold"></p>
     <div class="text-center mt-3">
-        <a href="@Url.Action("Login", "Utente")" class="btn btn-success text-light fs-5 fw-bold shadow">
-            Accedi
-        </a>
-        <a href="@Url.Action("Archivio", "Manga")" class="btn btn-success text-light fs-5 fw-bold shadow">
+        <a href="@Url.Action("Archivio", "Manga")" class="btn btn-success text-light fs-5 fw-bold ">
             Archivio
+        </a>
+        <a href="@Url.Action("Login", "Utente")" class="btn btn-success text-light fs-5 fw-bold ">
+            Accedi
         </a>
     </div>
 </div>

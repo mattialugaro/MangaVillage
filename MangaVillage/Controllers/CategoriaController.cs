@@ -49,6 +49,7 @@ namespace MangaVillage.Controllers
             {
                 db.Categoria.Add(categoria);
                 db.SaveChanges();
+                TempData["messaggio"] = "Login effettuato con successo";
                 return RedirectToAction("Index");
             }
 
