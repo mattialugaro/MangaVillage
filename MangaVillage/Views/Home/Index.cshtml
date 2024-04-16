@@ -1,12 +1,4 @@
-﻿@if (TempData["messaggio"] != null)
-{
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script type="text/javascript">
-        toastr.success('@TempData["messaggio"]');
-    </script>
-}
-
+﻿@Html.Partial("_Notification")
 
 <div id="home" class="mtx">
     <h1 class="text-center text-white display-1 fw-bold bg-transparent shadow">Manga Village</h1>
@@ -15,8 +7,11 @@
         <a href="@Url.Action("Archivio", "Manga")" class="btn btn-success text-light fs-5 fw-bold ">
             Archivio
         </a>
-        <a href="@Url.Action("Login", "Utente")" class="btn btn-success text-light fs-5 fw-bold ">
-            Accedi
-        </a>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <a href="@Url.Action("Login", "Utente")" class="btn btn-success text-light fs-5 fw-bold ">
+                Accedi
+            </a>
+        }
     </div>
 </div>

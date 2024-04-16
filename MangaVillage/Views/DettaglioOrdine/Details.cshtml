@@ -1,0 +1,50 @@
+﻿@model MangaVillage.DettaglioOrdine
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DettaglioOrdine</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Manga.Titolo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Manga.Titolo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ordine.IndirizzoConsegna)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ordine.IndirizzoConsegna)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeroVolume)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroVolume)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantita)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantita)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

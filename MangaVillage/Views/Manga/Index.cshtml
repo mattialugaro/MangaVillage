@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
+@Html.Partial("_Notification")
 
 <div class="d-flex justify-content-between align-items-center my-4">
     <h2 class="mb-0">Manga</h2>
@@ -47,44 +48,45 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <img src="@Url.Content("~/Content/Img/" + item.Copertina)" class="border" alt="@item.Titolo" width="180" height="260" />
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Titolo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Autore)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AnnoUscita)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoriaString)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GenereString)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nazionalita)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StatoPubblicazione)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UltimoVolume)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Prezzo)€
-        </td>
-        <td>
-            @Html.ActionLink("Modifica", "Edit", new { id = item.ID }, new { @class = "btn btn-warning" })
-            @Html.ActionLink("Dettagli", "Details", new { id = item.ID }, new { @class = "btn btn-success" })
-            @Html.ActionLink("Elimina", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="@Url.Content("~/Content/Img/" + item.Copertina)" class="border" alt="@item.Titolo" width="180" height="260" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titolo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Autore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnnoUscita)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoriaString)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GenereString)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nazionalita)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatoPubblicazione)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UltimoVolume)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prezzo)€
+            </td>
+            <td>
+                @Html.ActionLink("Modifica", "Edit", new { id = item.ID }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Dettagli", "Details", new { id = item.ID }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Elimina", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
 
 </table>

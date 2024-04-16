@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<MangaVillage.Manga>
+@Html.Partial("_Notification")
 
 <h2 class="text-center my-5 text-white shadow">Ricerca Manga</h2>
 
@@ -16,7 +17,7 @@
                 </div>
                 <div class="mb-2">
                     <label class="d-block fw-bold" for="annoUscita">Anno di uscita:</label>
-                    <input class="form-control" min="1970" max="2024" type="number" id="annoUscita" name="annoUscita" placeholder="Inserisci l'anno di uscita'" />
+                    <input class="form-control" min="1970" max="2024" type="number" id="annoUscita" name="annoUscita" placeholder="Inserisci l'anno di uscita" />
                 </div>
                 <div class="mb-2">
                     <label class="d-block fw-bold" for="nazionalita">Nazionalità:</label>
@@ -24,35 +25,35 @@
                 </div>
 
                 @*<div class="mb-2">
-                    <label class="d-block fw-bold" for="categoria">Categoria:</label>
-                    <input class="form-control" type="text" id="categoria" name="categoria" placeholder="Inserisci una categoria" />
-                </div>
-                <div class="mb-2">
-                    <label class="d-block fw-bold" for="genere">Genere:</label>
-                    <input class="form-control" type="text" id="genere" name="genere" placeholder="Inserisci una genere" />
-                </div>*@
+                        <label class="d-block fw-bold" for="categoria">Categoria:</label>
+                        <input class="form-control" type="text" id="categoria" name="categoria" placeholder="Inserisci una categoria" />
+                    </div>
+                    <div class="mb-2">
+                        <label class="d-block fw-bold" for="genere">Genere:</label>
+                        <input class="form-control" type="text" id="genere" name="genere" placeholder="Inserisci una genere" />
+                    </div>*@
 
                 @*<div class="mb-3">
-                    <label class="d-block fw-bold" for="categoria">Categoria:</label>
-                    <select class="form-control" id="categoria" name="categoria">
-                        <option value="">Scegli un'opzione</option>
-                        @foreach(var manga in Model)
-                        {
-                            <option value="@manga.CategoriaTendina">@manga.CategoriaTendina</option>
-                        }
-                    </select>
-                </div>
+                        <label class="d-block fw-bold" for="categoria">Categoria:</label>
+                        <select class="form-control" id="categoria" name="categoria">
+                            <option value="">Scegli un'opzione</option>
+                            @foreach(var manga in Model)
+                            {
+                                <option value="@manga.CategoriaString">@manga.CategoriaTendina</option>
+                            }
+                        </select>
+                    </div>
 
-                <div class="mb-3">
-                    <label class="d-block fw-bold" for="genere">Genere:</label>
-                    <select class="form-control" id="genere" name="genere">
-                        <option value="">Scegli un'opzione</option>
-                        @foreach(var manga in Model)
-                        {
-                            <option value="@manga.GenereTendina">@manga.GenereTendina</option>
-                        }
-                    </select>
-                </div>*@
+                    <div class="mb-3">
+                        <label class="d-block fw-bold" for="genere">Genere:</label>
+                        <select class="form-control" id="genere" name="genere">
+                            <option value="">Scegli un'opzione</option>
+                            @foreach(var manga in Model)
+                            {
+                                <option value="@manga.GenereTendina">@manga.GenereTendina</option>
+                            }
+                        </select>
+                    </div>*@
 
                 <div class="mb-3">
                     <label class="d-block fw-bold" for="statoPubblicazione">Stato di pubblicazione:</label>

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -12,110 +11,116 @@ using MangaVillage.Models;
 
 namespace MangaVillage.Controllers
 {
-    [Authorize(Roles = "admin")]
-    public class GenereController : Controller
+    public class OrdineController : Controller
     {
         private ModelDbContext db = new ModelDbContext();
 
-        // GET: Genere
-        public ActionResult Index(string sortOrder)
+        // GET: Ordines
+        public ActionResult Index(Utente utente)
         {
-            var genere = db.Genere.ToList();
-
-            switch (sortOrder)
+            if (User.IsInRole("Admin"))
             {
-                default:
-                    genere = genere.OrderBy(m => m.Nome).ToList();
-                    break;
+                return View(db.Ordine.ToList());
             }
-
-            return View(genere);
+            else
+            {
+                return View(db.Ordine.Where(o => o.IDUtenteFk == utente.ID).ToList());
+            }
+            
         }
 
-        // GET: Genere/Create
+        // GET: Ordines/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ordine ordine = db.Ordine.Find(id);
+            if (ordine == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ordine);
+        }
+
+        // GET: Ordines/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Genere/Create
+        // POST: Ordines/Create
         // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome")] Genere genere)
+        public ActionResult Create([Bind(Include = "IndirizzoConsegna,DataOrdine,Note,IDUtenteFk")] Ordine ordine)
         {
             if (ModelState.IsValid)
             {
-                db.Genere.Add(genere);
+                db.Ordine.Add(ordine);
                 db.SaveChanges();
-                TempData["messaggio"] = "Genere creato con successo";
                 return RedirectToAction("Index");
             }
 
-            return View(genere);
+            return View(ordine);
         }
 
-        // GET: Genere/Edit/5
+        // GET: Ordines/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
-                TempData["errore"] = "Errore ID Genere";
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genere genere = db.Genere.Find(id);
-            if (genere == null)
+            Ordine ordine = db.Ordine.Find(id);
+            if (ordine == null)
             {
-                TempData["errore"] = "Errore modifica genere";
                 return HttpNotFound();
             }
-            return View(genere);
+            return View(ordine);
         }
 
-        // POST: Genere/Edit/5
+        // POST: Ordines/Edit/5
         // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome")] Genere genere)
+        public ActionResult Edit([Bind(Include = "ID,IndirizzoConsegna,DataOrdine,Note,IDUtenteFk")] Ordine ordine)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(genere).State = EntityState.Modified;
+                db.Entry(ordine).State = EntityState.Modified;
                 db.SaveChanges();
-                TempData["errore"] = "Genere modficato con successo";
                 return RedirectToAction("Index");
             }
-            return View(genere);
+            return View(ordine);
         }
 
-        // GET: Genere/Delete/5
+        // GET: Ordines/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
-                TempData["errore"] = "Errore ID genere";
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genere genere = db.Genere.Find(id);
-            if (genere == null)
+            Ordine ordine = db.Ordine.Find(id);
+            if (ordine == null)
             {
-                TempData["errore"] = "Errore eliminazione genere";
                 return HttpNotFound();
             }
-            return View(genere);
+            return View(ordine);
         }
 
-        // POST: Genere/Delete/5
+        // POST: Ordines/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Genere genere = db.Genere.Find(id);
-            db.Genere.Remove(genere);
+            Ordine ordine = db.Ordine.Find(id);
+            db.Ordine.Remove(ordine);
             db.SaveChanges();
-            TempData["errore"] = "Genere eliminato con successo";
             return RedirectToAction("Index");
         }
 

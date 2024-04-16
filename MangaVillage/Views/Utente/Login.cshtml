@@ -3,9 +3,10 @@
 @{
     ViewBag.Title = "Login";
 }
+@Html.Partial("_Notification")
 
 <div class="mtx">
-    <h2 class="text-center text-white display-3 fw-semibold bg-transparent mb-0">Login</h2>
+    <h2 class="text-center text-white display-3 fw-semibold bg-transparent mb-0">Accedi</h2>
     <p class="text-center text-white display-6 bg-transparent">
         Non sei ancora Registrato?
         <a class="text-decoration-none text-white fw-semibold " href="~/Utente/Registrazione">Registrati</a>
@@ -38,7 +39,7 @@
 
             <div class="form-group mb-5">
                 <div class="col-md-offset-2 col-md-12">
-                    <input type="submit" value="Login" class="btn btn-success shadow" />
+                    <input type="submit" value="Accedi" class="btn btn-success shadow" />
                 </div>
             </div>
         </div>
@@ -47,15 +48,4 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-
-
-}
-
-@if (TempData["messaggio"] != null)
-{
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script type="text/javascript">
-        toastr.success(@TempData["messaggio"]);
-    </script>
 }

@@ -41,6 +41,7 @@ namespace MangaVillage.Controllers
             {
                 db.Recensione.Add(recensione);
                 db.SaveChanges();
+                TempData["messaggio"] = "Recensione creata con successo";
                 return RedirectToAction("Index");
             }
 
@@ -54,11 +55,13 @@ namespace MangaVillage.Controllers
         {
             if (id == null)
             {
+                TempData["messaggio"] = "Utente non trovato";
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Recensione recensione = db.Recensione.Find(id);
             if (recensione == null)
             {
+                TempData["messaggio"] = "Errore modfica recensione";
                 return HttpNotFound();
             }
 
@@ -76,6 +79,7 @@ namespace MangaVillage.Controllers
             {
                 db.Entry(recensione).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["messaggio"] = "Recensione modficata con successo";
                 return RedirectToAction("Index");
             }
             ViewBag.IDMangaFk = new SelectList(db.Manga, "ID", "Titolo", recensione.IDMangaFk);
@@ -88,11 +92,13 @@ namespace MangaVillage.Controllers
         {
             if (id == null)
             {
+                TempData["messaggio"] = "Utente non trovato";
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Recensione recensione = db.Recensione.Find(id);
             if (recensione == null)
             {
+                TempData["messaggio"] = "Errore eliminazione recensione";
                 return HttpNotFound();
             }
             return View(recensione);
@@ -106,6 +112,7 @@ namespace MangaVillage.Controllers
             Recensione recensione = db.Recensione.Find(id);
             db.Recensione.Remove(recensione);
             db.SaveChanges();
+            TempData["messaggio"] = "Recensione eliminata con successo";
             return RedirectToAction("Index");
         }
 

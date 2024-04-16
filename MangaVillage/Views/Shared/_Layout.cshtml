@@ -32,6 +32,8 @@
                         <li>@Html.ActionLink("Lista Manga", "Index", "Manga", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Archivio", "Archivio", "Manga", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Recensioni", "Index", "Recensione", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Ordini", "Index", "Ordine", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Dettaglio Ordini", "Index", "DettaglioOrdine", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                     else
                     {
@@ -39,27 +41,28 @@
                     }
                     @if (!User.Identity.IsAuthenticated)
                     {
-                        <li class="ms-auto">@Html.ActionLink("Login", "Login", "Utente", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="ms-auto">@Html.ActionLink("Accedi", "Login", "Utente", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                     else
                     {
-                        <li class="ms-auto">@Html.ActionLink("Logout", "Logout", "Utente", new { area = "" }, new { @class = "nav-link ms-auto" })</li>
-
-                        <li class="nav-link dropdown">
+                        <li class="nav-link dropdown ms-auto">
                             <a class="dropdown-toggle text-decoration-none text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Benvenuto @User.Identity.Name
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>@Html.ActionLink("Profilo", "Edit", "Utente", new { id = Request.Cookies["ID"].Value }, new { @class = "nav-link text-black" })</li>
+                                <li>@Html.ActionLink("Logout", "Logout", "Utente", new { area = "" }, new { @class = "nav-link text-black" })</li>
                             </ul>
                         </li>
-
                         if (Request.Cookies["Avatar"] != null)
                         {
                             var valoreCookie = Request.Cookies["Avatar"].Value;
                             <li><img src="@Url.Content("~/Content/Avatar/" + @valoreCookie)" width="40" height="40" class="rounded-circle nav-link cover" alt="Avatar utente" /></li>
                         }
-
+                        else
+                        {
+                            <li><img src="@Url.Content("~/Content/Avatar/default.jpeg")" width="40" height="40" class="rounded-circle nav-link cover" alt="Avatar utente" /></li>
+                        }
                     }
                 </ul>
             </div>

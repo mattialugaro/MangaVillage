@@ -49,7 +49,7 @@ namespace MangaVillage.Controllers
             {
                 db.Categoria.Add(categoria);
                 db.SaveChanges();
-                TempData["messaggio"] = "Login effettuato con successo";
+                TempData["messaggio"] = "Categoria creata con successo";
                 return RedirectToAction("Index");
             }
 
@@ -61,11 +61,13 @@ namespace MangaVillage.Controllers
         {
             if (id == null)
             {
+                TempData["errore"] = "Errore ID categoria";
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Categoria categoria = db.Categoria.Find(id);
             if (categoria == null)
             {
+                TempData["errore"] = "Errore modifica categoria";
                 return HttpNotFound();
             }
             return View(categoria);
@@ -82,6 +84,7 @@ namespace MangaVillage.Controllers
             {
                 db.Entry(categoria).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["messaggio"] = "Categoria modficata con successo";
                 return RedirectToAction("Index");
             }
             return View(categoria);
@@ -92,11 +95,13 @@ namespace MangaVillage.Controllers
         {
             if (id == null)
             {
+                TempData["errore"] = "Errore ID categoria";
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Categoria categoria = db.Categoria.Find(id);
             if (categoria == null)
             {
+                TempData["errore"] = "Errore eliminazione categoria";
                 return HttpNotFound();
             }
             return View(categoria);
@@ -110,6 +115,7 @@ namespace MangaVillage.Controllers
             Categoria categoria = db.Categoria.Find(id);
             db.Categoria.Remove(categoria);
             db.SaveChanges();
+            TempData["messaggio"] = "Categoria eliminata con successo";
             return RedirectToAction("Index");
         }
 

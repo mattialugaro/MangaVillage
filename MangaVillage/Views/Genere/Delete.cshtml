@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Delete";
 }
+@Html.Partial("_Notification")
 
 <div class="my-4">
     <h2>Elimina Genere</h2>
@@ -20,7 +21,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

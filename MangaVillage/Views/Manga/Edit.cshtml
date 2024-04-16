@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Edit";
 }
+@Html.Partial("_Notification")
 
 <h2 class="my-4">Modifica Manga</h2>
 
@@ -52,10 +53,6 @@
             </div>
         </div>
 
-
-
-
-
         <div class="form-group mb-3">
             @Html.LabelFor(model => model.Categoria, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -71,12 +68,6 @@
                 @Html.ValidationMessageFor(model => model.Genere, "", new { @class = "text-danger" })
             </div>
         </div>
-
-
-
-
-
-
 
         <div class="form-group mb-3">
             @Html.LabelFor(model => model.UltimoVolume, htmlAttributes: new { @class = "control-label col-md-2" })

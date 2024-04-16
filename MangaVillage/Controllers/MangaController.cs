@@ -18,6 +18,7 @@ namespace MangaVillage.Controllers
     {
         private ModelDbContext db = new ModelDbContext();
 
+        // Metodo che controlla che Categoria e Genere non siano vuoti/null e li concatena avendone piu' di uno
         private static void LoadCategoriaGenere(Manga manga)
         {
             if (manga != null && manga.Categoria != null && manga.Categoria.Count > 0)
@@ -89,6 +90,39 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public ActionResult AggiungiMangaCarrello([Bind(Include = "Volume,Quantita,IDMangaFk,IDUtenteFk")] DettaglioOrdine dettaglioOrdine, Ordine ordine)
+        {
+            if (ModelState.IsValid)
+            {
+                if (dettaglioOrdine != null)
+                {
+                    if (ordine != null)
+                    {
+                        ordine.IDUtenteFk = int.Parse(Request.Cookies.Get("ID").Value);
+                        db.DettaglioOrdine.Add(dettaglioOrdine);
+                        TempData["messaggio"] = "Manga aggiunto al carrello con successo";
+                        db.SaveChanges();
+
+                    }
+                    else
+                    {
+                        Ordine ordineManga = new Ordine();
+                        ordine.IDUtenteFk = int.Parse(Request.Cookies.Get("ID").Value);
+                        db.Ordine.Add(ordineManga);
+                        db.DettaglioOrdine.Add(dettaglioOrdine);
+                        TempData["messaggio"] = "Manga aggiunto al carrello con successo";
+                        db.SaveChanges();
+
+                    }
+                }
+                return RedirectToAction("Details" + dettaglioOrdine.IDMangaFk, "Manga");
+            }
+
+            return View("Details", "Manga");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AggiungiRecensione([Bind(Include = "Voto,Descrizione,IDMangaFk,IDUtenteFk")] Recensione recensione)
         {
             if (ModelState.IsValid)
@@ -97,6 +131,7 @@ namespace MangaVillage.Controllers
                 {
                     recensione.IDUtenteFk = int.Parse(Request.Cookies.Get("ID").Value);
                     db.Recensione.Add(recensione);
+                    TempData["messaggio"] = "Recensione creata con successo";
                     db.SaveChanges();
                 }
                 return RedirectToAction("Details/" + recensione.IDMangaFk);
@@ -140,23 +175,26 @@ namespace MangaVillage.Controllers
                 if (manga.CategoriaTendinaSelezione != null && manga.CategoriaTendinaSelezione.Count > 0)
                 {
                     manga.Categoria = new List<Categoria>();
-                    foreach (var categoriaSelezione in manga.CategoriaTendinaSelezione) {
-                        Categoria categoria = db.Categoria.Find(int.Parse(categoriaSelezione));                        
+                    foreach (var categoriaSelezione in manga.CategoriaTendinaSelezione)
+                    {
+                        Categoria categoria = db.Categoria.Find(int.Parse(categoriaSelezione));
                         manga.Categoria.Add(categoria);
                     }
                 }
-                
+
                 if (manga.GenereTendinaSelezione != null && manga.GenereTendinaSelezione.Count > 0)
                 {
                     manga.Genere = new List<Genere>();
-                    foreach (var genereSelezione in manga.GenereTendinaSelezione) {
-                        Genere genere = db.Genere.Find(int.Parse(genereSelezione));                        
+                    foreach (var genereSelezione in manga.GenereTendinaSelezione)
+                    {
+                        Genere genere = db.Genere.Find(int.Parse(genereSelezione));
                         manga.Genere.Add(genere);
                     }
                 }
 
                 db.Manga.Add(manga);
                 db.SaveChanges();
+                TempData["messaggio"] = "Manga creato con successo";
 
                 return RedirectToAction("Index");
             }
@@ -189,10 +227,45 @@ namespace MangaVillage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Copertina,Trama,UltimoVolume,Prezzo,CategoriaTendinaSelezione,GenereTendinaSelezione")] Manga manga) //MANCA CATEGORIA E GENERE
         {
-            manga.CategoriaTendina = db.Categoria.ToList();
-            manga.GenereTendina = db.Genere.ToList();
             if (ModelState.IsValid)
             {
+                var mangaDaAggiornare = db.Manga
+                    .Include(m => m.Categoria)
+                    .Include(m => m.Genere)
+                    .Where(m => m.ID == manga.ID)
+                    .First();
+
+                // 1. Elimino possibili categorie vecchie                   
+                foreach (var categoriaRimuovere in mangaDaAggiornare.Categoria.ToList())
+                {
+                    mangaDaAggiornare.Categoria.Remove(categoriaRimuovere);
+                }
+
+                // 2. Inserisco nuove categorie scelte                    
+                foreach (var categoriaSelezione in manga.CategoriaTendinaSelezione)
+                {
+                    Categoria categoria = db.Categoria.Find(int.Parse(categoriaSelezione));
+                    mangaDaAggiornare.Categoria.Add(categoria);
+                }
+
+                // 1. Elimino possibili categorie vecchie                   
+                foreach (var genereRimuovere in mangaDaAggiornare.Genere.ToList())
+                {
+                    mangaDaAggiornare.Genere.Remove(genereRimuovere);
+                }
+
+                // 2. Inserisco nuove categorie scelte
+                foreach (var genereSelezione in manga.GenereTendinaSelezione)
+                {
+                    int genereId = int.Parse(genereSelezione); // Parse the string to an integer
+
+                    Genere genere = db.Genere
+                        .Where(g => g.ID == genereId) // Filter using the parsed integer
+                        .SingleOrDefault(); // Retrieve the single matching entity
+
+                    mangaDaAggiornare.Genere.Add(genere);
+                }
+
                 // Controlla se è presente un file caricato
                 if (Request.Files.Count > 0)
                 {
@@ -220,46 +293,18 @@ namespace MangaVillage.Controllers
                     }
                 }
 
-                //if (manga.CategoriaTendinaSelezione != null && manga.CategoriaTendinaSelezione.Count > 0)
-                //{
-                //    foreach (var categoriaSelezione in manga.CategoriaTendinaSelezione)
-                //    {
-                //        var categoria = db.Categoria.Find(int.Parse(categoriaSelezione));
-                //        manga.Categoria.Add(categoria);
-                //    }
-                //}
+                mangaDaAggiornare.Titolo = manga.Titolo;
+                mangaDaAggiornare.Autore = manga.Autore;
+                mangaDaAggiornare.AnnoUscita = manga.AnnoUscita;
+                mangaDaAggiornare.Nazionalita = manga.Nazionalita;
+                mangaDaAggiornare.StatoPubblicazione = manga.StatoPubblicazione;
+                mangaDaAggiornare.Copertina = manga.Copertina;
+                mangaDaAggiornare.Trama = manga.Trama;
+                mangaDaAggiornare.UltimoVolume = manga.UltimoVolume;
+                mangaDaAggiornare.Prezzo = manga.Prezzo;
 
-                //if (manga.GenereTendinaSelezione != null && manga.GenereTendinaSelezione.Count > 0)
-                //{
-                //    foreach (var genereSelezione in manga.GenereTendinaSelezione)
-                //    {
-                //        var genere = db.Genere.Find(int.Parse(genereSelezione));
-                //        manga.Genere.Add(genere);
-                //    }
-                //}
-
-                if (manga.CategoriaTendinaSelezione != null && manga.CategoriaTendinaSelezione.Count > 0)
-                {
-                    manga.Categoria = new List<Categoria>();
-                    foreach (var categoriaSelezione in manga.CategoriaTendinaSelezione)
-                    {
-                        Categoria categoria = db.Categoria.Find(int.Parse(categoriaSelezione));
-                        manga.Categoria.Add(categoria);
-                    }
-                }
-
-                if (manga.GenereTendinaSelezione != null && manga.GenereTendinaSelezione.Count > 0)
-                {
-                    manga.Genere = new List<Genere>();
-                    foreach (var genereSelezione in manga.GenereTendinaSelezione)
-                    {
-                        Genere genere = db.Genere.Find(int.Parse(genereSelezione));
-                        manga.Genere.Add(genere);
-                    }
-                }
-
-                db.Entry(manga).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["messaggio"] = "Manga modificato con successo";
                 return RedirectToAction("Index");
             }
 
@@ -290,6 +335,7 @@ namespace MangaVillage.Controllers
             Manga manga = db.Manga.Find(id);
             LoadCategoriaGenere(manga);
             db.Manga.Remove(manga);
+            TempData["messaggio"] = "Manga eliminato con successo";
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -373,7 +419,7 @@ namespace MangaVillage.Controllers
 
             if (!string.IsNullOrEmpty(nazionalita))
             {
-                query = query.Where(m => m.Nazionalita == nazionalita);
+                query = query.Where(m => m.Nazionalita.Contains(nazionalita));
             }
 
             if (!string.IsNullOrEmpty(statoPubblicazione))
@@ -383,7 +429,7 @@ namespace MangaVillage.Controllers
 
             //if (!string.IsNullOrEmpty(categoria))
             //{
-            //    query = query.Where(m => m.CategoriaString == categoria);
+            //    query = query.Where(m => m.CategoriaString.Contains(categoria));
             //}
 
             //if (!string.IsNullOrEmpty(genere))

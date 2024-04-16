@@ -3,10 +3,11 @@
 @{
     ViewBag.Title = "Create";
 }
+@Html.Partial("_Notification")
 
 <h2 class="my-4">Aggiungi Genere</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">

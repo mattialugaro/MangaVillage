@@ -180,9 +180,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
+    <Compile Include="Controllers\DettaglioOrdineController.cs" />
     <Compile Include="Controllers\GenereController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MangaController.cs" />
+    <Compile Include="Controllers\OrdineController.cs" />
     <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\RecensioneController.cs" />
     <Compile Include="Controllers\UtenteController.cs" />
@@ -191,11 +193,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Categoria.cs" />
+    <Compile Include="Models\DettaglioOrdine.cs" />
     <Compile Include="Models\DomandaQuiz.cs" />
     <Compile Include="Models\Foto.cs" />
     <Compile Include="Models\Genere.cs" />
     <Compile Include="Models\Manga.cs" />
     <Compile Include="Models\ModelDbContext.cs" />
+    <Compile Include="Models\Ordine.cs" />
     <Compile Include="Models\QuizModel.cs" />
     <Compile Include="Models\QuizViewModel.cs" />
     <Compile Include="Models\Recensione.cs" />
@@ -301,7 +305,6 @@
     <Content Include="Scripts\noty\themes\bootstrap.js" />
     <Content Include="Scripts\noty\themes\default.js" />
     <Content Include="Scripts\noty\themes\relax.js" />
-    <Content Include="Scripts\Toaster.js" />
     <Content Include="Scripts\vediPassword.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -342,6 +345,17 @@
     <Content Include="Views\Recensione\Delete.cshtml" />
     <Content Include="Views\Recensione\Edit.cshtml" />
     <Content Include="Views\Recensione\Index.cshtml" />
+    <Content Include="Views\Shared\_Notification.cshtml" />
+    <Content Include="Views\Ordine\Create.cshtml" />
+    <Content Include="Views\Ordine\Delete.cshtml" />
+    <Content Include="Views\Ordine\Details.cshtml" />
+    <Content Include="Views\Ordine\Edit.cshtml" />
+    <Content Include="Views\Ordine\Index.cshtml" />
+    <Content Include="Views\DettaglioOrdine\Create.cshtml" />
+    <Content Include="Views\DettaglioOrdine\Delete.cshtml" />
+    <Content Include="Views\DettaglioOrdine\Details.cshtml" />
+    <Content Include="Views\DettaglioOrdine\Edit.cshtml" />
+    <Content Include="Views\DettaglioOrdine\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

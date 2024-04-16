@@ -18,8 +18,10 @@ namespace MangaVillage.Models
         public virtual DbSet<Foto> Foto { get; set; }
         public virtual DbSet<Genere> Genere { get; set; }
         public virtual DbSet<Manga> Manga { get; set; }
+        public virtual DbSet<Ordine> Ordine { get; set; }
         public virtual DbSet<Recensione> Recensione { get; set; }
         public virtual DbSet<Utente> Utente { get; set; }
+        public virtual DbSet<DettaglioOrdine> DettaglioOrdine { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -40,9 +42,21 @@ namespace MangaVillage.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Manga>()
+                .HasMany(e => e.DettaglioOrdine)
+                .WithRequired(e => e.Manga)
+                .HasForeignKey(e => e.IDMangaFk)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Manga>()
                 .HasMany(e => e.Recensione)
                 .WithRequired(e => e.Manga)
                 .HasForeignKey(e => e.IDMangaFk)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Ordine>()
+                .HasMany(e => e.DettaglioOrdine)
+                .WithRequired(e => e.Ordine)
+                .HasForeignKey(e => e.IDOrdineFk)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Recensione>()

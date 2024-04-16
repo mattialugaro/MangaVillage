@@ -47,7 +47,7 @@ namespace MangaVillage
         public string Username { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(100)]
         public string Password { get; set; }
 
         [Required]
@@ -55,7 +55,7 @@ namespace MangaVillage
         public string Ruolo { get; set; } = "Utente";
 
         [StringLength(20)]
-        public string Avatar { get; set; } = "dafault.jpeg";
+        public string Avatar { get; set; } = "default.jpeg";
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Recensione> Recensione { get; set; }

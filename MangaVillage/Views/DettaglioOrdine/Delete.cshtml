@@ -1,0 +1,56 @@
+﻿@model MangaVillage.DettaglioOrdine
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>DettaglioOrdine</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Manga.Titolo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Manga.Titolo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ordine.IndirizzoConsegna)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ordine.IndirizzoConsegna)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeroVolume)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroVolume)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantita)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantita)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

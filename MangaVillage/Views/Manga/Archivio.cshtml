@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Archivio";
 }
+@Html.Partial("_Notification")
 
 <div class="d-flex justify-content-between align-items-center my-5">
     <h2 class="text-center mb-0 text-white shadow">Archivio</h2>
@@ -15,8 +16,8 @@
             <li><a class="dropdown-item" href="@Url.Action("Archivio", new { sortOrder = "TitoloDesc" })">Titolo Decrescente <i class="bi bi-sort-alpha-up fs-5"></i></a></li>
             <li><a class="dropdown-item" href="@Url.Action("Archivio", new { sortOrder = "Anno" })">Anno <i class="bi bi-sort-numeric-down fs-5"></i></a></li>
             <li><a class="dropdown-item" href="@Url.Action("Archivio", new { sortOrder = "AnnoDesc" })">Anno Decrescente <i class="bi bi-sort-numeric-up fs-5"></i></a></li>
-            <li><a class="dropdown-item" href="@Url.Action("Archivio", new { sortOrder = "Prezzo" })">Prezzo <i class="bi bi-currency-euro fs-5"></i></a></li>
-            <li><a class="dropdown-item" href="@Url.Action("Archivio", new { sortOrder = "PrezzoDesc" })">Prezzo Decrescente <i class="bi bi-sort-numeric-up fs-5"><i class="bi bi-currency-euro fs-5"></i></i></a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Archivio", new { sortOrder = "Prezzo" })">Prezzo <i class="bi bi-arrow-down fs-5"></i><i class="bi bi-currency-euro fs-5"></i></a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Archivio", new { sortOrder = "PrezzoDesc" })">Prezzo Decrescente <i class="bi bi-arrow-up fs-5"></i><i class="bi bi-currency-euro fs-5"></i></i></a></li>
             <li><a class="dropdown-item" href="@Url.Action("Archivio", new { sortOrder = "InCorso" })">In corso <i class="bi bi-hourglass-split fs-5"></i></a></li>
             <li><a class="dropdown-item" href="@Url.Action("Archivio", new { sortOrder = "Completato" })">Completato <i class="bi bi-check-circle fs-5"></i></a></li>
         </ul>
