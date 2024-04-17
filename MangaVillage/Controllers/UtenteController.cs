@@ -134,6 +134,7 @@ namespace MangaVillage.Controllers
             {
                 utente.DataNascita = DateTime.Parse(utente.DataNascitaString);
                 utente.Avatar = SelectedAvatar;
+                utente.Password = HashPassword(utente.Password);
                 if(User.Identity.Name == utente.Username)
                 {
                     Request.Cookies.Remove("Avatar");
@@ -302,7 +303,6 @@ namespace MangaVillage.Controllers
         private string HashPassword(string password)
         {
             var salt = BCrypt.Net.BCrypt.GenerateSalt(10);
-
             return BCrypt.Net.BCrypt.HashPassword(password, salt);
         }
 

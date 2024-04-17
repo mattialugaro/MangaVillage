@@ -11,6 +11,7 @@ using MangaVillage;
 using Newtonsoft.Json;
 using MangaVillage.Models;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace MangaVillage.Controllers
 {
@@ -85,41 +86,41 @@ namespace MangaVillage.Controllers
             return View(manga);
         }
 
-        // POST: Recensione/Create
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AggiungiMangaCarrello([Bind(Include = "Volume,Quantita,IDMangaFk,IDUtenteFk")] DettaglioOrdine dettaglioOrdine, Ordine ordine)
-        {
-            if (ModelState.IsValid)
-            {
-                if (dettaglioOrdine != null)
-                {
-                    if (ordine != null)
-                    {
-                        ordine.IDUtenteFk = int.Parse(Request.Cookies.Get("ID").Value);
-                        db.DettaglioOrdine.Add(dettaglioOrdine);
-                        TempData["messaggio"] = "Manga aggiunto al carrello con successo";
-                        db.SaveChanges();
+        //// POST: Recensione/Create
+        //// Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
+        //// Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult AggiungiMangaCarrello([Bind(Include = "ID,Volume,Quantita")] DettaglioOrdine dettaglioOrdine, Ordine ordine)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (dettaglioOrdine != null)
+        //        {
+        //            if (ordine != null)
+        //            {
+        //                ordine.IDUtenteFk = int.Parse(Request.Cookies.Get("ID").Value);
+        //                db.DettaglioOrdine.Add(dettaglioOrdine);
+        //                TempData["messaggio"] = "Manga aggiunto al carrello con successo";
+        //                db.SaveChanges();
 
-                    }
-                    else
-                    {
-                        Ordine ordineManga = new Ordine();
-                        ordine.IDUtenteFk = int.Parse(Request.Cookies.Get("ID").Value);
-                        db.Ordine.Add(ordineManga);
-                        db.DettaglioOrdine.Add(dettaglioOrdine);
-                        TempData["messaggio"] = "Manga aggiunto al carrello con successo";
-                        db.SaveChanges();
+        //            }
+        //            else
+        //            {
+        //                Ordine ordineManga = new Ordine();
+        //                ordine.IDUtenteFk = int.Parse(Request.Cookies.Get("ID").Value);
+        //                db.Ordine.Add(ordineManga);
+        //                db.DettaglioOrdine.Add(dettaglioOrdine);
+        //                TempData["messaggio"] = "Manga aggiunto al carrello con successo";
+        //                db.SaveChanges();
 
-                    }
-                }
-                return RedirectToAction("Details" + dettaglioOrdine.IDMangaFk, "Manga");
-            }
+        //            }
+        //        }
+        //        return RedirectToAction("Details" + dettaglioOrdine.IDMangaFk, "Manga");
+        //    }
 
-            return View("Details", "Manga");
-        }
+        //    return View("Details", "Manga");
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -139,6 +140,58 @@ namespace MangaVillage.Controllers
 
             return View("Details", "Manga");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AggiungiArticolo([Bind(Include = "IDMangaFk,NumeroVolume,Quantita")] DettaglioOrdine dettaglioOrdine)
+        {
+            var carrello = Session["carrello"] as Ordine;
+            if (carrello == null)
+            {
+                carrello = new Ordine();
+                Session["carrello"] = carrello;
+            }
+
+            Ordine ordine = new Ordine();
+            ordine.IDUtenteFk = Convert.ToInt32(Request.Cookies["ID"].Value);
+            ordine.Pagato = false;
+
+            ordine.DettaglioOrdine.Add(dettaglioOrdine);
+            Session["carrello"] = ordine;
+            TempData["messaggio"] = "Manga aggiunto al carrello con successo";
+
+
+
+            //Ordine aggiungiProdotto = carrello.DettaglioOrdine.FirstOrDefault(a => a.IDMangaFk == dettaglioOrdine.IDMangaFk);
+            //if (aggiungiProdotto != null && aggiungiProdotto.NumeroVolume == dettaglioOrdine.NumeroVolume)
+            //{
+            //    aggiungiProdotto.Quantita++;
+            //}
+            //else
+            //{
+            //    aggiungiProdotto = new DettaglioOrdine();
+            //    aggiungiProdotto.IDMangaFk = dettaglioOrdine.IDMangaFk;
+            //    aggiungiProdotto.NumeroVolume = dettaglioOrdine.NumeroVolume;
+            //    aggiungiProdotto.Quantita = dettaglioOrdine.Quantita;
+            //    carrello.Add(aggiungiProdotto);
+            //}
+
+            return RedirectToAction("Details/" + dettaglioOrdine.IDMangaFk, "Manga");
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult NuovoVolume(int id)
+        //{
+        //    Manga manga = db.Manga.Find(id);
+        //    manga.UltimoVolume += 1;
+        //    db.Entry(manga).State = EntityState.Modified;
+        //    TempData["messaggio"] = "Ultimo Volume aggiornato con successo";
+        //    db.SaveChanges();
+
+        //    return View("Index");
+        //}
+
 
         // GET: Manga/Create
         public ActionResult Create()
@@ -225,7 +278,7 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Copertina,Trama,UltimoVolume,Prezzo,CategoriaTendinaSelezione,GenereTendinaSelezione")] Manga manga) //MANCA CATEGORIA E GENERE
+        public ActionResult Edit([Bind(Include = "ID,Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Copertina,Trama,UltimoVolume,Prezzo,CategoriaTendinaSelezione,GenereTendinaSelezione")] Manga manga)
         {
             if (ModelState.IsValid)
             {
@@ -292,6 +345,12 @@ namespace MangaVillage.Controllers
 
                     }
                 }
+                //else                              DA CONTROLLARE 
+                //{
+                //    var mangaSalvato = db.Manga.Where(a => a.ID == manga.ID).First();
+                //    var copertinaEsistente = mangaSalvato.Copertina;
+                //    manga.Copertina = copertinaEsistente;
+                //}
 
                 mangaDaAggiornare.Titolo = manga.Titolo;
                 mangaDaAggiornare.Autore = manga.Autore;

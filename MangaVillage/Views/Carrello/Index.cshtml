@@ -1,0 +1,56 @@
+﻿@model MangaVillage.Ordine
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="d-flex justify-content-between align-items-center my-4">
+    <h2 class="fst-italic">Carrello</h2>
+    <a class="btn btn-danger border-1 border-dark text-decoration-none text-white fw-bold" href="@Url.Action("SvuotaCarrello")">
+        Svuota il Carrello
+    </a>
+
+</div>
+
+<div class="container">
+    <div class="row">
+        @foreach (var articolo in Model.DettaglioOrdine)
+        {
+            <div class="col-3">
+                <div class="card mb-5">
+                    <img src="~/Content/img/@articolo.Manga.Copertina" class="card-img-top" height="296" alt="@articolo.Manga.Titolo">
+                    <div class="card-body">
+                        <h5 class="card-title">@articolo.Manga.Titolo</h5>
+                        <p class="card-text">@articolo.Manga.Prezzo €</p>
+                        <p class="text-center"><strong>Quantità: </strong> @articolo.Quantita</p>
+                        <div class="text-center">
+                            <a class="btn btn-danger border-1 border-dark text-decoration-none text-white fw-bold" href="@Url.Action("Delete", "Carrello", new { id = articolo.Manga.ID })">
+                                Rimuovi dal Carrello
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @using (Html.BeginForm("Confirm", "Carrello", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="my-3 d-flex flex-column">
+            <strong>Indirizzo di Consegna:</strong>
+            @Html.EditorFor(model => model.IndirizzoConsegna, new { htmlAttributes = new { @class = "form-control mb-3" } })
+            <strong>Note da Aggiungere:</strong>
+            @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="mb-3">
+            <p><strong>Totale Ordine: </strong>@Model.TotaleCarrello €</p>
+        </div>
+
+        <div>
+            <button class="btn btn-light text-danger fw-bold border-2 border-dark" type="submit">Invia Ordine</button>
+        </div>
+    }
+
+</div>

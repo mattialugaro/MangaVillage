@@ -85,6 +85,17 @@
                 @Html.ActionLink("Modifica", "Edit", new { id = item.ID }, new { @class = "btn btn-warning" })
                 @Html.ActionLink("Dettagli", "Details", new { id = item.ID }, new { @class = "btn btn-success" })
                 @Html.ActionLink("Elimina", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+
+
+                @*@using (Html.BeginForm("NuovoVolume", "Manga", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("ID");
+
+                        <div class="mb-3">
+                            @Html.Action("NuovoVolume", item.ID.ToString() , new { @class = "btn btn-info" })
+                        </div>
+                    }*@
             </td>
         </tr>
     }

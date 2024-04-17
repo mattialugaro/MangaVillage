@@ -25,7 +25,7 @@ namespace MangaVillage.Controllers
             }
             else
             {
-                return View(db.DettaglioOrdine.Include(d => d.Manga).Include(d => d.Ordine).Where(d => d.Ordine.IDUtenteFk == utente.ID).ToList());
+                return View(db.DettaglioOrdine.Include(d => d.Manga).Include(d => d.Ordine).Where(d => d.Ordine.IDUtenteFk == utente.ID && d.Ordine.Pagato == true).ToList());
             }
         }
 

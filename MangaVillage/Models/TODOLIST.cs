@@ -9,14 +9,11 @@ namespace MangaVillage.Models
 {
     public class TODOLIST
     {
-        // modificare la vista del profilo utente 
-        /*nella edit di utente modficare la password e' un problema con hash password*/
+        /*aggiungere controllo aggiuntaManga al carrello*/
+        /*sistemare vista carrello con struttura aggiungiManga*/
 
         /*sistemare avatar selezionato nella edit che possibile scegliere*/
-        /*aggiustare manga per implementare i volumi e carrello per vendita*/
         /*sistemare manga, categorie e generi*/
-
-        /*sistemare le tendine di categoria e genere nella edit di manga*/
         /*sistemare input file con valore default*/
 
         /*controllo di accesso alle viste per utente e admin*/

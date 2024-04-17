@@ -25,10 +25,14 @@
 
         public string Note { get; set; }
 
-        public int IDUtenteFk { get; set; }
         public bool Pagato { get; set; }
+
+        public int IDUtenteFk { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DettaglioOrdine> DettaglioOrdine { get; set; }
+
+        [NotMapped]
+        public decimal TotaleCarrello { get; set; }
     }
 }

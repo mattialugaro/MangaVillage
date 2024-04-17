@@ -113,22 +113,23 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <h4>Aggiungi al carrello:</h4>
-                    using (Html.BeginForm("AggiungiMangaCarrello", "Manga", FormMethod.Post))
+                    using (Html.BeginForm("AggiungiArticolo", "Manga", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         @Html.Hidden("IDMangaFk", Model.ID)
 
                         <div class="mb-3">
-                            <label class="fw-bold" for="voto">Volume Numero:</label>
-                            <input class="form-control mx-auto" type="number" min="1" max="@Model.UltimoVolume" id="volume" name="volume" />
+                            <label class="fw-bold" for="numeroVolume">Numero Volume:</label>
+                            <input class="form-control mx-auto" type="number" min="1" max="@Model.UltimoVolume" id="numeroVolume" name="numeroVolume" />
                         </div>
                         <div class="mb-3">
-                            <label class="fw-bold" for="descrizione">Quantità:</label>
+                            <label class="fw-bold" for="quantita">Quantità:</label>
                             <input class="form-control mx-auto" type="number" min="1" id="quantita" name="quantita" />
                         </div>
-                        <div class="mb-3">
-                            <input class="btn btn-success" type="submit" value="Aggiungi al carrello" />
-                        </div>
+                        @*<a class="btn btn-light border-1 border-dark text-decoration-none text-danger fw-bold" href="@Url.Action("AggiungiArticolo", "Manga", new { id = Model.ID })">
+                            Aggiungi al Carrello
+                        </a>*@
+                        <input class="btn btn-success" type="submit" value="Aggiungi al Carrello" />
                     }
                 }
                 else

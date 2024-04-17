@@ -54,7 +54,7 @@ namespace MangaVillage
         [Required]
         public string Trama { get; set; }
 
-        public decimal? Prezzo { get; set; }
+        public decimal Prezzo { get; set; }
 
         [Display(Name = "Volumi Pubblicati")]
         public int? UltimoVolume { get; set; }
