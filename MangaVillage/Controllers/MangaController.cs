@@ -76,7 +76,7 @@ namespace MangaVillage.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Manga manga = db.Manga.Find(id);
+            manga = db.Manga.Find(id);
             manga.Recensione = db.Recensione.Where(r => r.IDMangaFk == manga.ID).ToList();
             LoadCategoriaGenere(manga);
             if (manga == null)
