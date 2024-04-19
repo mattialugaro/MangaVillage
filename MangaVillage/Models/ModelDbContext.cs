@@ -64,6 +64,12 @@ namespace MangaVillage.Models
                 .HasPrecision(18, 1);
 
             modelBuilder.Entity<Utente>()
+                .HasMany(e => e.Ordine)
+                .WithRequired(e => e.Utente)
+                .HasForeignKey(e => e.IDUtenteFk)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Utente>()
                 .HasMany(e => e.Recensione)
                 .WithRequired(e => e.Utente)
                 .HasForeignKey(e => e.IDUtenteFk)

@@ -76,7 +76,7 @@ namespace MangaVillage.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            manga = db.Manga.Find(id);
+            Manga manga = db.Manga.Find(id);
             manga.Recensione = db.Recensione.Where(r => r.IDMangaFk == manga.ID).ToList();
             LoadCategoriaGenere(manga);
             if (manga == null)
@@ -85,42 +85,6 @@ namespace MangaVillage.Controllers
             }
             return View(manga);
         }
-
-        //// POST: Recensione/Create
-        //// Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        //// Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult AggiungiMangaCarrello([Bind(Include = "ID,Volume,Quantita")] DettaglioOrdine dettaglioOrdine, Ordine ordine)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (dettaglioOrdine != null)
-        //        {
-        //            if (ordine != null)
-        //            {
-        //                ordine.IDUtenteFk = int.Parse(Request.Cookies.Get("ID").Value);
-        //                db.DettaglioOrdine.Add(dettaglioOrdine);
-        //                TempData["messaggio"] = "Manga aggiunto al carrello con successo";
-        //                db.SaveChanges();
-
-        //            }
-        //            else
-        //            {
-        //                Ordine ordineManga = new Ordine();
-        //                ordine.IDUtenteFk = int.Parse(Request.Cookies.Get("ID").Value);
-        //                db.Ordine.Add(ordineManga);
-        //                db.DettaglioOrdine.Add(dettaglioOrdine);
-        //                TempData["messaggio"] = "Manga aggiunto al carrello con successo";
-        //                db.SaveChanges();
-
-        //            }
-        //        }
-        //        return RedirectToAction("Details" + dettaglioOrdine.IDMangaFk, "Manga");
-        //    }
-
-        //    return View("Details", "Manga");
-        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -150,31 +114,37 @@ namespace MangaVillage.Controllers
             {
                 carrello = new Ordine();
                 Session["carrello"] = carrello;
+                carrello.IDUtenteFk = Convert.ToInt32(Request.Cookies["ID"].Value);
+                carrello.Pagato = false;
             }
 
-            Ordine ordine = new Ordine();
-            ordine.IDUtenteFk = Convert.ToInt32(Request.Cookies["ID"].Value);
-            ordine.Pagato = false;
+            if(carrello.DettaglioOrdine != null && carrello.DettaglioOrdine.Count > 0)
+            {
+                bool inCarrello = false;
+                foreach (var articolo in carrello.DettaglioOrdine)
+                {
+                    if (articolo.Equals(dettaglioOrdine))
+                    {
+                        articolo.Quantita += dettaglioOrdine.Quantita;
+                        inCarrello = true;
+                        TempData["messaggio"] = "Manga aggiunto al carrello con successo";
+                    }
+                }
+                if (!inCarrello)
+                {
+                    dettaglioOrdine.Manga = db.Manga.Find(dettaglioOrdine.IDMangaFk);
+                    carrello.DettaglioOrdine.Add(dettaglioOrdine);
+                    TempData["messaggio"] = "Manga aggiunto al carrello con successo";
+                }
+            }
+            else
+            {
+                dettaglioOrdine.Manga = db.Manga.Find(dettaglioOrdine.IDMangaFk);
+                carrello.DettaglioOrdine.Add(dettaglioOrdine);
+                TempData["messaggio"] = "Manga aggiunto al carrello con successo";
+            }
 
-            ordine.DettaglioOrdine.Add(dettaglioOrdine);
-            Session["carrello"] = ordine;
-            TempData["messaggio"] = "Manga aggiunto al carrello con successo";
-
-
-
-            //Ordine aggiungiProdotto = carrello.DettaglioOrdine.FirstOrDefault(a => a.IDMangaFk == dettaglioOrdine.IDMangaFk);
-            //if (aggiungiProdotto != null && aggiungiProdotto.NumeroVolume == dettaglioOrdine.NumeroVolume)
-            //{
-            //    aggiungiProdotto.Quantita++;
-            //}
-            //else
-            //{
-            //    aggiungiProdotto = new DettaglioOrdine();
-            //    aggiungiProdotto.IDMangaFk = dettaglioOrdine.IDMangaFk;
-            //    aggiungiProdotto.NumeroVolume = dettaglioOrdine.NumeroVolume;
-            //    aggiungiProdotto.Quantita = dettaglioOrdine.Quantita;
-            //    carrello.Add(aggiungiProdotto);
-            //}
+            Session["carrello"] = carrello;
 
             return RedirectToAction("Details/" + dettaglioOrdine.IDMangaFk, "Manga");
         }

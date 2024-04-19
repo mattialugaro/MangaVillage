@@ -20,12 +20,20 @@
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IDMangaFk { get; set; }
 
+        [Display(Name = "Volume")]
         public int NumeroVolume { get; set; }
 
+        [Display(Name = "Quantità")]
         public int Quantita { get; set; }
 
         public virtual Manga Manga { get; set; }
 
         public virtual Ordine Ordine { get; set; }
+
+        public bool Equals(DettaglioOrdine dettaglioOrdine)
+        {
+            return dettaglioOrdine.IDMangaFk == this.IDMangaFk && dettaglioOrdine.NumeroVolume == this.NumeroVolume;
+        }
+        
     }
 }

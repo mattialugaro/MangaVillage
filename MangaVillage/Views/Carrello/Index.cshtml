@@ -3,54 +3,72 @@
 @{
     ViewBag.Title = "Index";
 }
+@Html.Partial("_Notification")
 
-<div class="d-flex justify-content-between align-items-center my-4">
-    <h2 class="fst-italic">Carrello</h2>
-    <a class="btn btn-danger border-1 border-dark text-decoration-none text-white fw-bold" href="@Url.Action("SvuotaCarrello")">
-        Svuota il Carrello
-    </a>
+@if (Model.DettaglioOrdine != null && Model.DettaglioOrdine.Count > 0)
+{
+    <div class="d-flex justify-content-between align-items-center my-5">
+        <h2 class="fst-italic">Carrello</h2>
+        <a class="btn btn-danger text-decoration-none text-white" href="@Url.Action("SvuotaCarrello")">
+            Svuota il Carrello
+        </a>
+    </div>
 
-</div>
-
-<div class="container">
-    <div class="row">
-        @foreach (var articolo in Model.DettaglioOrdine)
-        {
-            <div class="col-3">
-                <div class="card mb-5">
-                    <img src="~/Content/img/@articolo.Manga.Copertina" class="card-img-top" height="296" alt="@articolo.Manga.Titolo">
-                    <div class="card-body">
-                        <h5 class="card-title">@articolo.Manga.Titolo</h5>
-                        <p class="card-text">@articolo.Manga.Prezzo €</p>
-                        <p class="text-center"><strong>Quantità: </strong> @articolo.Quantita</p>
-                        <div class="text-center">
-                            <a class="btn btn-danger border-1 border-dark text-decoration-none text-white fw-bold" href="@Url.Action("Delete", "Carrello", new { id = articolo.Manga.ID })">
-                                Rimuovi dal Carrello
-                            </a>
+    <div class="container">
+        <div class="row">
+            @foreach (var articolo in Model.DettaglioOrdine)
+            {
+                <div class="col-3">
+                    <div class="card mb-5">
+                        <img src="~/Content/img/@articolo.Manga.Copertina" class="card-img-top" height="400" alt="@articolo.Manga.Titolo">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="card-title mb-0">@articolo.Manga.Titolo</h5>
+                                <p class="card-text"><b>Vol.</b> @articolo.NumeroVolume</p>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <p class="text-center mb-0"><strong>Quantità: </strong> @articolo.Quantita</p>
+                                <p class="card-text">@articolo.Manga.Prezzo €</p>
+                            </div>
+                            <div class="text-center">
+                                <a class="btn btn-danger text-decoration-none text-white" href="@Url.Action("Delete", "Carrello", new { idManga = articolo.IDMangaFk, numeroVolume = articolo.NumeroVolume })">
+                                    Rimuovi dal Carrello
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
+            }
+            <div class="my-2">
+                @using (Html.BeginForm("Confirm", "Carrello", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>Invia Ordine</h4>
+                    <div class="my-2 d-flex flex-column">
+                        <div class="mb-3">
+                            <strong>Indirizzo di Consegna:</strong>
+                            @Html.EditorFor(model => model.IndirizzoConsegna, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="mb-3">
+                            <strong>Note da Aggiungere:</strong>
+                            @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <p><strong>Totale Ordine: </strong>@Model.TotaleCarrello €</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-success" type="submit">Invia Ordine</button>
+                    </div>
+                }
             </div>
-        }
+        </div>
     </div>
-
-    @using (Html.BeginForm("Confirm", "Carrello", FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="my-3 d-flex flex-column">
-            <strong>Indirizzo di Consegna:</strong>
-            @Html.EditorFor(model => model.IndirizzoConsegna, new { htmlAttributes = new { @class = "form-control mb-3" } })
-            <strong>Note da Aggiungere:</strong>
-            @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
-        </div>
-        <div class="mb-3">
-            <p><strong>Totale Ordine: </strong>@Model.TotaleCarrello €</p>
-        </div>
-
-        <div>
-            <button class="btn btn-light text-danger fw-bold border-2 border-dark" type="submit">Invia Ordine</button>
-        </div>
-    }
-
-</div>
+}
+else
+{
+    <div class="text-center">
+        <h2 class="fst-italic my-5">Carrello</h2>
+        <p class="mb-5 w-100 display-5">Il carrello e' vuoto.</p>
+    </div>
+}

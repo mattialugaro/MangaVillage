@@ -182,6 +182,7 @@
     <Compile Include="Controllers\CarrelloController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\DettaglioOrdineController.cs" />
+    <Compile Include="Controllers\FotoController.cs" />
     <Compile Include="Controllers\GenereController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MangaController.cs" />
@@ -347,17 +348,15 @@
     <Content Include="Views\Recensione\Edit.cshtml" />
     <Content Include="Views\Recensione\Index.cshtml" />
     <Content Include="Views\Shared\_Notification.cshtml" />
-    <Content Include="Views\DettaglioOrdine\Create.cshtml" />
-    <Content Include="Views\DettaglioOrdine\Delete.cshtml" />
-    <Content Include="Views\DettaglioOrdine\Details.cshtml" />
-    <Content Include="Views\DettaglioOrdine\Edit.cshtml" />
     <Content Include="Views\DettaglioOrdine\Index.cshtml" />
-    <Content Include="Views\Ordine\Create.cshtml" />
-    <Content Include="Views\Ordine\Delete.cshtml" />
     <Content Include="Views\Ordine\Details.cshtml" />
-    <Content Include="Views\Ordine\Edit.cshtml" />
     <Content Include="Views\Ordine\Index.cshtml" />
     <Content Include="Views\Carrello\Index.cshtml" />
+    <Content Include="Views\Foto\Create.cshtml" />
+    <Content Include="Views\Foto\Delete.cshtml" />
+    <Content Include="Views\Foto\Details.cshtml" />
+    <Content Include="Views\Foto\Edit.cshtml" />
+    <Content Include="Views\Foto\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

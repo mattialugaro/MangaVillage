@@ -9,6 +9,8 @@ namespace MangaVillage.Models
 {
     public class TODOLIST
     {
+        /*chiedere conferma prima di svuotare carrello e pagare carrello*/
+
         /*aggiungere controllo aggiuntaManga al carrello*/
         /*sistemare vista carrello con struttura aggiungiManga*/
 

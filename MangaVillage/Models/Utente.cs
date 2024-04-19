@@ -13,6 +13,7 @@ namespace MangaVillage
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Utente()
         {
+            Ordine = new HashSet<Ordine>();
             Recensione = new HashSet<Recensione>();
         }
 
@@ -56,6 +57,9 @@ namespace MangaVillage
 
         [StringLength(20)]
         public string Avatar { get; set; } = "default.jpeg";
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ordine> Ordine { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Recensione> Recensione { get; set; }

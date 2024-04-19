@@ -117,18 +117,14 @@
                     {
                         @Html.AntiForgeryToken()
                         @Html.Hidden("IDMangaFk", Model.ID)
-
                         <div class="mb-3">
                             <label class="fw-bold" for="numeroVolume">Numero Volume:</label>
-                            <input class="form-control mx-auto" type="number" min="1" max="@Model.UltimoVolume" id="numeroVolume" name="numeroVolume" />
+                            <input class="form-control mx-auto" type="number" min="1" max="@Model.UltimoVolume" id="numeroVolume" name="numeroVolume" value="1" />
                         </div>
                         <div class="mb-3">
                             <label class="fw-bold" for="quantita">Quantità:</label>
-                            <input class="form-control mx-auto" type="number" min="1" id="quantita" name="quantita" />
+                            <input class="form-control mx-auto" type="number" min="1" id="quantita" name="quantita" value="1" />
                         </div>
-                        @*<a class="btn btn-light border-1 border-dark text-decoration-none text-danger fw-bold" href="@Url.Action("AggiungiArticolo", "Manga", new { id = Model.ID })">
-                            Aggiungi al Carrello
-                        </a>*@
                         <input class="btn btn-success" type="submit" value="Aggiungi al Carrello" />
                     }
                 }

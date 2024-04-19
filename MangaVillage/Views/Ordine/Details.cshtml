@@ -4,55 +4,94 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <h2>Ordine</h2>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.IndirizzoConsegna)
+                </dt>
 
-<div>
-    <h4>Ordine</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.IndirizzoConsegna)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.IndirizzoConsegna)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.IndirizzoConsegna)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DataOrdine)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DataOrdine)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DataOrdine)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DataOrdine)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Note)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Note)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Note)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Note)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.IDUtenteFk)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IDUtenteFk)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.IDUtenteFk)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.IDUtenteFk)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Pagato)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Pagato)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Pagato)
+                </dd>
+                <a class="btn btn-success mt-1" href="@Url.Action("Index")">Lista Ordini</a>
+            </dl>
+        </div>
+        <div class="col-9" style="text-align:start !important">
+            <h2>Dettagli Ordine</h2>
+            <div class="row">
+                @foreach (var articolo in Model.DettaglioOrdine)
+                {
+                    <div class="col-3 m-4">
+                        <div class="d-flex">
+                            <img src="@Url.Content("~/Content/Img/" + articolo.Manga.Copertina)" class="border rounded-1" alt="model.Titolo" width="180" height="260" />
+                            <div class="d-flex flex-column ms-1 justify-content-center">
+                                <div>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => articolo.Manga.Titolo)
+                                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Pagato)
-        </dd>
+                                    <dd>
+                                        @Html.DisplayFor(model => articolo.Manga.Titolo)
+                                    </dd>
+                                </div>
+                                <div>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => articolo.NumeroVolume)
+                                    </dt>
 
-    </dl>
+                                    <dd>
+                                        @Html.DisplayFor(model => articolo.NumeroVolume)
+                                    </dd>
+                                </div>
+                                <div>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => articolo.Quantita)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => articolo.Quantita)
+                                    </dd>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

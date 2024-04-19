@@ -3,14 +3,15 @@
 @{
     ViewBag.Title = "Index";
 }
+@Html.Partial("_Notification")
 
-<h2>Index</h2>
+<h2 class="my-4">Ordini</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<table class="table table-striped text-center middle">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Utente.Username)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.IndirizzoConsegna)
         </th>
@@ -21,37 +22,32 @@
             @Html.DisplayNameFor(model => model.Note)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IDUtenteFk)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Pagato)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IndirizzoConsegna)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataOrdine)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Note)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IDUtenteFk)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pagato)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Utente.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IndirizzoConsegna)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataOrdine)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pagato)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-success" })
+            </td>
+        </tr>
+    }
 </table>

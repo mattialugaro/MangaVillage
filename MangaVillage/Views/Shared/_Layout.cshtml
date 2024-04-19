@@ -34,10 +34,13 @@
                         <li>@Html.ActionLink("Recensioni", "Index", "Recensione", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Ordini", "Index", "Ordine", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Dettaglio Ordini", "Index", "DettaglioOrdine", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Carrello", "Index", "Carrello", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                     else
                     {
                         <li>@Html.ActionLink("Archivio", "Archivio", "Manga", new { area = "" }, new { @class = "nav-link ms-auto" })</li>
+                        <li>@Html.ActionLink("Ordini", "Index", "Ordine", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Carrello", "Index", "Carrello", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                     @if (!User.Identity.IsAuthenticated)
                     {
