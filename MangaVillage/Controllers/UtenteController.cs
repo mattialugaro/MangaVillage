@@ -1,22 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Configuration;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Security.Cryptography;
-using System.Security.Cryptography.Xml;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using MangaVillage;
 using MangaVillage.Models;
 
 namespace MangaVillage.Controllers
@@ -264,6 +256,11 @@ namespace MangaVillage.Controllers
 
             try
             {
+                if (UtenteExist(u.Username))
+                {
+                    throw new Exception("Username gia' in uso");                   
+                }
+
                 string hashPassword = HashPassword(u.Password);
                 u.Password = hashPassword;
                 u.Ruolo = u.Ruolo ?? "Utente";
@@ -302,21 +299,42 @@ namespace MangaVillage.Controllers
             return BCrypt.Net.BCrypt.HashPassword(password, salt);
         }
 
-        public ActionResult CambiaPassword()
+        public ActionResult CambiaPasswordConferma()
         {
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult CambiaPassword()
-        //{
-        //    return View();
-        //}
-
-        private bool UtenteExist(int id) // MEtodi controllo Utente DA GUARDARE
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CambiaPasswordConferma(Utente utente)
         {
-            return db.Utente.Any(e => e.ID == id);
+            var utenteTrovato = db.Utente
+                .Where(u => u.Nome == utente.Nome && u.Cognome == utente.Cognome && u.DataNascita == utente.DataNascita && u.Email == utente.Email && u.Username == utente.Username)
+                .FirstOrDefault();
+
+            if(utenteTrovato == null)
+            {
+                TempData["errore"] = "Utente non trovato";
+                return View();
+            }
+            else
+            {
+                if (!utente.Password.Equals(utente.ConfermaPassword))
+                {
+                    TempData["errore"] = "Password non combaciano";
+                    return View();
+                } 
+
+                utenteTrovato.Password = HashPassword(utente.Password);
+                TempData["messaggio"] = "Password cambiata con successo";
+                db.SaveChanges();
+                return RedirectToAction("Login");
+            }  
+        }
+
+        private bool UtenteExist(string username)
+        {
+            return db.Utente.Any(u => u.Username.ToLower() == username.ToLower());
         }
     }
 }

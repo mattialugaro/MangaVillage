@@ -18,6 +18,9 @@ namespace MangaVillage.Controllers
         // GET: Ordine
         public ActionResult Index()
         {
+            string sfondo = "ordini";
+            ViewBag.Sfondo = sfondo;
+
             if (User.IsInRole("Admin"))
             {
                 return View(db.Ordine.ToList());

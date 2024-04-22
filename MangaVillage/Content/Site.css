@@ -12,7 +12,7 @@ textarea {
     max-width: 280px;
 }
 
-/* HOME */
+/* Home */
 #home {
     height: 58vh;
 }
@@ -54,7 +54,7 @@ textarea {
     }
 }*/
 
-
+/* Animazioni card */
 div.card:hover {
     transform: scale(1.2);
     z-index: 9;
@@ -80,7 +80,6 @@ div.postit {
 }
 
 /* Bottoni */
-
 .btn-success, .btn-wg:hover {
     background-color: #7F9B66 !important;
     border-color: #7F9B66 !important;
@@ -102,17 +101,9 @@ div.postit {
     border-color: #e8d902 !important;
 }
 
-.cover {
-    object-fit:cover;
-}
-
+/* Sfondi */
 .archivio {
     background: url('/Content/Sito/archivio.jpg') no-repeat center center fixed;
-    background-size: cover;
-}
-
-.vuoto {
-    background: url('/Content/Sito/carrelloVuoto.jpeg') no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -121,10 +112,15 @@ div .chat {
     background-size: cover;
 }
 
+
+
+.cover {
+    object-fit:cover;
+}
+
 .middle {
     vertical-align: middle;
 }
-
 
 .opacity{
     opacity: 0.9;

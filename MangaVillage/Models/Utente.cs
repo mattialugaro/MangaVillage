@@ -69,5 +69,8 @@ namespace MangaVillage
         [NotMapped]
         public string SelectedAvatar {  get; set; }
 
+        [NotMapped]
+        public string ConfermaPassword { get; set; }
+
     }
 }
