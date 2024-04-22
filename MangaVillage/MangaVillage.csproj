@@ -249,9 +249,10 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Sito\archivio.jpg" />
-    <Content Include="Content\Sito\categoria.jpg" />
+    <Content Include="Content\Sito\carrelloVuoto.jpeg" />
     <Content Include="Content\Sito\chat.jpg" />
     <Content Include="Content\Sito\home.jpg" />
+    <Content Include="Content\Sito\logo.jpeg" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />

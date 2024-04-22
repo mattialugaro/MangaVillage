@@ -15,7 +15,6 @@ namespace MangaVillage.Models
         /*sistemare vista carrello con struttura aggiungiManga*/
 
         /*sistemare avatar selezionato nella edit che possibile scegliere*/
-        /*sistemare manga, categorie e generi*/
         /*sistemare input file con valore default*/
 
         /*controllo di accesso alle viste per utente e admin*/

@@ -23,7 +23,7 @@ textarea {
 }
 
 .mtx {
-    margin-top: 25vh;
+    margin-top: 20vh;
 }
 
 .shadow{
@@ -60,7 +60,6 @@ div.card:hover {
     z-index: 9;
 }
 
-/* Animazione per il contenuto all'interno della carta (facoltativo) */
 div.postit {
     animation: attack 2s;
     transition-duration: 1.5s;
@@ -88,7 +87,7 @@ div.postit {
     color: white;
 }
 
-.btn-wg {               /*NON FUNZIONA*/
+.btn-wg {
     border: 1px solid #7F9B66;
     color: #7F9B66;
 }
@@ -112,8 +111,9 @@ div.postit {
     background-size: cover;
 }
 
-.middle {
-    vertical-align: middle;
+.vuoto {
+    background: url('/Content/Sito/carrelloVuoto.jpeg') no-repeat center center fixed;
+    background-size: cover;
 }
 
 div .chat {
@@ -121,6 +121,15 @@ div .chat {
     background-size: cover;
 }
 
+.middle {
+    vertical-align: middle;
+}
+
+
 .opacity{
     opacity: 0.9;
+}
+
+.ontop {
+    z-index:10;
 }

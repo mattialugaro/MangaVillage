@@ -190,7 +190,6 @@ namespace MangaVillage.Controllers
                         var path = Path.Combine("~/Content/Img", fileName);
                         var absolutePath = Server.MapPath(path);
                         copertina.SaveAs(absolutePath);
-
                         manga.Copertina = fileName;
                     }
                 }
@@ -270,21 +269,19 @@ namespace MangaVillage.Controllers
                     Categoria categoria = db.Categoria.Find(int.Parse(categoriaSelezione));
                     mangaDaAggiornare.Categoria.Add(categoria);
                 }
-
-                // 1. Elimino possibili categorie vecchie                   
+                 
                 foreach (var genereRimuovere in mangaDaAggiornare.Genere.ToList())
                 {
                     mangaDaAggiornare.Genere.Remove(genereRimuovere);
                 }
 
-                // 2. Inserisco nuove categorie scelte
                 foreach (var genereSelezione in manga.GenereTendinaSelezione)
                 {
-                    int genereId = int.Parse(genereSelezione); // Parse the string to an integer
+                    int genereId = int.Parse(genereSelezione);
 
                     Genere genere = db.Genere
-                        .Where(g => g.ID == genereId) // Filter using the parsed integer
-                        .SingleOrDefault(); // Retrieve the single matching entity
+                        .Where(g => g.ID == genereId)
+                        .SingleOrDefault();
 
                     mangaDaAggiornare.Genere.Add(genere);
                 }

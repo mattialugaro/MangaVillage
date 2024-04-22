@@ -11,10 +11,8 @@ namespace MangaVillage.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-
             string sfondo = "home";
             ViewBag.Sfondo = sfondo;
-
             return View();
         }
     }

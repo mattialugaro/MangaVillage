@@ -16,6 +16,7 @@
 <body class="@ViewBag.Sfondo">
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark opacity">
         <div class="container">
+            <img class="d-inline rounded-circle me-3" width="50" height="50" src="~/Content/Sito/logo.jpeg" />
             @Html.ActionLink("Manga Village", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Attiva/Disattiva spostamento" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -26,10 +27,10 @@
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     @if (User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Lista Utenti", "Index", "Utente", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Lista Categorie", "Index", "Categoria", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Lista Generi", "Index", "Genere", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Lista Manga", "Index", "Manga", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Utenti", "Index", "Utente", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Categorie", "Index", "Categoria", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Generi", "Index", "Genere", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Manga", "Index", "Manga", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Archivio", "Archivio", "Manga", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Recensioni", "Index", "Recensione", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Ordini", "Index", "Ordine", new { area = "" }, new { @class = "nav-link" })</li>
@@ -39,8 +40,6 @@
                     else
                     {
                         <li>@Html.ActionLink("Archivio", "Archivio", "Manga", new { area = "" }, new { @class = "nav-link ms-auto" })</li>
-                        <li>@Html.ActionLink("Ordini", "Index", "Ordine", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Carrello", "Index", "Carrello", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                     @if (!User.Identity.IsAuthenticated)
                     {
@@ -48,6 +47,8 @@
                     }
                     else
                     {
+                        <li>@Html.ActionLink("Ordini", "Index", "Ordine", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Carrello", "Index", "Carrello", new { area = "" }, new { @class = "nav-link" })</li>
                         <li class="nav-link dropdown ms-auto">
                             <a class="dropdown-toggle text-decoration-none text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Benvenuto @User.Identity.Name

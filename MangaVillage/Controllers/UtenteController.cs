@@ -264,15 +264,11 @@ namespace MangaVillage.Controllers
 
             try
             {
-                // Hash the password before saving
                 string hashPassword = HashPassword(u.Password);
                 u.Password = hashPassword;
-
-                // Set default role and avatar if not provided
                 u.Ruolo = u.Ruolo ?? "Utente";
                 u.Avatar = u.Avatar ?? "default.jpeg";
 
-                // Add new user using Entity Framework
                 db.Utente.Add(u);
                 db.SaveChanges();
 
@@ -305,6 +301,18 @@ namespace MangaVillage.Controllers
             var salt = BCrypt.Net.BCrypt.GenerateSalt(10);
             return BCrypt.Net.BCrypt.HashPassword(password, salt);
         }
+
+        public ActionResult CambiaPassword()
+        {
+            return View();
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult CambiaPassword()
+        //{
+        //    return View();
+        //}
 
         private bool UtenteExist(int id) // MEtodi controllo Utente DA GUARDARE
         {

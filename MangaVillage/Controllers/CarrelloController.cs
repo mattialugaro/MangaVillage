@@ -16,11 +16,17 @@ namespace MangaVillage.Controllers
             var carrello = Session["carrello"] as Ordine;
             if (carrello == null)
             {
+                string sfondo = "vuoto";
+                ViewBag.Sfondo = sfondo;
+
                 TempData["messaggio"] = "Il carrello è vuoto.";
                 return View(new Ordine());
             }
             else
             {
+                //string sfondo = "carrello";
+                //ViewBag.Sfondo = sfondo;
+
                 carrello.TotaleCarrello = 0;
                 foreach (var articolo in carrello.DettaglioOrdine)
                 {
