@@ -378,8 +378,6 @@
     <Content Include="Views\Carrello\Index.cshtml" />
     <Content Include="Views\Foto\Create.cshtml" />
     <Content Include="Views\Foto\Delete.cshtml" />
-    <Content Include="Views\Foto\Details.cshtml" />
-    <Content Include="Views\Foto\Edit.cshtml" />
     <Content Include="Views\Foto\Index.cshtml" />
     <Content Include="Views\Utente\CambiaPasswordConferma.cshtml" />
   </ItemGroup>

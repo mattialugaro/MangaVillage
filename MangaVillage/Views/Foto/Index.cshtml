@@ -4,12 +4,12 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="d-flex justify-content-between align-items-center my-5 w-75 mx-auto fst-italic">
+    <h2 class="mb-0">Foto</h2>
+    <a href="@Url.Action("Create")" class="btn btn-success">Aggiungi</a>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table w-50 mx-auto">
+<table class="table w-75 mx-auto table-striped text-center middle">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nome)
@@ -29,9 +29,7 @@
             @Html.DisplayFor(modelItem => item.Manga.Titolo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Elimina", "Delete", new { id=item.ID }, new { @class = "btn btn-danger fst-italic" })
         </td>
     </tr>
 }
