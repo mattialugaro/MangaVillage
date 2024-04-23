@@ -5,7 +5,7 @@
 }
 @Html.Partial("_Notification")
 
-<div class="my-4">
+<div class="my-5 fst-italic">
     <h2>Elimina Categoria</h2>
     <h3>Sei sicuro di volere eliminare questa categoria?</h3>
 </div>
@@ -25,9 +25,9 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Elimina" class="btn btn-danger me-2" />
-            <a class="btn btn-wg" href="@Url.Action("Index")">Lista Categorie</a>
+        <div class="form-actions no-color mt-5">
+            <input type="submit" value="Elimina" class="btn btn-danger me-2 fst-italic" />
+            <a class="btn btn-wg fst-italic" href="@Url.Action("Index")">Lista Categorie</a>
         </div>
     }
 </div>

@@ -5,49 +5,62 @@
 }
 @Html.Partial("_Notification")
 
-<h2 class="my-4">Ordini</h2>
+@if (Model.Any())
+{
+    <div class="text-center my-5">
+        <h2 class="fst-italic d-inline bg-light bg-opacity-75 text-dark">Ordini</h2>
+    </div>
 
-<table class="table table-striped text-center middle">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Utente.Username)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IndirizzoConsegna)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataOrdine)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Note)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pagato)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+    <table class="table table-light table-striped text-center middle">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Utente.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IndirizzoConsegna)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataOrdine)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Note)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pagato)
-            </td>
-            <td>
-                @Html.ActionLink("Dettagli", "Details", new { id = item.ID }, new { @class = "btn btn-success" })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Utente.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndirizzoConsegna)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataOrdine)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pagato)
+            </th>
+            <th></th>
         </tr>
-    }
-</table>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Utente.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IndirizzoConsegna)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataOrdine)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pagato)
+                </td>
+                <td>
+                    @Html.ActionLink("Dettagli", "Details", new { id = item.ID }, new { @class = "btn btn-success fst-italic" })
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="row d-flex justify-content-around align-items-center">
+        <div class="col-12 text-center mtx">
+            <p class="fs-1 fw-bold fst-italic bg-light bg-opacity-50 d-inline text-dark mt-5">Nessun ordine effettuato.</p>
+        </div>
+    </div>
+}

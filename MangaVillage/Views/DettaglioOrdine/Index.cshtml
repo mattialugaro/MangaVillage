@@ -5,12 +5,12 @@
 }
 @Html.Partial("_Notification")
 
-<h2 class="my-4">Dettaglio Ordini</h2>
+<h2 class="my-5 fst-italic text-center">Dettaglio Ordini</h2>
 
-<table class="table table-striped text-center middle">
+<table class="table table-striped text-center middle w-75 mx-auto">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Ordine.ID)
+            Numero Ordine
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Ordine.Utente.Username)
@@ -24,7 +24,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Quantita)
         </th>
-        <th></th>
     </tr>
 
     @foreach (var item in Model)
@@ -45,12 +44,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Quantita)
             </td>
-            @*<td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>*@
         </tr>
     }
-
 </table>

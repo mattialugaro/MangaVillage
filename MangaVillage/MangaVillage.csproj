@@ -219,7 +219,7 @@
     <Content Include="Content\Avatar\conan.jpeg" />
     <Content Include="Content\Avatar\default.jpeg" />
     <Content Include="Content\Avatar\demonslayer.jpg" />
-    <Content Include="Content\Avatar\goku.jpg" />
+    <Content Include="Content\Avatar\dragonball.jpg" />
     <Content Include="Content\Avatar\holly.jpg" />
     <Content Include="Content\Avatar\jjk.jpg" />
     <Content Include="Content\Avatar\luffy.jpg" />
@@ -291,6 +291,8 @@
     <Content Include="Content\Sito\home.jpg" />
     <Content Include="Content\Sito\logo.jpeg" />
     <Content Include="Content\Sito\ordini.jpeg" />
+    <Content Include="Content\Sito\ordini2.jpeg" />
+    <Content Include="Content\Sito\pergamena.jpg" />
     <Content Include="Content\Sito\vuoto.jpeg" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
@@ -367,9 +369,7 @@
     <Content Include="Views\Manga\Index.cshtml" />
     <Content Include="Views\Manga\Archivio.cshtml" />
     <Content Include="Views\Manga\Ricerca.cshtml" />
-    <Content Include="Views\Recensione\Create.cshtml" />
     <Content Include="Views\Recensione\Delete.cshtml" />
-    <Content Include="Views\Recensione\Edit.cshtml" />
     <Content Include="Views\Recensione\Index.cshtml" />
     <Content Include="Views\Shared\_Notification.cshtml" />
     <Content Include="Views\DettaglioOrdine\Index.cshtml" />
@@ -385,7 +385,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Quiz\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\bootstrap.min.js.map" />

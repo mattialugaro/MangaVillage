@@ -30,30 +30,6 @@ textarea {
     text-shadow: 0px 0px 15px black;
 }
 
-/*.hover-effect:hover {
-    transform: scale(2);*/ /* Increase the size by 5% on hover */
-    /*transition: transform 0.2s ease-in-out;  Add a smooth transition effect 
-}*/
-
-/*.animated-box {
-    animation-name: my-animation;
-    animation-duration: 2s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-}
-
-@keyframes my-animation {
-    from {
-        transform: scale(0.5);
-        opacity: 0;
-    }
-
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}*/
-
 /* Animazioni card */
 div.card:hover {
     transform: scale(1.2);
@@ -69,7 +45,6 @@ div.postit {
     0% {
         opacity: 0;
         transform: scale(10);
-        /*transform: rotate(360deg);*/
     }
 
     100% {
@@ -86,9 +61,14 @@ div.postit {
     color: white;
 }
 
+    .btn-success:hover {
+        background-color: #a9d186 !important;
+        border-color: #a9d186 !important;
+        color: white;
+    }
+
 .btn-wg {
     border: 1px solid #7F9B66;
-    color: #7F9B66;
 }
 
 .btn-danger {
@@ -96,10 +76,20 @@ div.postit {
     border-color: #c70202 !important;
 }
 
+    .btn-danger:hover {
+        background-color: #eb5252 !important;
+        border-color: #eb5252 !important;
+    }
+
 .btn-warning {
     background-color: #e8d902 !important;
     border-color: #e8d902 !important;
 }
+
+    .btn-warning:hover {
+        background-color: #f7ee6d !important;
+        border-color: #f7ee6d !important;
+    }
 
 /* Sfondi */
 .archivio {
@@ -112,8 +102,18 @@ div .chat {
     background-size: cover;
 }
 
+.carrello {
+    background: url('/Content/Sito/vuoto.jpeg') no-repeat center center;
+    background-size: cover;
+    height:100vh;
+}
 
+.ordini {
+    background: url('/Content/Sito/ordini2.jpeg') no-repeat center center;
+    background-size: cover;
+}
 
+/* Altro */
 .cover {
     object-fit:cover;
 }

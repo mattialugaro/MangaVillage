@@ -6,10 +6,10 @@
 }
 @Html.Partial("_Notification")
 
-<div class="d-flex justify-content-between align-items-center mt-4">
+<div class="d-flex justify-content-between align-items-center mt-5 fst-italic">
     <h2>Dettagli</h2>
     <div>
-        <a href="@Url.Action("Archivio")" class="btn btn-wg">
+        <a href="@Url.Action("Archivio")" class="btn btn-wg me-2">
             Archivio <i class="bi bi-book fs-5"></i>
         </a>
         <a href="@Url.Action("Ricerca", "Manga")" class="btn btn-success">
@@ -21,11 +21,11 @@
 @if (User.IsInRole("Admin"))
 {
     <div class="text-end mt-2">
-        @Html.ActionLink("Modifica", "Edit", new { id = Model.ID }, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Modifica", "Edit", new { id = Model.ID }, new { @class = "btn btn-warning fst-italic" })
     </div>
 }
 
-<div class="container">
+<div class="container mt-4">
     <dl class="dl-horizontal">
         <div class="row">
             <div class="col-4">
@@ -34,7 +34,7 @@
                 </dt>
 
                 <dd>
-                    <img src="@Url.Content("~/Content/Img/" + Model.Copertina)" class="border rounded-1" alt="model.Titolo" width="380" height="540" />
+                    <img src="@Url.Content("~/Content/Img/" + Model.Copertina)" class="border rounded-1" alt="model.Titolo" width="380" height="550" />
                 </dd>
             </div>
             <div class="col-4">
@@ -112,7 +112,7 @@
             <div class="col-4 text-center my-auto">
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <h4>Aggiungi al carrello:</h4>
+                    <h4 class="fst-italic">Aggiungi al carrello:</h4>
                     using (Html.BeginForm("AggiungiArticolo", "Manga", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
@@ -125,12 +125,12 @@
                             <label class="fw-bold" for="quantita">Quantità:</label>
                             <input class="form-control mx-auto" type="number" min="1" id="quantita" name="quantita" value="1" />
                         </div>
-                        <input class="btn btn-success" type="submit" value="Aggiungi al Carrello" />
+                        <input class="btn btn-success fst-italic" type="submit" value="Aggiungi al Carrello" />
                     }
                 }
                 else
                 {
-                    <p class="fs-4">
+                    <p class="fs-3 fst-italic">
                         <a class="text-decoration-none fw-semibold" href="~/Utente/Login">Accedi</a> per acquistare manga
                     </p>
                 }
@@ -151,7 +151,7 @@
 
 @if (!User.Identity.IsAuthenticated)
 {
-    <p class="text-center display-6 mt-5">
+    <p class="text-center fs-3 mt-5 fst-italic">
         <a class="text-decoration-none fw-semibold" href="~/Utente/Login">Accedi</a> per lasciare una recensione
     </p>
 }
@@ -160,7 +160,7 @@ else
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
-                <h4>Aggiungi Recensione:</h4>
+                <h4 class="fst-italic">Aggiungi Recensione:</h4>
                 @using (Html.BeginForm("AggiungiRecensione", "Manga", FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
@@ -175,7 +175,7 @@ else
                         <input class="form-control mx-auto" type="text" id="descrizione" name="descrizione" />
                     </div>
                     <div class="mb-3">
-                        <input class="btn btn-success" type="submit" value="Aggiungi" />
+                        <input class="btn btn-success fst-italic" type="submit" value="Aggiungi" />
                     </div>
                 }
             </div>
@@ -201,7 +201,7 @@ else
                 else
                 {
                     <div class="text-center bg-light my-4 rounded-3 w-50 mx-auto">
-                        <p class="my-1">Nessuna recensione disponibile per questo manga.</p>
+                        <p class="my-1 fst-italic">Nessuna recensione disponibile per questo manga.</p>
                     </div>
                 }
             </div>

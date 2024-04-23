@@ -11,6 +11,7 @@ namespace MangaVillage.Views.Helpers
 {
     public static class HtmlHelpers
     {
+        // Helpers per la selezione multipla delle categorie e generi nella creazione e modifica di manga
         public static MvcHtmlString MultiSelectList(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, object selectedValues = null, string multipleText = "Seleziona...")
         {
             var listBox = new TagBuilder("select");
@@ -54,12 +55,13 @@ namespace MangaVillage.Views.Helpers
             return MvcHtmlString.Create(listBox.ToString());
         }
 
+        // Helpers per la visualizzazione degli avatar nella vista di modifica profilo 
         public static MvcHtmlString MostraImmagini(this HtmlHelper helper, List<string> nomiImmagini, string selectedImage = null)
         {
             var html = new StringBuilder();
-            int i = 0; // Counter for unique radio button IDs
+            int i = 0;
 
-            html.Append("<div class=\"row\">"); // Start of a row
+            html.Append("<div class=\"row\">");
             selectedImage = selectedImage ?? nomiImmagini.FirstOrDefault();
 
             foreach (var nomeImmagine in nomiImmagini)
@@ -77,7 +79,7 @@ namespace MangaVillage.Views.Helpers
             </div>");
             }
 
-            html.Append("</div>"); // End of the row
+            html.Append("</div>");
 
             return MvcHtmlString.Create(html.ToString());
         }

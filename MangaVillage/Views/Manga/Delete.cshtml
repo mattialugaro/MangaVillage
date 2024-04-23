@@ -5,7 +5,7 @@
 }
 @Html.Partial("_Notification")
 
-<div class="my-4">
+<div class="my-5 fst-italic">
     <h2>Elimina Manga</h2>
     <h3>Sei sicuro di voler eliminare questo manga?</h3>
 </div>
@@ -95,7 +95,6 @@
                 </dd>
             </div>
 
-
             <div class="col-12">
                 <dt>
                     @Html.DisplayNameFor(model => model.Trama)
@@ -110,9 +109,9 @@
             {
                 @Html.AntiForgeryToken()
 
-                <div class="form-actions no-color text-end">
-                    <input type="submit" value="Elimina" class="btn btn-danger me-2" />
-                    <a class="btn btn-wg" href="@Url.Action("Index")">Lista Manga</a>
+                <div class="form-actions no-color mt-3">
+                    <input type="submit" value="Elimina" class="btn btn-danger me-2 fst-italic" />
+                    <a class="btn btn-wg fst-italic" href="@Url.Action("Index")">Lista Manga</a>
                 </div>
             }
 

@@ -89,6 +89,7 @@ namespace MangaVillage.Controllers
             return result;
         }
 
+        [Authorize]
         // GET: Utente/Edit/5
         public ActionResult Edit(int? id)   // cambio ruolo se necessario
         {
@@ -120,6 +121,7 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "ID,Nome,Cognome,DataNascita,Email,Username,Password,Ruolo,Avatar")] string SelectedAvatar, Utente utente)
         {
             if (ModelState.IsValid)
@@ -151,6 +153,7 @@ namespace MangaVillage.Controllers
         }
 
         // GET: Utente/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -170,6 +173,7 @@ namespace MangaVillage.Controllers
         // POST: Utente/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Utente utente = db.Utente.Find(id);
@@ -198,6 +202,7 @@ namespace MangaVillage.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [AllowAnonymous]
         public ActionResult Login(Utente u)
         {
@@ -248,6 +253,7 @@ namespace MangaVillage.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [AllowAnonymous]
         public ActionResult Registrazione(Utente u)
         {
@@ -280,11 +286,12 @@ namespace MangaVillage.Controllers
             return View();
         }
 
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
             TempData["messaggio"] = "Logout effettuato con successo";
+            Session["carrello"] = new Ordine();
             return RedirectToAction("Index", "Home");
         }
 
@@ -299,6 +306,12 @@ namespace MangaVillage.Controllers
             return BCrypt.Net.BCrypt.HashPassword(password, salt);
         }
 
+        private bool UtenteExist(string username)
+        {
+            return db.Utente.Any(u => u.Username.ToLower() == username.ToLower());
+        }
+
+        [AllowAnonymous]
         public ActionResult CambiaPasswordConferma()
         {
             return View();
@@ -306,6 +319,7 @@ namespace MangaVillage.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult CambiaPasswordConferma(Utente utente)
         {
             var utenteTrovato = db.Utente
@@ -330,11 +344,6 @@ namespace MangaVillage.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Login");
             }  
-        }
-
-        private bool UtenteExist(string username)
-        {
-            return db.Utente.Any(u => u.Username.ToLower() == username.ToLower());
         }
     }
 }

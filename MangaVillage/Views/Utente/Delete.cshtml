@@ -5,7 +5,7 @@
 }
 @Html.Partial("_Notification")
 
-<div class="my-4">
+<div class="my-5 fst-italic">
     <h2>Elimina Utente</h2>
     <h3>Sei sicuro di volere eliminare questo utente?</h3>
 </div>
@@ -52,14 +52,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-
-        <dd class="mb-3">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Ruolo)
         </dt>
 
@@ -80,8 +72,6 @@
             {
                 <img src="@Url.Content("~/Content/Avatar/" + Model.Avatar)" class="border rounded-circle" alt="Avatar utente" width="100px" height="100px" style="object-fit: cover" />
             }
-
-            @*<img src="@Url.Content("~/Content/Avatar/" + Model.Avatar)" class="border rounded-circle" alt="Avatar utente" width="100px" height="100px" style="object-fit: cover" />*@
         </dd>
 
     </dl>
@@ -91,8 +81,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Elimina" class="btn btn-danger me-2" />
-            <a class="btn btn-wg" href="@Url.Action("Index")">Lista Utenti</a>
+            <input type="submit" value="Elimina" class="btn btn-danger me-2 fst-italic" />
+            <a class="btn btn-wg fst-italic" href="@Url.Action("Index")">Lista Utenti</a>
         </div>
     }
 </div>

@@ -5,13 +5,8 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using MangaVillage;
-using Newtonsoft.Json;
 using MangaVillage.Models;
-using System.Data.SqlClient;
-using System.Configuration;
 
 namespace MangaVillage.Controllers
 {
@@ -56,6 +51,7 @@ namespace MangaVillage.Controllers
         }
 
         // GET: Manga
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var mangaList = db.Manga.ToList();
@@ -69,6 +65,7 @@ namespace MangaVillage.Controllers
             return View(mangaList);
         }
 
+        [AllowAnonymous]
         // GET: Manga/Details/5
         public ActionResult Details(int? id)
         {
@@ -88,6 +85,7 @@ namespace MangaVillage.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult AggiungiRecensione([Bind(Include = "Voto,Descrizione,IDMangaFk,IDUtenteFk")] Recensione recensione)
         {
             if (ModelState.IsValid)
@@ -107,6 +105,7 @@ namespace MangaVillage.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult AggiungiArticolo([Bind(Include = "IDMangaFk,NumeroVolume,Quantita")] DettaglioOrdine dettaglioOrdine)
         {
             var carrello = Session["carrello"] as Ordine;
@@ -149,20 +148,6 @@ namespace MangaVillage.Controllers
             return RedirectToAction("Details/" + dettaglioOrdine.IDMangaFk, "Manga");
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult NuovoVolume(int id)
-        //{
-        //    Manga manga = db.Manga.Find(id);
-        //    manga.UltimoVolume += 1;
-        //    db.Entry(manga).State = EntityState.Modified;
-        //    TempData["messaggio"] = "Ultimo Volume aggiornato con successo";
-        //    db.SaveChanges();
-
-        //    return View("Index");
-        //}
-
-
         // GET: Manga/Create
         public ActionResult Create()
         {
@@ -177,6 +162,7 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Copertina,Trama,UltimoVolume,Prezzo,CategoriaTendinaSelezione,GenereTendinaSelezione")] Manga manga)
         {
             if (ModelState.IsValid)
@@ -225,6 +211,7 @@ namespace MangaVillage.Controllers
         }
 
         // GET: Manga/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -247,6 +234,7 @@ namespace MangaVillage.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "ID,Titolo,Autore,AnnoUscita,Nazionalita,StatoPubblicazione,Copertina,Trama,UltimoVolume,Prezzo,CategoriaTendinaSelezione,GenereTendinaSelezione")] Manga manga)
         {
             if (ModelState.IsValid)
@@ -312,12 +300,6 @@ namespace MangaVillage.Controllers
 
                     }
                 }
-                //else                              DA CONTROLLARE 
-                //{
-                //    var mangaSalvato = db.Manga.Where(a => a.ID == manga.ID).First();
-                //    var copertinaEsistente = mangaSalvato.Copertina;
-                //    manga.Copertina = copertinaEsistente;
-                //}
 
                 mangaDaAggiornare.Titolo = manga.Titolo;
                 mangaDaAggiornare.Autore = manga.Autore;
@@ -338,6 +320,7 @@ namespace MangaVillage.Controllers
         }
 
         // GET: Manga/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -356,6 +339,7 @@ namespace MangaVillage.Controllers
         // POST: Manga/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Manga manga = db.Manga.Find(id);
@@ -375,6 +359,7 @@ namespace MangaVillage.Controllers
             base.Dispose(disposing);
         }
 
+        [AllowAnonymous]
         public ActionResult Archivio(string sortOrder)
         {
             string sfondo = "archivio";
@@ -412,6 +397,8 @@ namespace MangaVillage.Controllers
             return View(manga);
         }
 
+        [AllowAnonymous]
+        
         public ActionResult Ricerca()
         {
             string sfondo = "archivio";
@@ -421,6 +408,7 @@ namespace MangaVillage.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Ricerca(string titolo, string autore, string annoUscita, string nazionalita, string statoPubblicazione, string categoria, string genere)
         {
             string sfondo = "archivio";
@@ -453,20 +441,9 @@ namespace MangaVillage.Controllers
                 query = query.Where(m => m.StatoPubblicazione == statoPubblicazione);
             }
 
-            //if (!string.IsNullOrEmpty(categoria))
-            //{
-            //    query = query.Where(m => m.CategoriaString.Contains(categoria));
-            //}
-
-            //if (!string.IsNullOrEmpty(genere))
-            //{
-            //    query = query.Where(m => m.GenereString == genere);
-            //}
-
             var results = query.ToList();
 
             return View(results);
         }
-
     }
 }

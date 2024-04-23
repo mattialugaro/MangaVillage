@@ -45,8 +45,9 @@
                     }
                     else
                     {
-                        <li>@Html.ActionLink("Carrello", "Index", "Carrello", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Archivio", "Archivio", "Manga", new { area = "" }, new { @class = "nav-link ms-auto" })</li>
+                        <li>@Html.ActionLink("Ordini", "Index", "Ordine", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Carrello", "Index", "Carrello", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                     @if (!User.Identity.IsAuthenticated)
                     {
@@ -54,7 +55,6 @@
                     }
                     else
                     {
-                        <li>@Html.ActionLink("Ordini", "Index", "Ordine", new { area = "" }, new { @class = "nav-link" })</li>
                         <li class="nav-link dropdown ms-auto">
                             <a class="dropdown-toggle text-decoration-none text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Benvenuto @User.Identity.Name
@@ -80,7 +80,7 @@
     </nav>
     <div class="container body-content">
         @RenderBody()
-        <footer class="text-black mt-3">
+        <footer class="text-white mt-3">
             <p>&copy; @DateTime.Now.Year - Manga Village ASP.NET</p>
         </footer>
     </div>

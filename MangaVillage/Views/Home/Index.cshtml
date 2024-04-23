@@ -5,12 +5,12 @@
     <h1 class="text-center text-white display-1 fw-bold bg-transparent shadow fst-italic">MangaVillage</h1>
     <p id="frase" class="text-center text-white display-6 bg-transparent fw-bold fst-italic"></p>
     <div class="text-center mt-3">
-        <a href="@Url.Action("Archivio", "Manga")" class="btn btn-success text-light fs-5 fw-bold ">
+        <a href="@Url.Action("Archivio", "Manga")" class="btn btn-success text-light fs-5 fw-bold me-4 fst-italic">
             Archivio
         </a>
         @if (!User.Identity.IsAuthenticated)
         {
-            <a href="@Url.Action("Login", "Utente")" class="btn btn-success text-light fs-5 fw-bold ">
+            <a href="@Url.Action("Login", "Utente")" class="btn btn-success text-light fs-5 fw-bold fst-italic">
                 Accedi
             </a>
         }

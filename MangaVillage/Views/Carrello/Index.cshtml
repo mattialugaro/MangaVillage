@@ -9,7 +9,7 @@
 {
     <div class="d-flex justify-content-between align-items-center my-5">
         <h2 class="fst-italic">Carrello</h2>
-        <a class="btn btn-danger text-decoration-none text-white" href="@Url.Action("SvuotaCarrello")">
+        <a class="btn btn-danger text-decoration-none text-white fst-italic" href="@Url.Action("SvuotaCarrello")">
             Svuota il Carrello
         </a>
     </div>
@@ -19,7 +19,7 @@
             @foreach (var articolo in Model.DettaglioOrdine)
             {
                 <div class="col-3">
-                    <div class="card mb-5">
+                    <div class="card postit mb-5">
                         <img src="~/Content/img/@articolo.Manga.Copertina" class="card-img-top" height="400" alt="@articolo.Manga.Titolo">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-2">
@@ -31,7 +31,7 @@
                                 <p class="card-text">@articolo.Manga.Prezzo €</p>
                             </div>
                             <div class="text-center">
-                                <a class="btn btn-danger text-decoration-none text-white" href="@Url.Action("Delete", "Carrello", new { idManga = articolo.IDMangaFk, numeroVolume = articolo.NumeroVolume })">
+                                <a class="btn btn-danger text-decoration-none text-white fst-italic" href="@Url.Action("Delete", "Carrello", new { idManga = articolo.IDMangaFk, numeroVolume = articolo.NumeroVolume })">
                                     Rimuovi dal Carrello
                                 </a>
                             </div>
@@ -43,7 +43,7 @@
                 @using (Html.BeginForm("Confirm", "Carrello", FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
-                    <h4>Invia Ordine</h4>
+                    <h4 class="fst-italic mb-3">Invia Ordine</h4>
                     <div class="my-2 d-flex flex-column">
                         <div class="mb-3">
                             <strong>Indirizzo di Consegna:</strong>
@@ -58,7 +58,7 @@
                         <p><strong>Totale Ordine: </strong>@Model.TotaleCarrello €</p>
                     </div>
                     <div>
-                        <button class="btn btn-success" type="submit">Invia Ordine</button>
+                        <button class="btn btn-success fst-italic" type="submit">Invia Ordine</button>
                     </div>
                 }
             </div>
@@ -69,8 +69,7 @@ else
 {
     <body style="background: url(/Content/Sito/vuoto.jpeg) no-repeat center center; background-size: cover; height:100vh">
         <div class="text-center mt-5">
-            <h2 class="fst-italic my-5">Carrello</h2>
-            <p class="mb-5 w-100 display-5">Il carrello è vuoto.</p>
+            <p class="w-100 display-5 fst-italic">Il carrello è vuoto.</p>
         </div>
     </body>
 } 

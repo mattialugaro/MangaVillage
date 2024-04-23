@@ -5,15 +5,15 @@
 }
 @Html.Partial("_Notification")
 
-<h2 class="my-4">Aggiungi Genere</h2>
+<h2 class="my-5 fst-italic">Aggiungi Genere</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group mb-3">
-            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group mb-5">
+            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2 fw-bold mb-1" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
@@ -22,8 +22,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Aggiungi" class="btn btn-success" />
-                <a class="btn btn-wg" href="@Url.Action("Index")">Lista Generi</a>
+                <input type="submit" value="Aggiungi" class="btn btn-success fst-italic" />
+                <a class="btn btn-wg fst-italic" href="@Url.Action("Index")">Lista Generi</a>
             </div>
         </div>
     </div>

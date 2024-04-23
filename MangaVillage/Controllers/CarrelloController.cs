@@ -1,8 +1,5 @@
 ﻿using MangaVillage.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MangaVillage.Controllers
@@ -44,7 +41,7 @@ namespace MangaVillage.Controllers
                         if(articolo.Quantita > 1)
                         {
                             articolo.Quantita--;
-                            TempData["messaggio"] = "Rimosso un manga dal carrello.";
+                            TempData["messaggio"] = "Rimosso un manga dal carrello con successo";
                         }
                         else
                         {
@@ -55,7 +52,7 @@ namespace MangaVillage.Controllers
                 if (dettaglioOrdine != null)
                 {
                     carrello.DettaglioOrdine.Remove(dettaglioOrdine);
-                    TempData["messaggio"] = "Rimosso il manga dal carrello.";
+                    TempData["messaggio"] = "Rimosso il manga dal carrello con successo";
                 }
             }
 
@@ -63,6 +60,8 @@ namespace MangaVillage.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Confirm(Ordine confermaCarrello)
         {
             var carrello = Session["carrello"] as Ordine;

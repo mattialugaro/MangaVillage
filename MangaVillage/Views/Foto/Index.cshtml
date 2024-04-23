@@ -9,13 +9,13 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table w-50 mx-auto">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Manga.Titolo)
+            @Html.DisplayNameFor(model => model.Nome)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Nome)
+            @Html.DisplayNameFor(model => model.Manga.Titolo)
         </th>
         <th></th>
     </tr>
@@ -23,10 +23,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Manga.Titolo)
+            <img src="@Url.Content("~/Content/Foto/" + item.Nome)" class="border" alt="@item.Manga.Titolo" width="200" height="300" />
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Nome)
+            @Html.DisplayFor(modelItem => item.Manga.Titolo)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

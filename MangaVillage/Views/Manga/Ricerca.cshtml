@@ -1,70 +1,40 @@
 ﻿@model IEnumerable<MangaVillage.Manga>
 @Html.Partial("_Notification")
 
-<h2 class="text-center my-5 text-white shadow">Ricerca Manga</h2>
+<h2 class="text-center my-5 text-white shadow fst-italic">Ricerca Avanzata</h2>
 
 <div class="container">
     <div class="row">
         <div class="col-3 text-white shadow">
             <form action="@Url.Action("Ricerca")" method="post">
                 <div class="mb-2">
-                    <label class="d-block fw-bold" for="titolo">Titolo:</label>
+                    <label class="d-block fw-bold mb-2" for="titolo">Titolo:</label>
                     <input class="form-control" type="text" id="titolo" name="titolo" placeholder="Inserisci un titolo" />
                 </div>
                 <div class="mb-2">
-                    <label class="d-block fw-bold" for="autore">Autore:</label>
+                    <label class="d-block fw-bold mb-2" for="autore">Autore:</label>
                     <input class="form-control" type="text" id="autore" name="autore" placeholder="Inserisci un autore" />
                 </div>
                 <div class="mb-2">
-                    <label class="d-block fw-bold" for="annoUscita">Anno di uscita:</label>
+                    <label class="d-block fw-bold mb-2" for="annoUscita">Anno di uscita:</label>
                     <input class="form-control" min="1970" max="2024" type="number" id="annoUscita" name="annoUscita" placeholder="Inserisci l'anno di uscita" />
                 </div>
                 <div class="mb-2">
-                    <label class="d-block fw-bold" for="nazionalita">Nazionalità:</label>
+                    <label class="d-block fw-bold mb-2" for="nazionalita">Nazionalità:</label>
                     <input class="form-control" type="text" id="nazionalita" name="nazionalita" placeholder="Inserisci una nazionalità" />
                 </div>
 
-                @*<div class="mb-2">
-                        <label class="d-block fw-bold" for="categoria">Categoria:</label>
-                        <input class="form-control" type="text" id="categoria" name="categoria" placeholder="Inserisci una categoria" />
-                    </div>
-                    <div class="mb-2">
-                        <label class="d-block fw-bold" for="genere">Genere:</label>
-                        <input class="form-control" type="text" id="genere" name="genere" placeholder="Inserisci una genere" />
-                    </div>*@
-
-                @*<div class="mb-3">
-                        <label class="d-block fw-bold" for="categoria">Categoria:</label>
-                        <select class="form-control" id="categoria" name="categoria">
-                            <option value="">Scegli un'opzione</option>
-                            @foreach(var manga in Model)
-                            {
-                                <option value="@manga.CategoriaString">@manga.CategoriaTendina</option>
-                            }
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="d-block fw-bold" for="genere">Genere:</label>
-                        <select class="form-control" id="genere" name="genere">
-                            <option value="">Scegli un'opzione</option>
-                            @foreach(var manga in Model)
-                            {
-                                <option value="@manga.GenereTendina">@manga.GenereTendina</option>
-                            }
-                        </select>
-                    </div>*@
-
                 <div class="mb-3">
-                    <label class="d-block fw-bold" for="statoPubblicazione">Stato di pubblicazione:</label>
+                    <label class="d-block fw-bold mb-2" for="statoPubblicazione">Stato di pubblicazione:</label>
                     <select class="form-control" id="statoPubblicazione" name="statoPubblicazione">
                         <option value="">Scegli un'opzione</option>
                         <option value="InCorso">In Corso</option>
                         <option value="Completato">Completato</option>
                     </select>
                 </div>
+
                 <div class="d-flex justify-content-between">
-                    <a class="btn btn-success" href="@Url.Action("Archivio")">Archivio</a>
+                    <a class="btn btn-success" href="@Url.Action("Archivio")">Archivio <i class="bi bi-book ms-1 fs-5"></i></a>
                     <input type="submit" class="btn btn-success" value="Cerca" />
                 </div>
             </form>
