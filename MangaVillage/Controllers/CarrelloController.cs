@@ -1,5 +1,8 @@
 ﻿using MangaVillage.Models;
 using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Web.Mvc;
 
 namespace MangaVillage.Controllers
@@ -78,10 +81,13 @@ namespace MangaVillage.Controllers
                     articolo.Manga = null;
                 }
 
-                db.Ordine.Add(carrello);
+                ICollection<DettaglioOrdine> dettaglioOrdine = carrello.DettaglioOrdine;
+
+                carrello.DettaglioOrdine = null;
+                carrello = db.Ordine.Add(carrello);
                 TempData["messaggio"] = "Ordine creato con successo";
                 db.SaveChanges();
-
+                this.saveDettaglioOrdine(dettaglioOrdine, carrello.ID);
                 Session["carrello"] = new Ordine();
             }
             else
@@ -103,6 +109,39 @@ namespace MangaVillage.Controllers
                 TempData["messaggio"] = "Carrello svuotato con successo";
             }
             return RedirectToAction("Index");
+        }
+
+        public void saveDettaglioOrdine(ICollection<DettaglioOrdine> dettaglioOrdine, int id)
+        {
+
+            string connectionstring = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString.ToString();
+            SqlConnection conn = new SqlConnection(connectionstring);
+
+            try
+            {
+                conn.Open();
+                foreach (var articolo in dettaglioOrdine)
+                {
+                    string query = "INSERT INTO DettaglioOrdine(IDOrdineFk, IDMangaFk, NumeroVolume, Quantita) VALUES(@IDOrdineFk, @IDMangaFk, @NumeroVolume, @Quantita)";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+
+                    cmd.Parameters.AddWithValue("@IDOrdineFk", id);
+                    cmd.Parameters.AddWithValue("@IDMangaFk", articolo.IDMangaFk);
+                    cmd.Parameters.AddWithValue("@NumeroVolume", articolo.NumeroVolume);
+                    cmd.Parameters.AddWithValue("@Quantita", articolo.Quantita);
+                    cmd.ExecuteNonQuery();
+                }
+            
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
     }
 }

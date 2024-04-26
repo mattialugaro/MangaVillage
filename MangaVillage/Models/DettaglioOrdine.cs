@@ -20,6 +20,8 @@
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IDMangaFk { get; set; }
 
+        [Key]
+        [Column(Order = 2)]
         [Display(Name = "Volume")]
         public int NumeroVolume { get; set; }
 
@@ -32,7 +34,7 @@
 
         public bool Equals(DettaglioOrdine dettaglioOrdine)
         {
-            return dettaglioOrdine.IDMangaFk == this.IDMangaFk && dettaglioOrdine.NumeroVolume == this.NumeroVolume;
+            return dettaglioOrdine.IDOrdineFk == this.IDOrdineFk && dettaglioOrdine.IDMangaFk == this.IDMangaFk && dettaglioOrdine.NumeroVolume == this.NumeroVolume;
         }
         
     }

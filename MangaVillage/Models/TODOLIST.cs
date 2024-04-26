@@ -9,18 +9,7 @@ namespace MangaVillage.Models
 {
     public class TODOLIST
     {
-        /*chiedere conferma prima di svuotare carrello e pagare carrello*/
-
-
         /*sistemare input file con valore default*/
-
-
-        /*controllo di accesso alle viste per utente e admin*/
-        /*aggiungere controlli ruolo e antiForgeryToken*/
-        /*sistemazione css di tutto il sito e qualche animazione*/
-        /*pulizia del codice, aggiuta di commenti, controllo approfondito*/
-        /*aumentare dati manga nel DB*/
-
 
         /*implementare carosello per le copertine dei volumi di un manga*/
         /* <div id = "carouselExample" class="carousel slide">
@@ -46,7 +35,7 @@ namespace MangaVillage.Models
                     </div> 
         */
 
-        /*aggiungere quiz per domande anime/manga ("FACOLATTIVO"(forse))*/
+        /*aggiungere quiz per domande anime/manga (features da aggiungere)*/
 
     }
 }

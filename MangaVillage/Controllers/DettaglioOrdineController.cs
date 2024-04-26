@@ -14,7 +14,7 @@ namespace MangaVillage.Controllers
         // GET: DettaglioOrdine
         public ActionResult Index()
         {
-            var dettaglioOrdine = db.DettaglioOrdine.Include(d => d.Manga).Include(d => d.Ordine);
+            var dettaglioOrdine = db.DettaglioOrdine.Include(d => d.Manga).Include(d => d.Ordine).OrderBy(d => d.IDOrdineFk);
             if (User.IsInRole("Admin"))
             {
                 return View(dettaglioOrdine.ToList());

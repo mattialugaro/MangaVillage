@@ -54,42 +54,51 @@
         <div class="col-9" style="text-align:start !important">
             <h2 class="fst-italic mb-5">Dettagli Ordine</h2>
             <div class="row">
-                @foreach (var articolo in Model.DettaglioOrdine)
+                @if (Model.DettaglioOrdine != null && Model.DettaglioOrdine.Count > 0)
                 {
-                    <div class="col-3 m-4">
-                        <div class="d-flex">
-                            <img src="@Url.Content("~/Content/Img/" + articolo.Manga.Copertina)" class="border rounded-1" alt="model.Titolo" width="180" height="260" />
-                            <div class="d-flex flex-column ms-1 justify-content-center">
-                                <div>
-                                    <dt>
-                                        @Html.DisplayNameFor(model => articolo.Manga.Titolo)
-                                    </dt>
+                    foreach (var articolo in Model.DettaglioOrdine)
+                    {
+                        <div class="col-3 m-4">
+                            <div class="d-flex">
+                                @if (articolo.Manga != null && articolo.Manga.Copertina != null)
+                                {
+                                    <img src="@Url.Content("~/Content/Img/" + articolo.Manga.Copertina)" class="border rounded-1" alt="model.Titolo" width="180" height="260" />
+                                }
+                                <div class="d-flex flex-column ms-1 justify-content-center">
+                                    @if (articolo.Manga != null && articolo.Manga.Titolo != null)
+                                    {
+                                        <div>
+                                            <dt>
+                                                @Html.DisplayNameFor(model => articolo.Manga.Titolo)
+                                            </dt>
 
-                                    <dd>
-                                        @Html.DisplayFor(model => articolo.Manga.Titolo)
-                                    </dd>
-                                </div>
-                                <div>
-                                    <dt>
-                                        @Html.DisplayNameFor(model => articolo.NumeroVolume)
-                                    </dt>
+                                            <dd>
+                                                @Html.DisplayFor(model => articolo.Manga.Titolo)
+                                            </dd>
+                                        </div>
+                                    }
+                                    <div>
+                                        <dt>
+                                            @Html.DisplayNameFor(model => articolo.NumeroVolume)
+                                        </dt>
 
-                                    <dd>
-                                        @Html.DisplayFor(model => articolo.NumeroVolume)
-                                    </dd>
-                                </div>
-                                <div>
-                                    <dt>
-                                        @Html.DisplayNameFor(model => articolo.Quantita)
-                                    </dt>
+                                        <dd>
+                                            @Html.DisplayFor(model => articolo.NumeroVolume)
+                                        </dd>
+                                    </div>
+                                    <div>
+                                        <dt>
+                                            @Html.DisplayNameFor(model => articolo.Quantita)
+                                        </dt>
 
-                                    <dd>
-                                        @Html.DisplayFor(model => articolo.Quantita)
-                                    </dd>
+                                        <dd>
+                                            @Html.DisplayFor(model => articolo.Quantita)
+                                        </dd>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 }
             </div>
         </div>

@@ -2,11 +2,13 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Data.Entity;
 using MangaVillage.Models;
+using WebGrease.Css.Extensions;
 
 namespace MangaVillage.Controllers
 {
-    
+
     public class OrdineController : Controller
     {
         private ModelDbContext db = new ModelDbContext();
@@ -35,12 +37,15 @@ namespace MangaVillage.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Ordine ordine = db.Ordine.Find(id);
+            }  
+
+            var ordine = db.Ordine.Include(o => o.DettaglioOrdine).Where(o => o.ID == id).FirstOrDefault();
+
             if (ordine == null)
             {
                 return HttpNotFound();
             }
+
             return View(ordine);
         }
     }

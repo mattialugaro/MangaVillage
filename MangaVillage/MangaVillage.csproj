@@ -243,6 +243,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Foto\jjk2.jpg" />
     <Content Include="Content\Img\666Satan1.jpg" />
     <Content Include="Content\Img\After_Dog-cover.jpg" />
     <Content Include="Content\Img\Berserk-cover.jpg" />
